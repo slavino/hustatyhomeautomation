@@ -56,5 +56,6 @@
     <string name="arduino_uptime">Arduino Uptime</string>
     <string name="last_communication_from_arduino">Last communication from Arduino was</string>
     <string name="server_time_page_loaded_at">Server time (page loaded at) is</string>
+    <string name="save">Save</string>
 
 </resources>

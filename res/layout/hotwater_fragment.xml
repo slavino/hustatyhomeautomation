@@ -24,9 +24,22 @@
         <EditText
                 android:id="@+id/hotwater_validity"
                 android:layout_height="wrap_content"
-                android:layout_width="fill_parent"
-                android:layout_centerHorizontal="true"
+                android:layout_width="100px"
+                android:singleLine="true"
+                android:inputType="number"
                 android:layout_below="@id/hotwater_time_from"/>
+        <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_toLeftOf="@id/hotwater_validity"
+                android:layout_below="@id/hotwater_time_from"
+                android:text="Validity"/>
+        <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@id/hotwater_validity"
+                android:layout_below="@id/hotwater_time_from"
+                android:text="minutes."/>
 
         <ToggleButton
                 android:id="@+id/hotwater_wished_state"
@@ -35,5 +48,15 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/hotwater_validity"/>
 
+        <ImageButton
+                android:id="@+id/hotwater_save"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/hotwater_wished_state"
+                android:src="@android:drawable/ic_menu_save"
+                android:text="@string/save"/>
+
     </RelativeLayout>
+
 </ScrollView>
