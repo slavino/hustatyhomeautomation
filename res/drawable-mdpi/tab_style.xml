@@ -8,12 +8,12 @@
                     android:centerColor="#444444"
                     android:endColor="#333333"
                     android:angle="90"/>
-            <padding android:left="7dp"
-                     android:top="7dp"
-                     android:right="7dp"
-                     android:bottom="7dp" />
+            <padding android:left="4dp"
+                     android:top="4dp"
+                     android:right="4dp"
+                     android:bottom="4dp" />
             <stroke
-                    android:width="2dip"
+                    android:width="1dip"
                     android:color="#555555" />
         </shape>
     </item>
@@ -25,12 +25,12 @@
                     android:centerColor="#181818"
                     android:endColor="#111111"
                     android:angle="90"/>
-            <padding android:left="7dp"
-                     android:top="7dp"
-                     android:right="7dp"
-                     android:bottom="7dp" />
+            <padding android:left="4dp"
+                     android:top="4dp"
+                     android:right="4dp"
+                     android:bottom="4dp" />
             <stroke
-                    android:width="2dip"
+                    android:width="1dip"
                     android:color="#222222" />
         </shape>
     </item>

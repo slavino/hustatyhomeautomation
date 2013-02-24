@@ -112,7 +112,7 @@ public class MainActivity extends FragmentActivity {
                 return findViewById(android.R.id.tabcontent);
             }
         });
-        spec.setIndicator(createTabView(TAB_A, R.drawable.tab_icon1));
+        spec.setIndicator(createTabView(TAB_A, R.drawable.info_status));
         mTabHost.addTab(spec);
 
 
