@@ -15,6 +15,7 @@ import com.hustaty.homeautomation.enums.Appliance;
 import com.hustaty.homeautomation.enums.Command;
 import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
+import com.hustaty.homeautomation.model.CommonResult;
 import com.hustaty.homeautomation.service.LocationService;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
 import org.apache.http.Header;
@@ -169,7 +170,7 @@ public class MyHttpClient extends DefaultHttpClient {
 
     }
 
-    public void addStoredEvent(Appliance appliance, Command command, Date validFrom, Date validUntil) throws IOException, HomeAutomationException {
+    public CommonResult addStoredEvent(Appliance appliance, Command command, Date validFrom, Date validUntil) throws IOException, HomeAutomationException {
 
         authenticate();
 
@@ -199,17 +200,17 @@ public class MyHttpClient extends DefaultHttpClient {
             responseText += line;
         }
 
-//        Gson gson = new Gson();
-//        ArduinoThermoServerStatus status = null;
-//        try {
-//            status = gson.fromJson(responseText, ArduinoThermoServerStatus.class);
-//        } catch (JsonSyntaxException jsonSyntaxException) {
-//            throw new HomeAutomationException(jsonSyntaxException);
-//        }
+        Gson gson = new Gson();
+        CommonResult result = null;
+        try {
+            result = gson.fromJson(responseText, CommonResult.class);
+        } catch (JsonSyntaxException jsonSyntaxException) {
+            throw new HomeAutomationException(jsonSyntaxException);
+        }
 
         this.getConnectionManager().shutdown();
 
-        //return status;
+        return result;
 
     }
 
