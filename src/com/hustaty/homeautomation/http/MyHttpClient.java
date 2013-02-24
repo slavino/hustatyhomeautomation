@@ -92,6 +92,12 @@ public class MyHttpClient extends DefaultHttpClient {
         return new SingleClientConnManager(getParams(), registry);
     }
 
+    /**
+     * Athenticates the request.
+     *
+     * @return
+     * @throws IOException
+     */
     private boolean authenticate() throws IOException {
         Location location = LocationService.obtainCurrentLocation(context);
         String gpsData = "";
@@ -137,6 +143,13 @@ public class MyHttpClient extends DefaultHttpClient {
     }
 
 
+    /**
+     * Gets current state of thermoServer.
+     *
+     * @return
+     * @throws IOException
+     * @throws HomeAutomationException
+     */
     public ArduinoThermoServerStatus getThermoServerStatus() throws IOException, HomeAutomationException {
 
         authenticate();
@@ -147,29 +160,39 @@ public class MyHttpClient extends DefaultHttpClient {
 
         HttpResponse response = this.execute(getV1);
 
-        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-        String responseText = "";
-        String line = "";
-        while ((line = rd.readLine()) != null) {
-            responseText += line;
-        }
+//        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+//        String responseText = "";
+//        String line = "";
+//        while ((line = rd.readLine()) != null) {
+//            responseText += line;
+//        }
 
         Gson gson = new Gson();
         ArduinoThermoServerStatus status = null;
         try {
-            status = gson.fromJson(responseText, ArduinoThermoServerStatus.class);
+//            status = gson.fromJson(responseText, ArduinoThermoServerStatus.class);
+            status = gson.fromJson(httpResponseText(response), ArduinoThermoServerStatus.class);
         } catch (JsonSyntaxException jsonSyntaxException) {
             throw new HomeAutomationException(jsonSyntaxException);
         }
 
         this.getConnectionManager().shutdown();
 
-
         return status;
 
     }
 
+    /**
+     * Adds a stored event.
+     *
+     * @param appliance
+     * @param command
+     * @param validFrom
+     * @param validUntil
+     * @return
+     * @throws IOException
+     * @throws HomeAutomationException
+     */
     public CommonResult addStoredEvent(Appliance appliance, Command command, Date validFrom, Date validUntil) throws IOException, HomeAutomationException {
 
         authenticate();
@@ -192,18 +215,18 @@ public class MyHttpClient extends DefaultHttpClient {
 
         HttpResponse response = this.execute(post);
 
-        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-        String responseText = "";
-        String line = "";
-        while ((line = rd.readLine()) != null) {
-            responseText += line;
-        }
+//        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+//        String responseText = "";
+//        String line = "";
+//        while ((line = rd.readLine()) != null) {
+//            responseText += line;
+//        }
 
         Gson gson = new Gson();
         CommonResult result = null;
         try {
-            result = gson.fromJson(responseText, CommonResult.class);
+//            result = gson.fromJson(responseText, CommonResult.class);
+            result = gson.fromJson(httpResponseText(response), CommonResult.class);
         } catch (JsonSyntaxException jsonSyntaxException) {
             throw new HomeAutomationException(jsonSyntaxException);
         }
@@ -214,6 +237,58 @@ public class MyHttpClient extends DefaultHttpClient {
 
     }
 
+    /**
+     * Removes all old and ongoing stored events for desired appliance.
+     *
+     * @param appliance
+     * @return
+     * @throws IOException
+     * @throws HomeAutomationException
+     */
+    public CommonResult removeStoredEvent(Appliance appliance) throws IOException, HomeAutomationException {
+
+        authenticate();
+
+        HttpPost post = new HttpPost("https://" + URL_TO_USE + "/v1/removeStoredEvent.php");
+
+        post.addHeader("Host", URL_TO_USE);
+        post.addHeader("User-Agent", "Hustaty Home Automation Android Client");
+        post.addHeader("Cookie", cookieInformation);
+        post.addHeader("Connection", "Keep-Alive");
+
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("applianceName", appliance.getValue()));
+        post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+        HttpResponse response = this.execute(post);
+
+//        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+//        String responseText = "";
+//        String line = "";
+//        while ((line = rd.readLine()) != null) {
+//            responseText += line;
+//        }
+
+        Gson gson = new Gson();
+        CommonResult result = null;
+        try {
+//            result = gson.fromJson(responseText, CommonResult.class);
+            result = gson.fromJson(httpResponseText(response), CommonResult.class);
+        } catch (JsonSyntaxException jsonSyntaxException) {
+            throw new HomeAutomationException(jsonSyntaxException);
+        }
+
+        this.getConnectionManager().shutdown();
+
+        return result;
+
+    }
+
+    /**
+     * SSL with self-signed certificate.
+     *
+     * @return
+     */
     private SSLSocketFactory newSslSocketFactory() {
         try {
             // Get an instance of the Bouncy Castle KeyStore format
@@ -240,6 +315,12 @@ public class MyHttpClient extends DefaultHttpClient {
         }
     }
 
+    /**
+     * Util function for guessing URL.
+     *
+     * @param location
+     * @return
+     */
     private double attemptToGuessURL(Location location) {
         Location house = new Location(LocationManager.NETWORK_PROVIDER);
         house.setLatitude(homeLatitude);
@@ -257,6 +338,11 @@ public class MyHttpClient extends DefaultHttpClient {
         return distance;
     }
 
+    /**
+     * Gets basic WiFi connection information.
+     *
+     * @return
+     */
     public WifiInfo getWifiInfo() {
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
@@ -265,6 +351,9 @@ public class MyHttpClient extends DefaultHttpClient {
         return wifiInfo;
     }
 
+    /**
+     * Swap the URLs.
+     */
     public static void useAnotherURL() {
         if (URL_TO_USE.equals(localNetworkServerIP)) {
             URL_TO_USE = globalServerIP;
@@ -273,4 +362,23 @@ public class MyHttpClient extends DefaultHttpClient {
         }
     }
 
+    /**
+     * Parse response to text.
+     *
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    private String httpResponseText(HttpResponse response) throws IOException {
+
+        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+        String responseText = "";
+        String line = "";
+        while ((line = rd.readLine()) != null) {
+            responseText += line;
+        }
+
+        return responseText;
+    }
 }
