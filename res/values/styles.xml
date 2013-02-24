@@ -17,8 +17,6 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    <color name="black" value="black">#00000000</color>
-
     <style name="TemperatureMainScreen"  value="TemperatureMainScreen">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/tempMainActivityFontSize</item>
