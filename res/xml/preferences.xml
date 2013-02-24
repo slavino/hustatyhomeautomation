@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/networking_category_title">
+        <EditTextPreference
+                android:key="globalServerIP"
+                android:title="@string/globalServerIP_title"
+                android:summary="@string/globalServerIP_summary"
+                android:defaultValue="myaddress.no-ip.org"
+                android:editable="true"
+                />
+
+        <EditTextPreference
+                android:key="localNetworkServerIP"
+                android:title="@string/localNetworkServerIP_title"
+                android:summary="@string/localNetworkServerIP_summary"
+                android:defaultValue="192.168.1.5"
+                android:editable="true"
+                android:inputType="textUri"
+                />
+
+        <EditTextPreference
+                android:key="wifiSSID"
+                android:title="@string/wifissid_title"
+                android:summary="@string/wifissid_summary"
+                android:defaultValue="wtf_dpc"
+                android:editable="true"
+                android:inputType="textNoSuggestions"
+                />
+
+        <EditTextPreference
+                android:key="username"
+                android:title="@string/username_title"
+                android:summary="@string/username_summary"
+                android:defaultValue=""
+                android:editable="true"
+                android:inputType="text"
+                />
+
+        <EditTextPreference
+                android:key="password"
+                android:title="@string/password_title"
+                android:summary="@string/password_summary"
+                android:defaultValue=""
+                android:editable="true"
+                android:inputType="textPassword"
+                />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:title="@string/security_category_title">
+        <CheckBoxPreference
+                android:key="protectedByPIN"
+                android:title="@string/protectedByPIN_title"
+                android:summary="@string/protectedByPIN_summary"
+                android:defaultValue="false"
+                android:editable="true"
+                />
+        <EditTextPreference
+                android:key="applicationPIN"
+                android:title="@string/applicationPIN_title"
+                android:summary="@string/applicationPIN_summary"
+                android:defaultValue=""
+                android:editable="true"
+                android:inputType="number"
+                android:password="true"
+                android:dependency="protectedByPIN"
+                />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:title="@string/gps_category_title">
+
+        <EditTextPreference
+                android:key="homeLatitude"
+                android:title="@string/homelatitude_title"
+                android:summary="@string/homelatitude_summary"
+                android:defaultValue=""
+                android:editable="true"
+                android:numeric="signed|decimal"
+                />
+        <EditTextPreference
+                android:key="homeLongitude"
+                android:title="@string/homelongitude_title"
+                android:summary="@string/homelongitude_summary"
+                android:defaultValue=""
+                android:editable="true"
+                android:numeric="signed|decimal"
+                />
+    </PreferenceCategory>
+    <PreferenceCategory
+            android:title="@string/device_information_category_title">
+        <Preference
+                android:key="deviceID"
+                android:title="@string/deviceID"
+                android:enabled="false"
+                android:selectable="false"
+                android:persistent="true"
+                android:shouldDisableView="false"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hustaty.homeautomation"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="10" />
+    
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/home"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.hustaty.homeautomation.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="com.hustaty.homeautomation.UI_LOCATION_UPDATE_INTENT" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name="com.hustaty.homeautomation.SettingsActivity"
+                android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.hustaty.homeautomation.SettingsActivity" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name="com.hustaty.homeautomation.receiver.AlarmManagerBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="com.hustaty.homeautomation.LOCATION_UPDATE_INTENT" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
