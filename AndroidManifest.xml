@@ -6,13 +6,13 @@
 
     <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="10" />
     
-    <uses-permission android:value="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:value="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:value="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
-    <uses-permission android:value="android.permission.INTERNET"/>
-	<uses-permission android:value="android.permission.RECEIVE_BOOT_COMPLETED" />
-	<uses-permission android:value="android.permission.WAKE_LOCK" />
-	<uses-permission android:value="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -20,26 +20,26 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:value="com.hustaty.homeautomation.MainActivity"
+            android:name="com.hustaty.homeautomation.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
-                <action android:value="android.intent.action.MAIN" />
-                <category android:value="android.intent.category.LAUNCHER" />
-                <action android:value="com.hustaty.homeautomation.UI_LOCATION_UPDATE_INTENT" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="com.hustaty.homeautomation.UI_LOCATION_UPDATE_INTENT" />
             </intent-filter>
         </activity>
         <activity
-                android:value="com.hustaty.homeautomation.SettingsActivity"
+                android:name="com.hustaty.homeautomation.SettingsActivity"
                 android:label="@string/app_name" >
             <intent-filter>
-                <action android:value="com.hustaty.homeautomation.SettingsActivity" />
+                <action android:name="com.hustaty.homeautomation.SettingsActivity" />
             </intent-filter>
         </activity>
 
-        <receiver android:value="com.hustaty.homeautomation.receiver.AlarmManagerBroadcastReceiver">
+        <receiver android:name="com.hustaty.homeautomation.receiver.AlarmManagerBroadcastReceiver">
             <intent-filter>
-                <action android:value="android.intent.action.BOOT_COMPLETED" />
-                <action android:value="com.hustaty.homeautomation.LOCATION_UPDATE_INTENT" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="com.hustaty.homeautomation.LOCATION_UPDATE_INTENT" />
             </intent-filter>
         </receiver>
 

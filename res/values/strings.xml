@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string value="app_name">Home Automation</string>
+    <string name="app_name">Home Automation</string>
 
     <!--Actions-->
-    <string value="action_settings">Settings</string>
-    <string value="action_close">Close</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_close">Close</string>
 
     <!--Preference categories-->
-    <string value="security_category_title">Application security</string>
-    <string value="networking_category_title">Network and credentials</string>
-    <string value="gps_category_title">GPS settings</string>
+    <string name="security_category_title">Application security</string>
+    <string name="networking_category_title">Network and credentials</string>
+    <string name="gps_category_title">GPS settings</string>
 
     <!--Preferences-->
-    <string value="globalServerIP_title">Home Automation global IP/URL</string>
-    <string value="globalServerIP_summary">Global IP/URL address in internet (eg. myserver.no-ip.org)</string>
+    <string name="globalServerIP_title">Home Automation global IP/URL</string>
+    <string name="globalServerIP_summary">Global IP/URL address in internet (eg. myserver.no-ip.org)</string>
 
-    <string value="localNetworkServerIP_title">Home Automation Local Server IP</string>
-    <string value="localNetworkServerIP_summary">Local IP address in home WiFi network</string>
+    <string name="localNetworkServerIP_title">Home Automation Local Server IP</string>
+    <string name="localNetworkServerIP_summary">Local IP address in home WiFi network</string>
 
-    <string value="username_title">Username</string>
-    <string value="username_summary">Home Automation username</string>
+    <string name="username_title">Username</string>
+    <string name="username_summary">Home Automation username</string>
 
-    <string value="password_title">Password</string>
-    <string value="password_summary">Home Automation user password</string>
+    <string name="password_title">Password</string>
+    <string name="password_summary">Home Automation user password</string>
 
-    <string value="protectedByPIN_title">Protection by PIN</string>
-    <string value="protectedByPIN_summary">Enable or disable</string>
+    <string name="protectedByPIN_title">Protection by PIN</string>
+    <string name="protectedByPIN_summary">Enable or disable</string>
 
-    <string value="applicationPIN_title">PIN</string>
-    <string value="applicationPIN_summary">Enter the application PIN</string>
+    <string name="applicationPIN_title">PIN</string>
+    <string name="applicationPIN_summary">Enter the application PIN</string>
 
-    <string value="wifissid_title">WiFi SSID</string>
-    <string value="wifissid_summary">Your home WiFi value</string>
+    <string name="wifissid_title">WiFi SSID</string>
+    <string name="wifissid_summary">Your home WiFi value</string>
 
-    <string value="homelatitude_title">Latitude</string>
-    <string value="homelatitude_summary">Your home GPS latitude in XY.ZZZZZZ format</string>
+    <string name="homelatitude_title">Latitude</string>
+    <string name="homelatitude_summary">Your home GPS latitude in XY.ZZZZZZ format</string>
 
-    <string value="homelongitude_title">Longitude</string>
-    <string value="homelongitude_summary">Your home GPS longitude in XY.ZZZZZZ format</string>
-    <string value="device_information_category_title">Device information</string>
-    <string value="deviceID">Device ID</string>
-    <string value="roomname_upperlobby">Horná chodba</string>
-    <string value="roomname_bedroom">Spálňa</string>
-    <string value="roomname_outside">Vonku</string>
-    <string value="roomname_workroom">Pracovňa</string>
-    <string value="unknown_temperature">--.-- &#xb0;C</string>
+    <string name="homelongitude_title">Longitude</string>
+    <string name="homelongitude_summary">Your home GPS longitude in XY.ZZZZZZ format</string>
+    <string name="device_information_category_title">Device information</string>
+    <string name="deviceID">Device ID</string>
+    <string name="roomname_upperlobby">Horná chodba</string>
+    <string name="roomname_bedroom">Spálňa</string>
+    <string name="roomname_outside">Vonku</string>
+    <string name="roomname_workroom">Pracovňa</string>
+    <string name="unknown_temperature">--.-- &#xb0;C</string>
 
 </resources>
