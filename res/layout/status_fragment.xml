@@ -62,34 +62,44 @@
     </TableLayout>
     <TableLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" android:layout_alignLeft="@+id/tableLayout"
-            android:layout_alignParentTop="true" android:layout_marginTop="144dp">
+            android:layout_height="fill_parent"
+            android:layout_alignLeft="@+id/tableLayout" android:layout_alignParentTop="true"
+            android:layout_marginTop="188dp">
         <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
             <TextView android:id="@+id/textView_thermostat_1" android:text="@string/thermostat_1" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+            <TextView android:id="@+id/textView_thermostat_1_val"  android:layout_height="wrap_content" android:layout_width="wrap_content" />
         </TableRow>
         <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
             <TextView android:id="@+id/textView_thermostat_2" android:text="@string/thermostat_2" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+            <TextView android:id="@+id/textView_thermostat_2_val" android:layout_height="wrap_content" android:layout_width="wrap_content" />
         </TableRow>
         <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
             <TextView android:id="@+id/textView_hot_water" android:text="@string/hot_water" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+            <TextView android:id="@+id/textView_hot_water_val" android:layout_height="wrap_content" android:layout_width="wrap_content" />
         </TableRow>
         <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
             <TextView android:id="@+id/textView_hot_water_supply" android:text="@string/hot_water_supply" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+            <TextView android:id="@+id/textView_hot_water_supply_val" android:layout_height="wrap_content" android:layout_width="wrap_content" />
         </TableRow>
         <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
             <TextView android:id="@+id/textView_heating_supply" android:text="@string/heating_supply" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+            <TextView android:id="@+id/textView_heating_supply_val" android:layout_height="wrap_content" android:layout_width="wrap_content" />
         </TableRow>
         <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
             <TextView android:id="@+id/textView_remaining_time_for_last_server_command" android:text="@string/remaining_time_for_last_server_command" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+            <TextView android:id="@+id/textView_remaining_time_for_last_server_command_val" android:layout_height="wrap_content" android:layout_width="wrap_content" />
         </TableRow>
         <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
             <TextView android:id="@+id/textView_arduino_uptime" android:text="@string/arduino_uptime" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+            <TextView android:id="@+id/textView_arduino_uptime_val" android:layout_height="wrap_content" android:layout_width="wrap_content" />
         </TableRow>
         <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
             <TextView android:id="@+id/textView_last_communication_from_arduino" android:text="@string/last_communication_from_arduino" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+            <TextView android:id="@+id/textView_last_communication_from_arduino_val" android:layout_height="wrap_content" android:layout_width="wrap_content" />
         </TableRow>
         <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
             <TextView android:id="@+id/textView_server_time_page_loaded_at" android:text="@string/server_time_page_loaded_at" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+            <TextView android:id="@+id/textView_server_time_page_loaded_at_val" android:layout_height="wrap_content" android:layout_width="wrap_content" />
         </TableRow>
     </TableLayout>
 
