@@ -11,6 +11,8 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.hustaty.homeautomation.R;
+import com.hustaty.homeautomation.enums.Appliance;
+import com.hustaty.homeautomation.enums.Command;
 import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
 import com.hustaty.homeautomation.service.LocationService;
@@ -35,7 +37,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.KeyStore;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -162,6 +166,50 @@ public class MyHttpClient extends DefaultHttpClient {
 
 
         return status;
+
+    }
+
+    public void addStoredEvent(Appliance appliance, Command command, Date validFrom, Date validUntil) throws IOException, HomeAutomationException {
+
+        authenticate();
+
+        HttpPost post = new HttpPost("https://" + URL_TO_USE + "/v1/addStoredEvent.php");
+
+        post.addHeader("Host", URL_TO_USE);
+        post.addHeader("User-Agent", "Hustaty Home Automation Android Client");
+        post.addHeader("Cookie", cookieInformation);
+        post.addHeader("Connection", "Keep-Alive");
+
+        SimpleDateFormat mysqlDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("applianceName", appliance.getValue()));
+        nameValuePairs.add(new BasicNameValuePair("commandName", command.getValue()));
+        nameValuePairs.add(new BasicNameValuePair("validFrom", mysqlDateFormat.format(validFrom)));
+        nameValuePairs.add(new BasicNameValuePair("validUntil", mysqlDateFormat.format(validUntil)));
+        post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+        HttpResponse response = this.execute(post);
+
+        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+        String responseText = "";
+        String line = "";
+        while ((line = rd.readLine()) != null) {
+            responseText += line;
+        }
+
+//        Gson gson = new Gson();
+//        ArduinoThermoServerStatus status = null;
+//        try {
+//            status = gson.fromJson(responseText, ArduinoThermoServerStatus.class);
+//        } catch (JsonSyntaxException jsonSyntaxException) {
+//            throw new HomeAutomationException(jsonSyntaxException);
+//        }
+
+        this.getConnectionManager().shutdown();
+
+        //return status;
 
     }
 

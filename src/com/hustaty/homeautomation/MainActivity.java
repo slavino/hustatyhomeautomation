@@ -101,6 +101,9 @@ public class MainActivity extends Activity {
         System.exit(0);
     }
 
+    /**
+     * Show settings panel.
+     */
     private void showSettings() {
         Intent intent = new Intent(this, SettingsActivity.class);
         this.startActivity(intent);

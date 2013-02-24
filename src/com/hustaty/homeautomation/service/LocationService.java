@@ -34,23 +34,34 @@ public class LocationService {
         int minDistance = 1000;
 
 
-        if(isGPSAvailable(context)) {
+        if(isGPSLocationAvailable(context)) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, pendingIntent);
         }
 
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime, minDistance, pendingIntent);
+        if(isNetworkLocationAvailable(context)) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime, minDistance, pendingIntent);
+        }
 
         return myLocation;
+
 	}
 
-    private static boolean isGPSAvailable(Context context) {
+    private static boolean isGPSLocationAvailable(Context context) {
         PackageManager pm = context.getPackageManager();
         if (pm.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)) {
             return true;
         } else {
             return false;
         }
+    }
 
+    private static boolean isNetworkLocationAvailable(Context context) {
+        PackageManager pm = context.getPackageManager();
+        if (pm.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
