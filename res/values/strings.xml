@@ -47,4 +47,14 @@
     <string name="roomname_workroom">Pracovňa</string>
     <string name="unknown_temperature">--.-- &#xb0;C</string>
 
+    <string name="thermostat_1">Thermostat 1 [ground floor] is</string>
+    <string name="thermostat_2">Thermostat 2 [1st floor] is</string>
+    <string name="hot_water">Hot water switch is</string>
+    <string name="hot_water_supply">Hot water supply is</string>
+    <string name="heating_supply">Heating supply state is</string>
+    <string name="remaining_time_for_last_server_command">Remaining time for last server command is</string>
+    <string name="arduino_uptime">Arduino Uptime</string>
+    <string name="last_communication_from_arduino">Last communication from Arduino was</string>
+    <string name="server_time_page_loaded_at">Server time (page loaded at) is</string>
+
 </resources>

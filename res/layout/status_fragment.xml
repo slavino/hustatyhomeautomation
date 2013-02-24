@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:background="#f3f3f3"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -11,40 +11,87 @@
 >
 
     <TableLayout android:layout_width="match_parent"
-                 android:layout_height="match_parent"
+                 android:layout_height="121dp"
                  android:shrinkColumns="*"
                  android:stretchColumns="*" android:id="@+id/tableLayout">
         <TableRow
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:gravity="center_horizontal" android:layout_column="0">
-            <TextView android:id="@+id/textView_roomtemp_bedroom" android:text="@string/unknown_temperature" style="TemperatureMainScreen" android:layout_height="wrap_content" android:layout_width="fill_parent"/>
-            <TextView android:id="@+id/textView_roomtemp_upperlobby" android:text="@string/unknown_temperature" style="TemperatureMainScreen" android:layout_height="wrap_content" android:layout_width="fill_parent"/>
+                android:gravity="center_horizontal" android:layout_column="0"
+                android:layout_gravity="center_horizontal">
+            <TextView android:id="@+id/textView_roomtemp_bedroom" android:text="@string/unknown_temperature" style="TemperatureMainScreen" android:layout_height="wrap_content" android:layout_width="fill_parent"
+                      android:textSize="@dimen/tempMainActivityFontSize" android:layout_gravity="center_horizontal"/>
+            <TextView android:id="@+id/textView_roomtemp_upperlobby" android:text="@string/unknown_temperature" style="TemperatureMainScreen" android:layout_height="fill_parent" android:layout_width="fill_parent"
+                      android:textSize="@dimen/tempMainActivityFontSize" android:layout_gravity="center_horizontal"/>
         </TableRow>
         <TableRow
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:gravity="center_horizontal" android:layout_column="1">
-            <TextView android:id="@+id/textView_roomname_bedroom" android:text="@string/roomname_bedroom" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold"/>
-            <TextView android:id="@+id/textView_roomname_upperlobby" android:text="@string/roomname_upperlobby" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold"/>
+            <TextView android:id="@+id/textView_roomname_bedroom" android:text="@string/roomname_bedroom" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold"
+                      android:textSize="@dimen/roomNameMainActivityFontSize"
+                      android:layout_gravity="center_horizontal"/>
+            <TextView android:id="@+id/textView_roomname_upperlobby" android:text="@string/roomname_upperlobby" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold"
+                      android:textSize="@dimen/roomNameMainActivityFontSize"
+                      android:layout_gravity="center_horizontal"/>
         </TableRow>
         <TableRow>
-            <TextView></TextView>
-            <TextView></TextView>
+            <TextView android:layout_gravity="center_horizontal"></TextView>
+            <TextView android:layout_gravity="center_horizontal"></TextView>
         </TableRow>
         <TableRow
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:gravity="center_horizontal" android:layout_column="0">
-            <TextView android:id="@+id/textView_roomtemp_workroom" android:text="@string/unknown_temperature" style="TemperatureMainScreen" android:layout_height="wrap_content" android:layout_width="fill_parent"/>
-            <TextView android:id="@+id/textView_roomtemp_outside" android:text="@string/unknown_temperature" style="TemperatureMainScreen" android:layout_height="wrap_content" android:layout_width="fill_parent"/>
+            <TextView android:id="@+id/textView_roomtemp_workroom" android:text="@string/unknown_temperature" style="TemperatureMainScreen" android:layout_height="wrap_content" android:layout_width="fill_parent"
+                      android:textSize="@dimen/tempMainActivityFontSize" android:layout_gravity="center_horizontal"/>
+            <TextView android:id="@+id/textView_roomtemp_outside" android:text="@string/unknown_temperature" style="TemperatureMainScreen" android:layout_height="wrap_content" android:layout_width="fill_parent"
+                      android:textSize="@dimen/tempMainActivityFontSize" android:layout_gravity="center_horizontal"/>
         </TableRow>
         <TableRow
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:gravity="center_horizontal" android:layout_column="1">
-            <TextView android:id="@+id/textView_roomname_workroom" android:text="@string/roomname_workroom" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold"/>
-            <TextView android:id="@+id/textView_roomname_outside" android:text="@string/roomname_outside" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold"/>
+            <TextView android:id="@+id/textView_roomname_workroom" android:text="@string/roomname_workroom" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold"
+                      android:textSize="@dimen/roomNameMainActivityFontSize"
+                      android:layout_gravity="center_horizontal"/>
+            <TextView android:id="@+id/textView_roomname_outside" android:text="@string/roomname_outside" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold"
+                      android:textSize="@dimen/roomNameMainActivityFontSize"
+                      android:layout_gravity="center_horizontal"/>
         </TableRow>
     </TableLayout>
+    <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:layout_alignLeft="@+id/tableLayout"
+            android:layout_alignParentTop="true" android:layout_marginTop="144dp">
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <TextView android:id="@+id/textView_thermostat_1" android:text="@string/thermostat_1" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <TextView android:id="@+id/textView_thermostat_2" android:text="@string/thermostat_2" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <TextView android:id="@+id/textView_hot_water" android:text="@string/hot_water" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <TextView android:id="@+id/textView_hot_water_supply" android:text="@string/hot_water_supply" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <TextView android:id="@+id/textView_heating_supply" android:text="@string/heating_supply" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <TextView android:id="@+id/textView_remaining_time_for_last_server_command" android:text="@string/remaining_time_for_last_server_command" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <TextView android:id="@+id/textView_arduino_uptime" android:text="@string/arduino_uptime" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <TextView android:id="@+id/textView_last_communication_from_arduino" android:text="@string/last_communication_from_arduino" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <TextView android:id="@+id/textView_server_time_page_loaded_at" android:text="@string/server_time_page_loaded_at" android:layout_height="wrap_content" android:layout_width="wrap_content" />
+        </TableRow>
+    </TableLayout>
+
+
 </RelativeLayout>
