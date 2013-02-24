@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
-    <DatePicker
-            android:id="@+id/hotwater_date_from"
-            android:layout_height="wrap_content"
+    <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_centerHorizontal="true"/>
+            android:layout_height="fill_parent">
 
-    <TimePicker
-            android:id="@+id/hotwater_time_from"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/hotwater_date_from"/>
+        <DatePicker
+                android:id="@+id/hotwater_date_from"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_centerHorizontal="true"/>
 
-    <NumberPicker
-            android:id="@+id/hotwater_validity"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/hotwater_time_from"
-            />
+        <TimePicker
+                android:id="@+id/hotwater_time_from"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/hotwater_date_from"/>
 
-</RelativeLayout>
+        <EditText
+                android:id="@+id/hotwater_validity"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/hotwater_time_from"/>
+
+        <ToggleButton
+                android:id="@+id/hotwater_wished_state"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/hotwater_validity"/>
+
+    </RelativeLayout>
+</ScrollView>
