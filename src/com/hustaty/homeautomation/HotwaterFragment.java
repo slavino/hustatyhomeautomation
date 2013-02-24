@@ -72,7 +72,7 @@ public class HotwaterFragment extends Fragment {
                 cal2.setTime(cal.getTime());
                 cal2.add(Calendar.MINUTE, new Integer(hotwaterValidity.getText().toString()));
                 try {
-                    CommonResult commonResult = myHttpClient.addStoredEvent(Appliance.HOTWATER, Command.ON, cal.getTime(), cal2.getTime());
+                    CommonResult commonResult = myHttpClient.addStoredEvent(Appliance.HOTWATER, (wishedState.isChecked() ? Command.HOTWATER_ON : Command.HOTWATER_OFF ), cal.getTime(), cal2.getTime());
                 } catch (IOException e) {
                     Log.e(LOG_TAG, e.getMessage());
                 } catch (HomeAutomationException e) {

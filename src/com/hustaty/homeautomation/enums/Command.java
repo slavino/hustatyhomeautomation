@@ -7,8 +7,12 @@ package com.hustaty.homeautomation.enums;
  */
 public enum Command {
 
-    ON("ON"),
-    OFF("OFF");
+    HOTWATER_ON("hotWaterON"),
+    HOTWATER_OFF("hotWaterOFF"),
+    HEATING_ON("heatingON"),
+    HEATING_OFF("heatingOFF"),
+    HEATINGINTERRUPT_ON("heatingInterruptON"),
+    HEATINGINTERRUPT_OFF("heatingInterruptOFF");
 
     private String value;
 
