@@ -1,85 +1,76 @@
 package com.hustaty.homeautomation;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.TextView;
-import com.hustaty.homeautomation.exception.HomeAutomationException;
-import com.hustaty.homeautomation.http.MyHttpClient;
-import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
-import org.apache.http.client.ClientProtocolException;
 
-import java.io.IOException;
 import java.util.Map;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
+
+    /* Tab identifiers */
+    static String TAB_A = "Status";
+    static String TAB_B = "Heating";
+    static String TAB_C = "Hot Water";
+
+    TabHost mTabHost;
+
+    StatusFragment statusFragment;
+    HeatingFragment heatingFragment;
+    HotwaterFragment hotwaterFragment;
 
     // logger entry
     private final static String LOG_TAG = MainActivity.class.getName();
 
     static Map<String, ?> preferences;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.main);
+
+        statusFragment = new StatusFragment();
+        heatingFragment = new HeatingFragment();
+        hotwaterFragment = new HotwaterFragment();
+
+        mTabHost = (TabHost) findViewById(android.R.id.tabhost);
+        mTabHost.setOnTabChangedListener(listener);
+        mTabHost.setup();
+
+        initializeTab();
 
         //load preferences
         MainActivity.preferences = ApplicationPreferences.getPreferences(this);
 
-        if(MainActivity.preferences == null
+        if (MainActivity.preferences == null
                 || MainActivity.preferences.size() == 0) {
             showSettings();
             return;
         }
+    }
 
-		MyHttpClient myHttpClient = new MyHttpClient(getApplicationContext());
-        ArduinoThermoServerStatus thermoServerStatus = null;
-		try {
-			thermoServerStatus = myHttpClient.getThermoServerStatus();
-		} catch (HomeAutomationException e) {
-            showSettings();
-            return;
-		} catch (ClientProtocolException e) {
-            Log.e(LOG_TAG, e.getMessage());
-		} catch (IOException e) {
-            myHttpClient.useAnotherURL();
-            try {
-                thermoServerStatus = myHttpClient.getThermoServerStatus();
-            } catch (HomeAutomationException e1) {
-                showSettings();
-                return;
-            } catch (IOException e1) {
-                Log.e(LOG_TAG, e1.getMessage());
-            }
-		}
-
-        if(thermoServerStatus != null) {
-            TextView workroom = (TextView) findViewById(R.id.textView_roomtemp_workroom);
-            TextView bedroom = (TextView) findViewById(R.id.textView_roomtemp_bedroom);
-            TextView outside = (TextView) findViewById(R.id.textView_roomtemp_outside);
-            TextView upperLobby = (TextView) findViewById(R.id.textView_roomtemp_upperlobby);
-            workroom.setText(thermoServerStatus.getT280F5B8504000019() + "\u00b0C");
-            bedroom.setText(thermoServerStatus.getT28B79F8504000082() + "\u00b0C");
-            outside.setText(thermoServerStatus.getT28F82D850400001F() + "\u00b0C");
-            upperLobby.setText(thermoServerStatus.getT28205B850400008B() + "\u00b0C");
-        }
-
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.close:
                 exit();
                 break;
@@ -94,20 +85,93 @@ public class MainActivity extends Activity {
     /**
      * Exit application.
      */
-    private void exit() {
+    public void exit() {
         Log.i(LOG_TAG, "#MainActivity.exit(): ### EXITING APPLICATION ###");
         finish();
         System.runFinalizersOnExit(true);
         System.exit(0);
     }
 
-    /**
-     * Show settings panel.
-     */
-    private void showSettings() {
+
+    public void showSettings() {
         Intent intent = new Intent(this, SettingsActivity.class);
         this.startActivity(intent);
         return;
+    }
+
+    /*
+     * Initialize the tabs and set views and identifiers for the tabs
+     */
+    public void initializeTab() {
+
+        TabHost.TabSpec spec = mTabHost.newTabSpec(TAB_A);
+        mTabHost.setCurrentTab(-3);
+
+        spec.setContent(new TabHost.TabContentFactory() {
+            public View createTabContent(String tag) {
+                return findViewById(android.R.id.tabcontent);
+            }
+        });
+        spec.setIndicator(createTabView(TAB_A, R.drawable.tab_icon1));
+        mTabHost.addTab(spec);
+
+
+        spec = mTabHost.newTabSpec(TAB_B);
+        spec.setContent(new TabHost.TabContentFactory() {
+            public View createTabContent(String tag) {
+                return findViewById(android.R.id.tabcontent);
+            }
+        });
+        spec.setIndicator(createTabView(TAB_B, R.drawable.tab_icon2));
+        mTabHost.addTab(spec);
+
+        spec = mTabHost.newTabSpec(TAB_C);
+        spec.setContent(new TabHost.TabContentFactory() {
+            public View createTabContent(String tag) {
+                return findViewById(android.R.id.tabcontent);
+            }
+        });
+        spec.setIndicator(createTabView(TAB_C, R.drawable.tab_icon3));
+        mTabHost.addTab(spec);
+    }
+
+    /*
+    * TabChangeListener for changing the tab when one of the tabs is pressed
+    */
+    TabHost.OnTabChangeListener listener = new TabHost.OnTabChangeListener() {
+        public void onTabChanged(String tabId) {
+            /*Set current tab..*/
+            if (tabId.equals(TAB_A)) {
+                pushFragments(tabId, statusFragment);
+            } else if (tabId.equals(TAB_B)) {
+                pushFragments(tabId, heatingFragment);
+            } else if (tabId.equals(TAB_C)) {
+                pushFragments(tabId, hotwaterFragment);
+            }
+        }
+    };
+
+    /*
+     * adds the fragment to the FrameLayout
+     */
+    public void pushFragments(String tag, Fragment fragment) {
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+
+        ft.replace(android.R.id.tabcontent, fragment);
+        ft.commit();
+    }
+
+    /*
+     * returns the tab view i.e. the tab icon and text
+     */
+    private View createTabView(final String text, final int id) {
+        View view = LayoutInflater.from(this).inflate(R.layout.tabs_icon, null);
+        ImageView imageView = (ImageView) view.findViewById(R.id.tab_icon);
+        imageView.setImageDrawable(getResources().getDrawable(id));
+        ((TextView) view.findViewById(R.id.tab_text)).setText(text);
+        return view;
     }
 
 }

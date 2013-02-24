@@ -6,41 +6,46 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:background="@drawable/house2"
+    >
 
     <TableLayout android:layout_width="match_parent"
                  android:layout_height="match_parent"
                  android:shrinkColumns="*"
-                 android:stretchColumns="*">
+                 android:stretchColumns="*" android:id="@+id/tableLayout">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:gravity="center_horizontal" android:layout_column="0">
                 <TextView android:id="@+id/textView_roomtemp_bedroom" android:text="@string/unknown_temperature" style="TemperatureMainScreen" android:layout_height="wrap_content" android:layout_width="fill_parent"/>
-                <TextView android:id="@+id/textView_roomname_bedroom" android:text="@string/roomname_bedroom" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+                <TextView android:id="@+id/textView_roomtemp_upperlobby" android:text="@string/unknown_temperature" style="TemperatureMainScreen" android:layout_height="wrap_content" android:layout_width="fill_parent"/>
             </TableRow>
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:gravity="center_horizontal" android:layout_column="1">
-                <TextView android:id="@+id/textView_roomtemp_upperlobby" android:text="@string/unknown_temperature" style="TemperatureMainScreen" android:layout_height="wrap_content" android:layout_width="fill_parent"/>
-                <TextView android:id="@+id/textView_roomname_upperlobby" android:text="@string/roomname_upperlobby" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+                <TextView android:id="@+id/textView_roomname_bedroom" android:text="@string/roomname_bedroom" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold"/>
+                <TextView android:id="@+id/textView_roomname_upperlobby" android:text="@string/roomname_upperlobby" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold"/>
             </TableRow>
-
+            <TableRow>
+                <TextView></TextView>
+                <TextView></TextView>
+            </TableRow>
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:gravity="center_horizontal" android:layout_column="0">
                 <TextView android:id="@+id/textView_roomtemp_workroom" android:text="@string/unknown_temperature" style="TemperatureMainScreen" android:layout_height="wrap_content" android:layout_width="fill_parent"/>
-                <TextView android:id="@+id/textView_roomname_workroom" android:text="@string/roomname_workroom" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+                <TextView android:id="@+id/textView_roomtemp_outside" android:text="@string/unknown_temperature" style="TemperatureMainScreen" android:layout_height="wrap_content" android:layout_width="fill_parent"/>
             </TableRow>
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:gravity="center_horizontal" android:layout_column="1">
-                <TextView android:id="@+id/textView_roomtemp_outside" android:text="@string/unknown_temperature" style="TemperatureMainScreen" android:layout_height="wrap_content" android:layout_width="fill_parent"/>
-                <TextView android:id="@+id/textView_roomname_outside" android:text="@string/roomname_outside" android:layout_height="wrap_content" android:layout_width="wrap_content"/>
+                <TextView android:id="@+id/textView_roomname_workroom" android:text="@string/roomname_workroom" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold"/>
+                <TextView android:id="@+id/textView_roomname_outside" android:text="@string/roomname_outside" android:layout_height="wrap_content" android:layout_width="wrap_content" android:textStyle="bold"/>
             </TableRow>
-
     </TableLayout>
+
 </RelativeLayout>

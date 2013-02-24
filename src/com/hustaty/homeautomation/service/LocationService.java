@@ -35,11 +35,11 @@ public class LocationService {
 
 
         if(isGPSLocationAvailable(context)) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, pendingIntent);
+            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, pendingIntent);
         }
 
         if(isNetworkLocationAvailable(context)) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime, minDistance, pendingIntent);
+            //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime, minDistance, pendingIntent);
         }
 
         return myLocation;
