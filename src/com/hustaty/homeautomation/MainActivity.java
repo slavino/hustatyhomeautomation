@@ -112,20 +112,23 @@ public class MainActivity extends FragmentActivity {
      * Exit application.
      */
     public void exit() {
-        Log.i(LOG_TAG, "#MainActivity.exit(): ### EXITING APPLICATION ###");
+        Log.i(LOG_TAG, "#exit(): ### EXITING APPLICATION ###");
         finish();
         System.runFinalizersOnExit(true);
         System.exit(0);
     }
 
 
+    /**
+     * Show settings activity.
+     */
     public void showSettings() {
         Intent intent = new Intent(this, SettingsActivity.class);
         this.startActivity(intent);
         return;
     }
 
-    /*
+    /**
      * Initialize the tabs and set views and identifiers for the tabs
      */
     public void initializeTab() {
@@ -161,7 +164,7 @@ public class MainActivity extends FragmentActivity {
         mTabHost.addTab(spec);
     }
 
-    /*
+    /**
     * TabChangeListener for changing the tab when one of the tabs is pressed
     */
     TabHost.OnTabChangeListener listener = new TabHost.OnTabChangeListener() {
@@ -189,7 +192,7 @@ public class MainActivity extends FragmentActivity {
         ft.commit();
     }
 
-    /*
+    /**
      * returns the tab view i.e. the tab icon and text
      */
     private View createTabView(final String text, final int id) {

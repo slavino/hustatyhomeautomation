@@ -5,7 +5,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.TextView;
 import com.google.gson.Gson;
+import com.hustaty.homeautomation.R;
 import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
 
 /**
@@ -34,7 +36,11 @@ public class ActivityBroadcastReceiver extends BroadcastReceiver {
                 Log.d(LOG_TAG, json);
                 Gson gson = new Gson();
                 ArduinoThermoServerStatus thermoServerStatus = gson.fromJson(json, ArduinoThermoServerStatus.class);
+
                 //TODO implement UI update
+                TextView workroom = (TextView) activity.findViewById(R.id.textView_roomtemp_workroom);
+                workroom.setText(thermoServerStatus.getT280F5B8504000019() + "\u00b0C");
+
             }
         }
     }
