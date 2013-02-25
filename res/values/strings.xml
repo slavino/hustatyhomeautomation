@@ -59,4 +59,9 @@
     <string name="save">Save</string>
     <string name="unknown_value">UNKNOWN</string>
 
+    <!--TAB NAMES-->
+    <string name="tabname_status">Status</string>
+    <string name="tabname_heating">Heating</string>
+    <string name="tabname_hotwater">Hot Water</string>
+
 </resources>

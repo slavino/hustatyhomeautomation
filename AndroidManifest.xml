@@ -42,7 +42,6 @@
                 <action android:name="com.hustaty.homeautomation.LOCATION_UPDATE_INTENT" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

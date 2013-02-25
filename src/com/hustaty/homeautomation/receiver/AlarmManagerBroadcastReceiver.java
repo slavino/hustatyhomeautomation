@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
+import com.google.gson.Gson;
 import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.http.MyHttpClient;
 import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
@@ -17,11 +18,13 @@ import java.io.IOException;
 
 public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
+    // logger entry
+    private final static String LOG_TAG = AlarmManagerBroadcastReceiver.class.getName();
+
 	final public static String ONE_TIME = "onetime";
     final public static String LOCATION_UPDATE_INTENT = "com.hustaty.homeautomation.LOCATION_UPDATE_INTENT";
     final public static String UI_LOCATION_UPDATE_INTENT = "com.hustaty.homeautomation.UI_LOCATION_UPDATE_INTENT";
-    // logger entry
-    private final static String LOG_TAG = AlarmManagerBroadcastReceiver.class.getName();
+    final public static String UI_EXTRA_ID = "arduinoThermoServerStatus";
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -53,8 +56,8 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         try {
             ArduinoThermoServerStatus arduinoThermoServerStatus = myHttpClient.getThermoServerStatus();
             Intent newIntent = new Intent(UI_LOCATION_UPDATE_INTENT);
-            newIntent.putExtra("arduinoThermoServerStatus", arduinoThermoServerStatus.toString());
-
+            Gson gson = new Gson();
+            newIntent.putExtra(UI_EXTRA_ID, gson.toJson(arduinoThermoServerStatus));
             context.sendBroadcast(newIntent);
         } catch (HomeAutomationException e) {
             Log.e(LOG_TAG, "#onStartCommand(): " + e.getMessage());

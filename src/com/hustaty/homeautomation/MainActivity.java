@@ -1,6 +1,7 @@
 package com.hustaty.homeautomation;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import com.hustaty.homeautomation.receiver.ActivityBroadcastReceiver;
+import com.hustaty.homeautomation.receiver.AlarmManagerBroadcastReceiver;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
 
 import java.util.Map;
@@ -36,11 +39,17 @@ public class MainActivity extends FragmentActivity {
 
     static Map<String, ?> preferences;
 
+    private ActivityBroadcastReceiver activityBroadcastReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.main);
+
+        TAB_A = getResources().getString(R.string.tabname_status, "Status");
+        TAB_B = getResources().getString(R.string.tabname_heating, "Heating");
+        TAB_C = getResources().getString(R.string.tabname_hotwater, "Hot Water");
 
         //load preferences
         MainActivity.preferences = ApplicationPreferences.getPreferences(this);
@@ -61,6 +70,8 @@ public class MainActivity extends FragmentActivity {
 
         initializeTab();
 
+        this.activityBroadcastReceiver = new ActivityBroadcastReceiver(this);
+        registerReceiver(activityBroadcastReceiver, new IntentFilter(AlarmManagerBroadcastReceiver.UI_LOCATION_UPDATE_INTENT));
     }
 
     @Override
@@ -81,6 +92,20 @@ public class MainActivity extends FragmentActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        unregisterReceiver(this.activityBroadcastReceiver);
+        Log.d(LOG_TAG, "#onPause(): unregistering UI broadcastReceiver");
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(LOG_TAG, "#onResume(): registering UI broadcastReceiver");
+        registerReceiver(this.activityBroadcastReceiver, new IntentFilter(AlarmManagerBroadcastReceiver.UI_LOCATION_UPDATE_INTENT));
     }
 
     /**
