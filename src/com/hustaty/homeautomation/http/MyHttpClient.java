@@ -105,6 +105,11 @@ public class MyHttpClient extends DefaultHttpClient {
             double distance = attemptToGuessURL(location);
             String deviceID = PreferenceManager.getDefaultSharedPreferences(context).getString("deviceID", "unknown");
             gpsData = "lat=" + location.getLatitude() + ",lon=" + location.getLongitude() + ",accuracy=" + location.getAccuracy() + ",distance=" + distance + ",deviceID=" + deviceID;
+            WifiInfo wifiInfo = getWifiInfo();
+            if(wifiInfo != null
+                    && wifiInfo.getSSID() != null) {
+                gpsData += ",wifi=" + wifiInfo.getSSID();
+            }
         }
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
