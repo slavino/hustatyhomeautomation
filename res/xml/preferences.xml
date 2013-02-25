@@ -5,7 +5,7 @@
                 android:key="globalServerIP"
                 android:title="@string/globalServerIP_title"
                 android:summary="@string/globalServerIP_summary"
-                android:defaultValue="myaddress.no-ip.org"
+                android:defaultValue="myhomeautomationaddress.no-ip.org"
                 android:editable="true"
                 />
 
@@ -74,7 +74,7 @@
                 android:key="homeLatitude"
                 android:title="@string/homelatitude_title"
                 android:summary="@string/homelatitude_summary"
-                android:defaultValue=""
+                android:defaultValue="0"
                 android:editable="true"
                 android:numeric="signed|decimal"
                 />
@@ -82,7 +82,7 @@
                 android:key="homeLongitude"
                 android:title="@string/homelongitude_title"
                 android:summary="@string/homelongitude_summary"
-                android:defaultValue=""
+                android:defaultValue="0"
                 android:editable="true"
                 android:numeric="signed|decimal"
                 />

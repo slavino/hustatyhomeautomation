@@ -1,6 +1,8 @@
 package com.hustaty.homeautomation;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -20,7 +22,9 @@ import java.util.regex.Pattern;
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     // logger entry
-    private final static String LOG_TAG = SettingsActivity.class.getName();
+    private static final String LOG_TAG = SettingsActivity.class.getName();
+
+    public static final int REQUEST_CODE_FOR_SETTINGS = 31;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,11 +53,12 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             editor.commit();
             findPreference("deviceID").setSummary(sp.getString("deviceID", getResources().getString(R.string.deviceID)));
         }
-
+        setResult(Activity.RESULT_CANCELED);
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sp, String key) {
+
         if (key.equals("mail_preference_key")) {
             // Search for a valid mail pattern
             String pattern = "mailpattern";
@@ -63,11 +68,16 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 // Do anything like advice the user or change the value
             }
         }
+
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(key, Activity.RESULT_OK);
+        setResult(Activity.RESULT_OK, resultIntent);
+
     }
 
     @Override
     protected void onStop() {
         Log.d(LOG_TAG, "#onStop()");
-        super.onStop();    //To change body of overridden methods use File | Settings | File Templates.
+        super.onStop();
     }
 }

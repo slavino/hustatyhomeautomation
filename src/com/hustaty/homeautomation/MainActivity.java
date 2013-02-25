@@ -42,6 +42,15 @@ public class MainActivity extends FragmentActivity {
 
         setContentView(R.layout.main);
 
+        //load preferences
+        MainActivity.preferences = ApplicationPreferences.getPreferences(this);
+
+        if (MainActivity.preferences == null
+                || MainActivity.preferences.size() == 0) {
+            showSettings();
+            return;
+        }
+
         statusFragment = new StatusFragment();
         heatingFragment = new HeatingFragment();
         hotwaterFragment = new HotwaterFragment();
@@ -52,14 +61,6 @@ public class MainActivity extends FragmentActivity {
 
         initializeTab();
 
-        //load preferences
-        MainActivity.preferences = ApplicationPreferences.getPreferences(this);
-
-        if (MainActivity.preferences == null
-                || MainActivity.preferences.size() == 0) {
-            showSettings();
-            return;
-        }
     }
 
     @Override

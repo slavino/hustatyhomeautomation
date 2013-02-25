@@ -1,5 +1,6 @@
 package com.hustaty.homeautomation;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,11 +18,9 @@ import org.apache.http.client.ClientProtocolException;
 import java.io.IOException;
 
 /**
- * Created with IntelliJ IDEA.
  * User: llisivko
  * Date: 2/24/13
  * Time: 7:19 PM
- * To change this template use File | Settings | File Templates.
  */
 public class StatusFragment extends Fragment {
 
@@ -38,6 +37,7 @@ public class StatusFragment extends Fragment {
             thermoServerStatus = myHttpClient.getThermoServerStatus();
         } catch (HomeAutomationException e) {
             showSettings(view.getContext());
+            return null;
         } catch (ClientProtocolException e) {
             Log.e(LOG_TAG, e.getMessage());
         } catch (IOException e) {
@@ -46,6 +46,7 @@ public class StatusFragment extends Fragment {
                 thermoServerStatus = myHttpClient.getThermoServerStatus();
             } catch (HomeAutomationException e1) {
                 showSettings(view.getContext());
+                return null;
             } catch (IOException e1) {
                 Log.e(LOG_TAG, e1.getMessage());
             }
@@ -67,8 +68,18 @@ public class StatusFragment extends Fragment {
 
     public void showSettings(Context context) {
         Intent intent = new Intent(context, SettingsActivity.class);
-        this.startActivity(intent);
+        this.startActivityForResult(intent, SettingsActivity.REQUEST_CODE_FOR_SETTINGS);
         return;
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == SettingsActivity.REQUEST_CODE_FOR_SETTINGS) {
+            if(resultCode == Activity.RESULT_OK) {
+
+            }
+        }
+    }
 }
