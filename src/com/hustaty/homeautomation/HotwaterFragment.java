@@ -66,13 +66,16 @@ public class HotwaterFragment extends Fragment {
                 cal.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
                 cal.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
                 cal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+                cal.set(Calendar.SECOND, 0);
 
-                MyHttpClient myHttpClient = new MyHttpClient(view.getContext());
                 Calendar cal2 = Calendar.getInstance();
                 cal2.setTime(cal.getTime());
                 cal2.add(Calendar.MINUTE, new Integer(hotwaterValidity.getText().toString()));
+
+                MyHttpClient myHttpClient = new MyHttpClient(view.getContext());
                 try {
                     CommonResult commonResult = myHttpClient.addStoredEvent(Appliance.HOTWATER, (wishedState.isChecked() ? Command.HOTWATER_ON : Command.HOTWATER_OFF ), cal.getTime(), cal2.getTime());
+                    Toast.makeText(view.getContext(), commonResult.getResult(), Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
                     Log.e(LOG_TAG, e.getMessage());
                 } catch (HomeAutomationException e) {

@@ -61,6 +61,10 @@ public class StatusFragment extends Fragment {
             bedroom.setText(thermoServerStatus.getT28B79F8504000082() + "\u00b0C");
             outside.setText(thermoServerStatus.getT28F82D850400001F() + "\u00b0C");
             upperLobby.setText(thermoServerStatus.getT28205B850400008B() + "\u00b0C");
+
+            TextView thermostat1Value = (TextView) view.findViewById(R.id.textView_thermostat_1_val);
+            thermostat1Value.setText("1".equals(thermoServerStatus.getThermostat1()) ? "ON" : "OFF") ;
+
         }
 
         return view;

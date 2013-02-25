@@ -45,7 +45,7 @@
     <string name="roomname_bedroom">Spálňa</string>
     <string name="roomname_outside">Vonku</string>
     <string name="roomname_workroom">Pracovňa</string>
-    <string name="unknown_temperature">--.-- &#xb0;C</string>
+    <string name="unknown_temperature">--.-- \u00b0C</string>
 
     <string name="thermostat_1">Thermostat 1 [ground floor] is</string>
     <string name="thermostat_2">Thermostat 2 [1st floor] is</string>
@@ -57,5 +57,6 @@
     <string name="last_communication_from_arduino">Last communication from Arduino was</string>
     <string name="server_time_page_loaded_at">Server time (page loaded at) is</string>
     <string name="save">Save</string>
+    <string name="unknown_value">UNKNOWN</string>
 
 </resources>
