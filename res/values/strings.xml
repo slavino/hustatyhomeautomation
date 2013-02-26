@@ -47,6 +47,7 @@
     <string name="roomname_workroom">Pracovňa</string>
     <string name="unknown_temperature">--.-- \u00b0C</string>
 
+    <string name="temperatures">Temperatures</string>
     <string name="thermostat">Thermostat</string>
     <string name="thermostat_1">Ground floor</string>
     <string name="thermostat_2">1st floor</string>
@@ -59,6 +60,7 @@
     <string name="remaining_time_for_last_server_command">Remaining time for last \n server command</string>
 
     <string name="arduino_uptime">Arduino Uptime</string>
+    <string name="arduino2_uptime">Arduino 2 Uptime</string>
 
     <string name="last_communication_from_arduino">Last communication from \n Arduino </string>
 
