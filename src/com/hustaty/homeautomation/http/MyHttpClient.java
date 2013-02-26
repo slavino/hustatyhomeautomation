@@ -16,6 +16,7 @@ import com.hustaty.homeautomation.enums.Command;
 import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
 import com.hustaty.homeautomation.model.CommonResult;
+import com.hustaty.homeautomation.model.DeviceLocationInfo;
 import com.hustaty.homeautomation.service.LocationService;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
 import org.apache.http.Header;
@@ -101,15 +102,23 @@ public class MyHttpClient extends DefaultHttpClient {
     private boolean authenticate() throws IOException {
         Location location = LocationService.obtainCurrentLocation(context);
         String gpsData = "";
+
         if (location != null) {
             double distance = attemptToGuessURL(location);
             String deviceID = PreferenceManager.getDefaultSharedPreferences(context).getString("deviceID", "unknown");
-            gpsData = "lat=" + location.getLatitude() + ",lon=" + location.getLongitude() + ",accuracy=" + location.getAccuracy() + ",distance=" + distance + ",deviceID=" + deviceID;
+            DeviceLocationInfo deviceLocationInfo = new DeviceLocationInfo();
+            deviceLocationInfo.setLatitude(location.getLatitude());
+            deviceLocationInfo.setLongitude(location.getLongitude());
+            deviceLocationInfo.setAccuracy(location.getAccuracy());
+            deviceLocationInfo.setDistance(distance);
+            deviceLocationInfo.setDeviceId(deviceID);
             WifiInfo wifiInfo = getWifiInfo();
             if(wifiInfo != null
                     && wifiInfo.getSSID() != null) {
-                gpsData += ",wifi=" + wifiInfo.getSSID();
+                deviceLocationInfo.setWifi(wifiInfo.getSSID());
             }
+            Gson gson = new Gson();
+            gpsData = gson.toJson(deviceLocationInfo, DeviceLocationInfo.class);
         }
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
