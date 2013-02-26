@@ -17,7 +17,24 @@
 
         <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="121dp"
+                android:background="@drawable/rounded_shape_2"
+                android:layout_alignLeft="@+id/tableLayout"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:layout_height="28dp" android:id="@+id/tableLayout2">
+            <TableRow android:layout_gravity="center" android:gravity="center">
+                <TextView
+                        android:id="@+id/textView_temperatures"
+                        android:text="@string/temperatures"
+                        android:textStyle="bold" android:textSize="@dimen/menu"/>
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="126dp"
+                android:layout_marginTop="35dp"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
                 android:id="@+id/tableLayout"
@@ -94,7 +111,7 @@
                 android:background="@drawable/rounded_shape_2"
                 android:layout_alignLeft="@+id/tableLayout"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="140dp"
+                android:layout_marginTop="180dp"
                 android:gravity="center|center_vertical|center_horizontal"
                 android:layout_height="28dp" android:id="@+id/tableLayout2">
         <TableRow android:layout_gravity="center" android:gravity="center">
@@ -113,7 +130,7 @@
                 android:id="@+id/tableLayout"
                 android:background="@drawable/rounded_shape"
                 android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
-                android:layout_marginTop="175dp">
+                android:layout_marginTop="215dp">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
@@ -183,7 +200,7 @@
                 android:background="@drawable/rounded_shape_2"
                 android:layout_alignLeft="@+id/tableLayout"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="280dp"
+                android:layout_marginTop="315dp"
                 android:gravity="center|center_vertical|center_horizontal"
                 android:layout_height="28dp" android:id="@+id/tableLayout2">
             <TableRow android:layout_gravity="center" android:gravity="center">
@@ -202,7 +219,7 @@
                 android:id="@+id/tableLayout"
                 android:background="@drawable/rounded_shape"
                 android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
-                android:layout_marginTop="315dp">
+                android:layout_marginTop="350dp">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
@@ -246,7 +263,7 @@
                 android:background="@drawable/rounded_shape_2"
                 android:layout_alignLeft="@+id/tableLayout"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="380dp"
+                android:layout_marginTop="415dp"
                 android:gravity="center|center_vertical|center_horizontal"
                 android:layout_height="40dp" android:id="@+id/tableLayout2">
             <TableRow android:layout_gravity="center" android:gravity="center">
@@ -265,7 +282,7 @@
                 android:id="@+id/tableLayout"
                 android:background="@drawable/rounded_shape"
                 android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
-                android:layout_marginTop="427dp">
+                android:layout_marginTop="462dp">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
@@ -284,7 +301,7 @@
                 android:background="@drawable/rounded_shape_2"
                 android:layout_alignLeft="@+id/tableLayout"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="490dp"
+                android:layout_marginTop="527dp"
                 android:gravity="center|center_vertical|center_horizontal"
                 android:layout_height="28dp" android:id="@+id/tableLayout2">
             <TableRow android:layout_gravity="center" android:gravity="center">
@@ -303,7 +320,7 @@
                 android:id="@+id/tableLayout"
                 android:background="@drawable/rounded_shape"
                 android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
-                android:layout_marginTop="525dp">
+                android:layout_marginTop="562dp">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
@@ -322,7 +339,46 @@
                 android:background="@drawable/rounded_shape_2"
                 android:layout_alignLeft="@+id/tableLayout"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="590dp"
+                android:layout_marginTop="627dp"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:layout_height="28dp" android:id="@+id/tableLayout2">
+            <TableRow android:layout_gravity="center" android:gravity="center">
+                <TextView
+                        android:id="@+id/textView_arduino2_uptime"
+                        android:text="@string/arduino2_uptime"
+                        android:textStyle="bold" android:textSize="@dimen/menu"/>
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:id="@+id/tableLayout"
+                android:background="@drawable/rounded_shape"
+                android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
+                android:layout_marginTop="662dp">
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal" android:layout_column="1">
+                <TextView
+                        android:id="@+id/textView_arduino2_uptime_val"
+                        android:text="@string/unknown_value"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center"/>
+            </TableRow>
+        </TableLayout>
+
+
+        <TableLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/rounded_shape_2"
+                android:layout_alignLeft="@+id/tableLayout"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="727dp"
                 android:gravity="center|center_vertical|center_horizontal"
                 android:layout_height="40dp" android:id="@+id/tableLayout2">
             <TableRow android:layout_gravity="center" android:gravity="center">
@@ -341,7 +397,7 @@
                 android:id="@+id/tableLayout"
                 android:background="@drawable/rounded_shape"
                 android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
-                android:layout_marginTop="637dp">
+                android:layout_marginTop="774dp">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
