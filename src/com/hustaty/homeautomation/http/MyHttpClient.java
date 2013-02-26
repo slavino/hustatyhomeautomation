@@ -3,6 +3,7 @@ package com.hustaty.homeautomation.http;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.StrictMode;
@@ -114,8 +115,16 @@ public class MyHttpClient extends DefaultHttpClient {
             deviceLocationInfo.setDeviceId(deviceID);
             WifiInfo wifiInfo = getWifiInfo();
             if(wifiInfo != null
-                    && wifiInfo.getSSID() != null) {
-                deviceLocationInfo.setWifi(wifiInfo.getSSID());
+                && wifiInfo.getSSID() != null) {
+                switch(wifiInfo.getSupplicantState()) {
+                    case DISCONNECTED:
+                    case UNINITIALIZED:
+                    case INACTIVE:
+                        break;
+                    default:
+                        deviceLocationInfo.setWifi(wifiInfo.getSSID());
+                        break;
+                }
             }
             Gson gson = new Gson();
             gpsData = gson.toJson(deviceLocationInfo, DeviceLocationInfo.class);
