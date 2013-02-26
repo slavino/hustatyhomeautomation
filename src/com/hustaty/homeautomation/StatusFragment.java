@@ -84,7 +84,7 @@ public class StatusFragment extends Fragment {
             arduinoUptimeValue.setText(formatMillis(thermoServerStatus.getUptime())) ;
 
             TextView arduino2UptimeValue = (TextView) view.findViewById(R.id.textView_arduino2_uptime_val);
-            arduino2UptimeValue.setText(thermoServerStatus.getUptime2()) ;
+            arduino2UptimeValue.setText(formatMillis(thermoServerStatus.getUptime2())) ;
 
             TextView lastCommunicationFromArduinoValue = (TextView) view.findViewById(R.id.textView_last_communication_from_arduino_val);
             lastCommunicationFromArduinoValue.setText(thermoServerStatus.getLastCommunicationFromArduino()) ;
