@@ -81,7 +81,7 @@ public class StatusFragment extends Fragment {
             remainingTimeForLastServerCommandValue.setText(thermoServerStatus.getRemainingTimeForLastServerCommand()) ;
 
             TextView arduinoUptimeValue = (TextView) view.findViewById(R.id.textView_arduino_uptime_val);
-            arduinoUptimeValue.setText(thermoServerStatus.getUptime()) ;
+            arduinoUptimeValue.setText(formatMillis(thermoServerStatus.getUptime())) ;
 
             TextView lastCommunicationFromArduinoValue = (TextView) view.findViewById(R.id.textView_last_communication_from_arduino_val);
             lastCommunicationFromArduinoValue.setText(thermoServerStatus.getLastCommunicationFromArduino()) ;
@@ -108,5 +108,15 @@ public class StatusFragment extends Fragment {
         }
     }
 
+    private String formatMillis(String ms) {
+        Long millis = new Long(ms);
+        Long seconds = millis/1000;
+        Long minutes = seconds/60;
+        Long hours = minutes/60;
+        millis %= 1000;
+        seconds %= 60;
+        minutes %= 60;
 
+        return hours + "h " + minutes + "m " + seconds + "." + millis + "s";
+    }
 }
