@@ -7,11 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created with IntelliJ IDEA.
  * User: llisivko
  * Date: 2/24/13
  * Time: 7:20 PM
- * To change this template use File | Settings | File Templates.
  */
 public class HeatingFragment extends Fragment {
     @Override

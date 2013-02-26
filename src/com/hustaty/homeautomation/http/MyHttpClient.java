@@ -3,7 +3,6 @@ package com.hustaty.homeautomation.http;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.wifi.SupplicantState;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.StrictMode;
@@ -183,17 +182,9 @@ public class MyHttpClient extends DefaultHttpClient {
 
         HttpResponse response = this.execute(getV1);
 
-//        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-//        String responseText = "";
-//        String line = "";
-//        while ((line = rd.readLine()) != null) {
-//            responseText += line;
-//        }
-
         Gson gson = new Gson();
         ArduinoThermoServerStatus status = null;
         try {
-//            status = gson.fromJson(responseText, ArduinoThermoServerStatus.class);
             status = gson.fromJson(httpResponseText(response), ArduinoThermoServerStatus.class);
         } catch (JsonSyntaxException jsonSyntaxException) {
             throw new HomeAutomationException(jsonSyntaxException);
@@ -238,17 +229,9 @@ public class MyHttpClient extends DefaultHttpClient {
 
         HttpResponse response = this.execute(post);
 
-//        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-//        String responseText = "";
-//        String line = "";
-//        while ((line = rd.readLine()) != null) {
-//            responseText += line;
-//        }
-
         Gson gson = new Gson();
         CommonResult result = null;
         try {
-//            result = gson.fromJson(responseText, CommonResult.class);
             result = gson.fromJson(httpResponseText(response), CommonResult.class);
         } catch (JsonSyntaxException jsonSyntaxException) {
             throw new HomeAutomationException(jsonSyntaxException);
@@ -285,17 +268,9 @@ public class MyHttpClient extends DefaultHttpClient {
 
         HttpResponse response = this.execute(post);
 
-//        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-//        String responseText = "";
-//        String line = "";
-//        while ((line = rd.readLine()) != null) {
-//            responseText += line;
-//        }
-
         Gson gson = new Gson();
         CommonResult result = null;
         try {
-//            result = gson.fromJson(responseText, CommonResult.class);
             result = gson.fromJson(httpResponseText(response), CommonResult.class);
         } catch (JsonSyntaxException jsonSyntaxException) {
             throw new HomeAutomationException(jsonSyntaxException);
