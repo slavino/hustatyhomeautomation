@@ -65,6 +65,27 @@ public class StatusFragment extends Fragment {
             TextView thermostat1Value = (TextView) view.findViewById(R.id.textView_thermostat_1_val);
             thermostat1Value.setText("1".equals(thermoServerStatus.getThermostat1()) ? "ON" : "OFF") ;
 
+            TextView thermostat2Value = (TextView) view.findViewById(R.id.textView_thermostat_2_val);
+            thermostat2Value.setText("1".equals(thermoServerStatus.getThermostat2()) ? "ON" : "OFF") ;
+
+            TextView hotWaterSwitchValue = (TextView) view.findViewById(R.id.textView_hot_water_switch_val);
+            hotWaterSwitchValue.setText("1".equals(thermoServerStatus.getHotWaterSwitch()) ? "ON" : "OFF") ;
+
+            TextView hotWaterSupplyValue = (TextView) view.findViewById(R.id.textView_hot_water_supply_val);
+            hotWaterSupplyValue.setText("1".equals(thermoServerStatus.getHotWaterSupply()) ? "ON" : "OFF") ;
+
+            TextView heatingSupplyValue = (TextView) view.findViewById(R.id.textView_heating_supply_val);
+            heatingSupplyValue.setText("1".equals(thermoServerStatus.getHeatingState()) ? "ON" : "OFF") ;
+
+            TextView remainingTimeForLastServerCommandValue = (TextView) view.findViewById(R.id.textView_remaining_time_for_last_server_command_val);
+            remainingTimeForLastServerCommandValue.setText(thermoServerStatus.getRemainingTimeForLastServerCommand()) ;
+
+            TextView arduinoUptimeValue = (TextView) view.findViewById(R.id.textView_arduino_uptime_val);
+            arduinoUptimeValue.setText(thermoServerStatus.getUptime()) ;
+
+            TextView lastCommunicationFromArduinoValue = (TextView) view.findViewById(R.id.textView_last_communication_from_arduino_val);
+            lastCommunicationFromArduinoValue.setText(thermoServerStatus.getLastCommunicationFromArduino()) ;
+
         }
 
         return view;
