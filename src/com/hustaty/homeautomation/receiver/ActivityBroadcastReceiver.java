@@ -39,7 +39,9 @@ public class ActivityBroadcastReceiver extends BroadcastReceiver {
 
                 //TODO implement UI update
                 TextView workroom = (TextView) activity.findViewById(R.id.textView_roomtemp_workroom);
-                workroom.setText(thermoServerStatus.getT280F5B8504000019() + "\u00b0C");
+                if(workroom != null) {
+                    workroom.setText(thermoServerStatus.getT280F5B8504000019() + "\u00b0C");
+                }
 
             }
         }

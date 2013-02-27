@@ -8,54 +8,66 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-        <DatePicker
+        <EditText
                 android:id="@+id/hotwater_date_from"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_width="fill_parent"
-                android:layout_centerHorizontal="true"/>
+                android:singleLine="true"
+                android:clickable="true"
+                android:editable="false"
+                android:text="YYYY-mm-dd HH:mm:ss"/>
 
-        <TimePicker
-                android:id="@+id/hotwater_time_from"
+        <ImageButton
+                android:id="@+id/set_date_time"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_width="fill_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/hotwater_date_from"/>
+                android:layout_toRightOf="@id/hotwater_date_from"
+                android:src="@android:drawable/dialog_frame"/>
+
+        <!--Validity-->
+        <TextView
+                android:id="@+id/text_validity"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_below="@id/set_date_time"
+                android:text="Validity "/>
 
         <EditText
                 android:id="@+id/hotwater_validity"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_width="100px"
+                android:layout_toRightOf="@id/text_validity"
+                android:layout_below="@id/set_date_time"
                 android:singleLine="true"
-                android:inputType="number"
-                android:layout_below="@id/hotwater_time_from"/>
+                android:editable="true"
+                android:text="60"/>
         <TextView
+                android:id="@+id/text_validity2"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_toLeftOf="@id/hotwater_validity"
-                android:layout_below="@id/hotwater_time_from"
-                android:text="Validity"/>
-        <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                android:layout_below="@id/set_date_time"
                 android:layout_toRightOf="@id/hotwater_validity"
-                android:layout_below="@id/hotwater_time_from"
-                android:text="minutes."/>
+                android:text=" minutes"/>
 
-        <ToggleButton
-                android:id="@+id/hotwater_wished_state"
-                android:layout_height="wrap_content"
-                android:layout_width="fill_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/hotwater_validity"/>
-
+        <!--Save-->
         <ImageButton
                 android:id="@+id/hotwater_save"
                 android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/hotwater_wished_state"
+                android:layout_below="@id/hotwater_validity"
                 android:src="@android:drawable/ic_menu_save"
                 android:text="@string/save"/>
+
+        <!--Reset-->
+        <ImageButton
+                android:id="@+id/hotwater_reset"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/hotwater_save"
+                android:src="@android:drawable/ic_menu_delete"
+                android:text="@string/reset"/>
 
     </RelativeLayout>
 
