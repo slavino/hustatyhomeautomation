@@ -78,7 +78,7 @@ public class StatusFragment extends Fragment {
             heatingSupplyValue.setText("1".equals(thermoServerStatus.getHeatingState()) ? "ON" : "OFF") ;
 
             TextView remainingTimeForLastServerCommandValue = (TextView) view.findViewById(R.id.textView_remaining_time_for_last_server_command_val);
-            remainingTimeForLastServerCommandValue.setText(thermoServerStatus.getRemainingTimeForLastServerCommand()) ;
+            remainingTimeForLastServerCommandValue.setText(formatMillis(thermoServerStatus.getRemainingTimeForLastServerCommand())) ;
 
             TextView arduinoUptimeValue = (TextView) view.findViewById(R.id.textView_arduino_uptime_val);
             arduinoUptimeValue.setText(formatMillis(thermoServerStatus.getUptime())) ;
@@ -116,10 +116,15 @@ public class StatusFragment extends Fragment {
         Long seconds = millis/1000;
         Long minutes = seconds/60;
         Long hours = minutes/60;
+        Long days  = hours/24;
         millis %= 1000;
         seconds %= 60;
         minutes %= 60;
+        hours %= 24;
 
-        return hours + "h " + minutes + "m " + seconds + "." + millis + "s";
+        return ( (days > 0) ? days +"d " : "")
+                + ( (hours > 0 || days > 0) ? hours + "h " : "")
+                + ( (minutes > 0 || hours>0 || days > 0) ? minutes + "m " : "")
+                + seconds + "." + millis + "s";
     }
 }
