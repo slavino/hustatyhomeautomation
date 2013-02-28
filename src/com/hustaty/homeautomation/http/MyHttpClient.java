@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.hustaty.homeautomation.R;
 import com.hustaty.homeautomation.enums.Appliance;
 import com.hustaty.homeautomation.enums.Command;
@@ -17,6 +18,7 @@ import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
 import com.hustaty.homeautomation.model.CommonResult;
 import com.hustaty.homeautomation.model.DeviceLocationInfo;
+import com.hustaty.homeautomation.model.StoredEventResult;
 import com.hustaty.homeautomation.service.LocationService;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
 import org.apache.http.Header;
@@ -38,6 +40,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.security.KeyStore;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -282,6 +285,40 @@ public class MyHttpClient extends DefaultHttpClient {
 
     }
 
+
+    public List<StoredEventResult> getStoredEventResults(Appliance appliance) throws IOException, HomeAutomationException {
+
+        authenticate();
+
+        HttpPost post = new HttpPost("https://" + URL_TO_USE + "/v1/getStoredEvents.php");
+
+        post.addHeader("Host", URL_TO_USE);
+        post.addHeader("User-Agent", "Hustaty Home Automation Android Client");
+        post.addHeader("Cookie", cookieInformation);
+        post.addHeader("Connection", "Keep-Alive");
+
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("applianceName", appliance.getValue()));
+        post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+        HttpResponse response = this.execute(post);
+
+        Gson gson = new Gson();
+        List<StoredEventResult> result = null;
+
+        Type arr = new TypeToken<List<StoredEventResult>>(){}.getType();
+
+        try {
+            result = gson.fromJson(httpResponseText(response), arr);
+        } catch (JsonSyntaxException jsonSyntaxException) {
+            throw new HomeAutomationException(jsonSyntaxException);
+        }
+
+        this.getConnectionManager().shutdown();
+
+        return result;
+
+    }
     /**
      * SSL with self-signed certificate.
      *

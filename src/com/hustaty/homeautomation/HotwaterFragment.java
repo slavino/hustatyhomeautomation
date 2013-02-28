@@ -14,10 +14,12 @@ import com.hustaty.homeautomation.enums.Command;
 import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.http.MyHttpClient;
 import com.hustaty.homeautomation.model.CommonResult;
+import com.hustaty.homeautomation.model.StoredEventResult;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * User: llisivko
@@ -51,6 +53,19 @@ public class HotwaterFragment extends Fragment {
         final EditText hotwaterValidity = (EditText) view.findViewById(R.id.hotwater_validity);
         final EditText hotwaterDateFrom = (EditText) view.findViewById(R.id.hotwater_date_from);
         hotwaterDateFrom.setText(sdf.format(calendar.getTime()));
+
+        MyHttpClient myHttpClient = new MyHttpClient(view.getContext());
+
+        try {
+            List<StoredEventResult> storedEventResultList = myHttpClient.getStoredEventResults(Appliance.HOTWATER);
+            if(storedEventResultList.size() > 0){
+                //TODO
+            }
+        } catch (IOException e) {
+            Log.e(LOG_TAG, e.getMessage());
+        } catch (HomeAutomationException e) {
+            Log.e(LOG_TAG, e.getMessage());
+        }
 
         final ImageButton hotWaterSave = (ImageButton) view.findViewById(R.id.hotwater_save);
 
@@ -112,7 +127,6 @@ public class HotwaterFragment extends Fragment {
     private class MyOnDateSetListener implements DatePickerDialog.OnDateSetListener {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             calendar.set(Calendar.YEAR, year);
             calendar.set(Calendar.MONTH, month);
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -127,7 +141,6 @@ public class HotwaterFragment extends Fragment {
     private class MyOnTimeSetListener implements TimePickerDialog.OnTimeSetListener {
         @Override
         public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             calendar.set(Calendar.HOUR_OF_DAY, hour);
             calendar.set(Calendar.MINUTE, minute);
             calendar.set(Calendar.SECOND, 0);
