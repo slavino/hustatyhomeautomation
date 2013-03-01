@@ -12,9 +12,12 @@ import com.google.gson.Gson;
 import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.http.MyHttpClient;
 import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
+import com.hustaty.homeautomation.model.TrafficInformation;
 import com.hustaty.homeautomation.service.LocationService;
+import com.hustaty.homeautomation.service.TrafficNotificationService;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
@@ -59,6 +62,17 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             Gson gson = new Gson();
             newIntent.putExtra(UI_EXTRA_ID, gson.toJson(arduinoThermoServerStatus));
             context.sendBroadcast(newIntent);
+
+            List<TrafficInformation> trafficInformationList = myHttpClient.getTrafficInformation();
+            String trafficInfoText = "";
+
+            for(TrafficInformation trafficInformation : trafficInformationList) {
+                trafficInfoText += trafficInformation.getType() + ": " + trafficInformation.getDescription() + "\n";
+            }
+            if(!"".equals(trafficInfoText)) {
+                new TrafficNotificationService(context, trafficInfoText);
+            }
+
         } catch (HomeAutomationException e) {
             Log.e(LOG_TAG, "#onStartCommand(): " + e.getMessage());
         } catch (IOException e) {

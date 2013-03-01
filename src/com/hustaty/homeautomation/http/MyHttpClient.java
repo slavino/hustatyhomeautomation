@@ -15,10 +15,7 @@ import com.hustaty.homeautomation.R;
 import com.hustaty.homeautomation.enums.Appliance;
 import com.hustaty.homeautomation.enums.Command;
 import com.hustaty.homeautomation.exception.HomeAutomationException;
-import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
-import com.hustaty.homeautomation.model.CommonResult;
-import com.hustaty.homeautomation.model.DeviceLocationInfo;
-import com.hustaty.homeautomation.model.StoredEventResult;
+import com.hustaty.homeautomation.model.*;
 import com.hustaty.homeautomation.service.LocationService;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
 import org.apache.http.Header;
@@ -286,6 +283,14 @@ public class MyHttpClient extends DefaultHttpClient {
     }
 
 
+    /**
+     * Gets List of all stored events.
+     *
+     * @param appliance
+     * @return
+     * @throws IOException
+     * @throws HomeAutomationException
+     */
     public List<StoredEventResult> getStoredEventResults(Appliance appliance) throws IOException, HomeAutomationException {
 
         authenticate();
@@ -319,6 +324,44 @@ public class MyHttpClient extends DefaultHttpClient {
         return result;
 
     }
+
+
+    public List<TrafficInformation> getTrafficInformation()  throws IOException, HomeAutomationException {
+
+        HttpPost post = new HttpPost("https://" + URL_TO_USE + "/traffic/");
+
+        post.addHeader("Host", URL_TO_USE);
+        post.addHeader("User-Agent", "Hustaty Home Automation Android Client");
+        post.addHeader("Connection", "Keep-Alive");
+
+        Location location = LocationService.obtainCurrentLocation(context);
+
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        if(location != null) {
+            nameValuePairs.add(new BasicNameValuePair("lat", "" + location.getLatitude()));
+            nameValuePairs.add(new BasicNameValuePair("lon", "" + location.getLongitude()));
+        }
+        post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+        HttpResponse response = this.execute(post);
+
+        Gson gson = new Gson();
+        List<TrafficInformation> result = null;
+
+        Type arr = new TypeToken<List<TrafficInformation>>(){}.getType();
+
+        try {
+            result = gson.fromJson(httpResponseText(response), arr);
+        } catch (JsonSyntaxException jsonSyntaxException) {
+            throw new HomeAutomationException(jsonSyntaxException);
+        }
+
+        this.getConnectionManager().shutdown();
+
+        return result;
+
+    }
+
     /**
      * SSL with self-signed certificate.
      *
