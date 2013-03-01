@@ -5,69 +5,179 @@
             android:background="@color/white">
 
     <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
+        <TableLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/rounded_shape_2"
+                android:layout_alignLeft="@+id/tableLayout"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:layout_height="28dp"
+                android:id="@+id/tableLayout2">
+            <TableRow android:layout_gravity="center"
+                      android:gravity="center">
+                <TextView
+                        android:id="@+id/setupHotWater"
+                        android:text="@string/setup_hot_water"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/menu"/>
+            </TableRow>
+        </TableLayout>
 
-        <EditText
-                android:id="@+id/hotwater_date_from"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:clickable="true"
-                android:editable="false"
-                android:text="YYYY-mm-dd HH:mm:ss"/>
+        <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="35dp"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:id="@+id/tableLayout"
+                android:background="@drawable/rounded_shape">
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal" android:layout_column="0"
+                    android:layout_gravity="center_horizontal">
+                <EditText
+                        android:id="@+id/hotwater_date_from"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:text="YYYY-mm-dd HH:mm:ss" android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"/>
+                <ImageButton
+                        android:id="@+id/set_date_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/hotwater_date_from"
+                        android:src="@drawable/clock1"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp" android:layout_marginRight="5dp"/>
+            </TableRow>
+        </TableLayout>
 
-        <ImageButton
-                android:id="@+id/set_date_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/hotwater_date_from"
-                android:src="@android:drawable/dialog_frame"/>
 
         <!--Validity-->
-        <TextView
-                android:id="@+id/text_validity"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_below="@id/set_date_time"
-                android:text="Validity "/>
+        <TableLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/rounded_shape_2"
+                android:layout_alignLeft="@+id/tableLayout"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="140dp"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:layout_height="28dp"
+                android:id="@+id/tableLayout2">
+            <TableRow android:layout_gravity="center"
+                      android:gravity="center">
+                <TextView
+                        android:id="@+id/text_validity"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@id/set_date_time"
+                        android:text="Validity "
+                        android:textStyle="bold"/>
+            </TableRow>
+        </TableLayout>
 
-        <EditText
-                android:id="@+id/hotwater_validity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/text_validity"
-                android:layout_below="@id/set_date_time"
-                android:singleLine="true"
-                android:editable="true"
-                android:text="60"/>
-        <TextView
-                android:id="@+id/text_validity2"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_below="@id/set_date_time"
-                android:layout_toRightOf="@id/hotwater_validity"
-                android:text=" minutes"/>
+        <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="175dp"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:id="@+id/tableLayout"
+                android:background="@drawable/rounded_shape">
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal" android:layout_column="0"
+                    android:layout_gravity="center_horizontal">
+                <EditText
+                        android:id="@+id/hotwater_validity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/text_validity"
+                        android:layout_below="@id/set_date_time"
+                        android:singleLine="true"
+                        android:editable="true"
+                        android:text="60" android:layout_marginLeft="10dp" android:layout_marginTop="10dp"
+                        android:layout_margin="10dp"
+                        android:inputType="number"/>
+                <TextView
+                        android:id="@+id/text_validity2"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@id/set_date_time"
+                        android:layout_toRightOf="@id/hotwater_validity"
+                        android:text=" minutes" android:layout_margin="10dp"/>
+            </TableRow>
+        </TableLayout>
 
-        <!--Save-->
-        <ImageButton
-                android:id="@+id/hotwater_save"
-                android:layout_height="wrap_content"
-                android:layout_width="fill_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/hotwater_validity"
-                android:src="@android:drawable/ic_menu_save"
-                android:text="@string/save"/>
 
-        <!--Reset-->
-        <ImageButton
-                android:id="@+id/hotwater_reset"
-                android:layout_height="wrap_content"
-                android:layout_width="fill_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/hotwater_save"
-                android:src="@android:drawable/ic_menu_delete"
-                android:text="@string/reset"/>
+        <TableLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/rounded_shape_2"
+                android:layout_alignLeft="@+id/tableLayout"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="255dp"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:layout_height="28dp"
+                android:id="@+id/tableLayout2">
+            <TableRow android:layout_gravity="center"
+                      android:gravity="center">
+                <TextView
+                        android:id="@+id/text_save_reset"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@id/set_date_time"
+                        android:text="Save or Reset "
+                        android:textStyle="bold"/>
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="290dp"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:id="@+id/tableLayout"
+                android:background="@drawable/rounded_shape">
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal" android:layout_column="0"
+                    android:layout_gravity="center_horizontal">
+                <!--Save-->
+                <ImageButton
+                        android:id="@+id/hotwater_save"
+                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/hotwater_validity"
+                        android:src="@android:drawable/ic_menu_save"
+                        android:text="@string/save" android:layout_marginLeft="10dp" android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp" android:layout_marginBottom="10dp"/>
+                <!--Reset-->
+                <ImageButton
+                        android:id="@+id/hotwater_reset"
+                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/hotwater_save"
+                        android:src="@android:drawable/ic_menu_delete"
+                        android:text="@string/reset" android:layout_margin="10dp"/>
+            </TableRow>
+        </TableLayout>
 
     </RelativeLayout>
 

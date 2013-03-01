@@ -73,4 +73,6 @@
     <string name="tabname_hotwater">Hot Water</string>
     <string name="reset">Reset</string>
 
+    <string name="setup_hot_water">Setup hot water</string>
+
 </resources>
