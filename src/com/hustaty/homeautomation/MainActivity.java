@@ -94,7 +94,12 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onPause() {
-        unregisterReceiver(this.activityBroadcastReceiver);
+        if(this.activityBroadcastReceiver != null) {
+            unregisterReceiver(this.activityBroadcastReceiver);
+        } else {
+            this.activityBroadcastReceiver = new ActivityBroadcastReceiver(this);
+            unregisterReceiver(this.activityBroadcastReceiver);
+        }
         Log.d(LOG_TAG, "#onPause(): unregistering UI broadcastReceiver");
         super.onPause();
     }
