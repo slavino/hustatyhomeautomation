@@ -70,6 +70,15 @@ public class MainActivity extends FragmentActivity {
 
         this.activityBroadcastReceiver = new ActivityBroadcastReceiver(this);
         registerReceiver(activityBroadcastReceiver, new IntentFilter(AlarmManagerBroadcastReceiver.UI_LOCATION_UPDATE_INTENT));
+
+        try {
+            AlarmManagerBroadcastReceiver alarmManagerBroadcastReceiver = new AlarmManagerBroadcastReceiver();
+            registerReceiver(alarmManagerBroadcastReceiver, new IntentFilter(AlarmManagerBroadcastReceiver.LOCATION_UPDATE_INTENT));
+            Log.e(LOG_TAG, "#onCreate(): registering receiver for " + AlarmManagerBroadcastReceiver.LOCATION_UPDATE_INTENT);
+        } catch (Exception e) {
+            Log.e(LOG_TAG, e.getMessage());
+        }
+
     }
 
     @Override
