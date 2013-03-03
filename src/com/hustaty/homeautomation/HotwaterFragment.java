@@ -57,14 +57,14 @@ public class HotwaterFragment extends Fragment {
         MyHttpClient myHttpClient = new MyHttpClient(view.getContext());
 
         try {
-            List<StoredEventResult> storedEventResultList = myHttpClient.getStoredEventResults(Appliance.HOTWATER);
+            List<StoredEventResult> storedEventResultList = myHttpClient.getStoredEventResults(Appliance.HOTWATER, true);
             if(storedEventResultList.size() > 0){
                 TextView hotWaterValiditiesTextView = (TextView)view.findViewById(R.id.hotwater_validities_textview);
                 StringBuilder stringBuilder = new StringBuilder();
                 for(StoredEventResult storedEventResult : storedEventResultList) {
                     stringBuilder.append(storedEventResult.getValidFrom() + "-");
                     stringBuilder.append(storedEventResult.getValidUntil() + " : ");
-                    stringBuilder.append(storedEventResult.getValueToPass());
+                    stringBuilder.append(storedEventResult.getValueToPass() + "\n");
                 }
 
                 hotWaterValiditiesTextView.setText(stringBuilder.toString());
@@ -103,7 +103,7 @@ public class HotwaterFragment extends Fragment {
 
                 MyHttpClient myHttpClient = new MyHttpClient(view.getContext());
                 try {
-                    CommonResult commonResult = myHttpClient.addStoredEvent(Appliance.HOTWATER, Command.HOTWATER_ON, calendar.getTime(), cal2.getTime());
+                    CommonResult commonResult = myHttpClient.addStoredEvent(Appliance.HOTWATER, Command.HOTWATER_ON, calendar.getTime(), cal2.getTime(), true);
                     Toast.makeText(view.getContext(), commonResult.getResult(), Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
                     Log.e(LOG_TAG, e.getMessage());
@@ -119,7 +119,7 @@ public class HotwaterFragment extends Fragment {
             public void onClick(View view) {
                 MyHttpClient myHttpClient = new MyHttpClient(view.getContext());
                 try {
-                    CommonResult commonResult = myHttpClient.removeStoredEvent(Appliance.HOTWATER);
+                    CommonResult commonResult = myHttpClient.removeStoredEvent(Appliance.HOTWATER, true);
                     Toast.makeText(view.getContext(), commonResult.getResult(), Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
                     Log.e(LOG_TAG, e.getMessage());

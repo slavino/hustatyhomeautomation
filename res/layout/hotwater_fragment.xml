@@ -50,8 +50,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:clickable="true"
+                        android:clickable="false"
                         android:editable="false"
+                        android:focusable="false"
                         android:text="YYYY-mm-dd HH:mm:ss" android:layout_marginTop="10dp"
                         android:layout_marginLeft="10dp"/>
                 <ImageButton
@@ -183,7 +184,7 @@
                 android:id="@+id/hotwater_validities_textview"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/tableLayout" />
+                android:layout_below="@id/tableLayout" />
 
     </RelativeLayout>
 

@@ -57,20 +57,20 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         MyHttpClient myHttpClient = new MyHttpClient(context);
 
         try {
-            ArduinoThermoServerStatus arduinoThermoServerStatus = myHttpClient.getThermoServerStatus();
+            ArduinoThermoServerStatus arduinoThermoServerStatus = myHttpClient.getThermoServerStatus(false);
             Intent newIntent = new Intent(UI_LOCATION_UPDATE_INTENT);
             Gson gson = new Gson();
             newIntent.putExtra(UI_EXTRA_ID, gson.toJson(arduinoThermoServerStatus));
             context.sendBroadcast(newIntent);
 
-            List<TrafficInformation> trafficInformationList = myHttpClient.getTrafficInformation();
-            String trafficInfoText = "";
+            List<TrafficInformation> trafficInformationList = myHttpClient.getTrafficInformation(true);
+            StringBuilder trafficInfoText = new StringBuilder();
 
             for(TrafficInformation trafficInformation : trafficInformationList) {
-                trafficInfoText += trafficInformation.getType() + ": " + trafficInformation.getDescription() + "\n";
+                trafficInfoText.append(trafficInformation.getType() + ": " + trafficInformation.getDescription() + "\n");
             }
-            if(!"".equals(trafficInfoText)) {
-                new TrafficNotificationService(context, trafficInfoText);
+            if(!("".equals(trafficInfoText))) {
+                new TrafficNotificationService(context, trafficInfoText.toString());
             }
 
         } catch (HomeAutomationException e) {

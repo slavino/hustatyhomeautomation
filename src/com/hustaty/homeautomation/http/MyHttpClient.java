@@ -122,6 +122,7 @@ public class MyHttpClient extends DefaultHttpClient {
                         break;
                     default:
                         deviceLocationInfo.setWifi(wifiInfo.getSSID());
+                        Log.d(LOG_TAG, "#authenticate(): setting wifi " + wifiInfo.getSSID());
                         break;
                 }
             }
@@ -134,12 +135,15 @@ public class MyHttpClient extends DefaultHttpClient {
             StrictMode.setThreadPolicy(policy);
         }
 
+        if(this.getConnectionManager() == null) {
+            this.createClientConnectionManager();
+        }
+
         HttpPost post = new HttpPost("https://" + URL_TO_USE + "/index.php");
         post.addHeader("Host", URL_TO_USE);
         post.addHeader("User-Agent", "Hustaty Home Automation Android Client");
         post.addHeader("Connection", "Keep-Alive");
         post.addHeader("GPS-Location", gpsData);
-
 
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("login", login));
@@ -172,7 +176,7 @@ public class MyHttpClient extends DefaultHttpClient {
      * @throws IOException
      * @throws HomeAutomationException
      */
-    public ArduinoThermoServerStatus getThermoServerStatus() throws IOException, HomeAutomationException {
+    public ArduinoThermoServerStatus getThermoServerStatus(boolean shutdownAfterGettingInfo) throws IOException, HomeAutomationException {
 
         authenticate();
 
@@ -190,7 +194,9 @@ public class MyHttpClient extends DefaultHttpClient {
             throw new HomeAutomationException(jsonSyntaxException);
         }
 
-        this.getConnectionManager().shutdown();
+        if(shutdownAfterGettingInfo) {
+            shutdownConnectionManager();
+        }
 
         return status;
 
@@ -207,7 +213,7 @@ public class MyHttpClient extends DefaultHttpClient {
      * @throws IOException
      * @throws HomeAutomationException
      */
-    public CommonResult addStoredEvent(Appliance appliance, Command command, Date validFrom, Date validUntil) throws IOException, HomeAutomationException {
+    public CommonResult addStoredEvent(Appliance appliance, Command command, Date validFrom, Date validUntil, boolean shutdownAfterGettingInfo) throws IOException, HomeAutomationException {
 
         authenticate();
 
@@ -237,7 +243,9 @@ public class MyHttpClient extends DefaultHttpClient {
             throw new HomeAutomationException(jsonSyntaxException);
         }
 
-        this.getConnectionManager().shutdown();
+        if(shutdownAfterGettingInfo) {
+            shutdownConnectionManager();
+        }
 
         return result;
 
@@ -251,7 +259,7 @@ public class MyHttpClient extends DefaultHttpClient {
      * @throws IOException
      * @throws HomeAutomationException
      */
-    public CommonResult removeStoredEvent(Appliance appliance) throws IOException, HomeAutomationException {
+    public CommonResult removeStoredEvent(Appliance appliance, boolean shutdownAfterGettingInfo) throws IOException, HomeAutomationException {
 
         authenticate();
 
@@ -276,7 +284,9 @@ public class MyHttpClient extends DefaultHttpClient {
             throw new HomeAutomationException(jsonSyntaxException);
         }
 
-        this.getConnectionManager().shutdown();
+        if(shutdownAfterGettingInfo) {
+            shutdownConnectionManager();
+        }
 
         return result;
 
@@ -291,7 +301,7 @@ public class MyHttpClient extends DefaultHttpClient {
      * @throws IOException
      * @throws HomeAutomationException
      */
-    public List<StoredEventResult> getStoredEventResults(Appliance appliance) throws IOException, HomeAutomationException {
+    public List<StoredEventResult> getStoredEventResults(Appliance appliance, boolean shutdownAfterGettingInfo) throws IOException, HomeAutomationException {
 
         authenticate();
 
@@ -319,14 +329,17 @@ public class MyHttpClient extends DefaultHttpClient {
             throw new HomeAutomationException(jsonSyntaxException);
         }
 
-        this.getConnectionManager().shutdown();
+        if(shutdownAfterGettingInfo) {
+            shutdownConnectionManager();
+        }
+
 
         return result;
 
     }
 
 
-    public List<TrafficInformation> getTrafficInformation()  throws IOException, HomeAutomationException {
+    public List<TrafficInformation> getTrafficInformation(boolean shutdownAfterGettingInfo)  throws IOException, HomeAutomationException {
 
         HttpPost post = new HttpPost("https://" + URL_TO_USE + "/traffic/");
 
@@ -356,10 +369,16 @@ public class MyHttpClient extends DefaultHttpClient {
             throw new HomeAutomationException(jsonSyntaxException);
         }
 
-        this.getConnectionManager().shutdown();
+        if(shutdownAfterGettingInfo) {
+            shutdownConnectionManager();
+        }
 
         return result;
 
+    }
+
+    private void shutdownConnectionManager() {
+        this.getConnectionManager().shutdown();
     }
 
     /**
