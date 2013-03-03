@@ -26,8 +26,10 @@ public class TrafficNotificationService {
 
         String notificationTitle = "Traffic Information";
 
-        Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(notificationText));
-        PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, myIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
+//        Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(notificationText));
+        Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage("com.analyticadesign.eds");
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, launchIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
 
         notification.defaults |= Notification.DEFAULT_SOUND;
         notification.flags |= Notification.FLAG_AUTO_CANCEL;

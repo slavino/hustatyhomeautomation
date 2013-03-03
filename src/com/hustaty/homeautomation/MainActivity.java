@@ -2,6 +2,7 @@ package com.hustaty.homeautomation;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -16,6 +17,7 @@ import com.hustaty.homeautomation.receiver.ActivityBroadcastReceiver;
 import com.hustaty.homeautomation.receiver.AlarmManagerBroadcastReceiver;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
 
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends FragmentActivity {
@@ -73,8 +75,9 @@ public class MainActivity extends FragmentActivity {
 
         try {
             AlarmManagerBroadcastReceiver alarmManagerBroadcastReceiver = new AlarmManagerBroadcastReceiver();
-            registerReceiver(alarmManagerBroadcastReceiver, new IntentFilter(AlarmManagerBroadcastReceiver.LOCATION_UPDATE_INTENT));
-            Log.e(LOG_TAG, "#onCreate(): registering receiver for " + AlarmManagerBroadcastReceiver.LOCATION_UPDATE_INTENT);
+            alarmManagerBroadcastReceiver.cancelAlarm(this);
+            alarmManagerBroadcastReceiver.setAlarm(this);
+            Log.d(LOG_TAG, "#onCreate(): cancelling and setting Alarms");
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage());
         }
