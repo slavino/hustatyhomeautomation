@@ -98,6 +98,7 @@ public class MainActivity extends FragmentActivity {
             unregisterReceiver(this.activityBroadcastReceiver);
         } else {
             this.activityBroadcastReceiver = new ActivityBroadcastReceiver(this);
+            registerReceiver(activityBroadcastReceiver, new IntentFilter(AlarmManagerBroadcastReceiver.UI_LOCATION_UPDATE_INTENT));
             unregisterReceiver(this.activityBroadcastReceiver);
         }
         Log.d(LOG_TAG, "#onPause(): unregistering UI broadcastReceiver");
@@ -108,6 +109,9 @@ public class MainActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         Log.d(LOG_TAG, "#onResume(): registering UI broadcastReceiver");
+        if(this.activityBroadcastReceiver == null) {
+            this.activityBroadcastReceiver = new ActivityBroadcastReceiver(this);
+        }
         registerReceiver(this.activityBroadcastReceiver, new IntentFilter(AlarmManagerBroadcastReceiver.UI_LOCATION_UPDATE_INTENT));
     }
 
