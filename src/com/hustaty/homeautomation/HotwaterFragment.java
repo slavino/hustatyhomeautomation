@@ -59,7 +59,15 @@ public class HotwaterFragment extends Fragment {
         try {
             List<StoredEventResult> storedEventResultList = myHttpClient.getStoredEventResults(Appliance.HOTWATER);
             if(storedEventResultList.size() > 0){
-                //TODO
+                TextView hotWaterValiditiesTextView = (TextView)view.findViewById(R.id.hotwater_validities_textview);
+                StringBuilder stringBuilder = new StringBuilder();
+                for(StoredEventResult storedEventResult : storedEventResultList) {
+                    stringBuilder.append(storedEventResult.getValidFrom() + "-");
+                    stringBuilder.append(storedEventResult.getValidUntil() + " : ");
+                    stringBuilder.append(storedEventResult.getValueToPass());
+                }
+
+                hotWaterValiditiesTextView.setText(stringBuilder.toString());
             }
         } catch (IOException e) {
             Log.e(LOG_TAG, e.getMessage());
