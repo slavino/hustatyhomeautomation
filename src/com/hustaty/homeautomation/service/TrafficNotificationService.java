@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import com.hustaty.homeautomation.R;
 
 /**
@@ -14,6 +15,9 @@ import com.hustaty.homeautomation.R;
  * Time: 9:30 PM
  */
 public class TrafficNotificationService {
+
+    //Logging support.
+    private static final String LOG_TAG = TrafficNotificationService.class.getName();
 
     public TrafficNotificationService(Context context, String notificationText) {
 
@@ -28,6 +32,8 @@ public class TrafficNotificationService {
         notification.defaults |= Notification.DEFAULT_SOUND;
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         notification.setLatestEventInfo(context, notificationTitle, notificationText, pendingIntent);
+
+        Log.d(LOG_TAG, "#TrafficNotificationService(): " + notificationText);
 
         notificationManager.notify(notificationText.hashCode(), notification);
 
