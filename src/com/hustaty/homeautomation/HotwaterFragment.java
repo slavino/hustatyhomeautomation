@@ -64,7 +64,7 @@ public class HotwaterFragment extends Fragment {
                 for(StoredEventResult storedEventResult : storedEventResultList) {
                     stringBuilder.append(storedEventResult.getValidFrom() + "-");
                     stringBuilder.append(storedEventResult.getValidUntil() + " : ");
-                    stringBuilder.append(storedEventResult.getValueToPass() + "\n");
+                    stringBuilder.append(storedEventResult.getValueToPass().replace(Appliance.HOTWATER.getValue()+":","") + "\n");
                 }
 
                 hotWaterValiditiesTextView.setText(stringBuilder.toString());
