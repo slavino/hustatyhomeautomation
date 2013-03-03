@@ -180,11 +180,49 @@
             </TableRow>
         </TableLayout>
 
-        <TextView
-                android:id="@+id/hotwater_validities_textview"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tableLayout" />
+        <TableLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/rounded_shape_2"
+                android:layout_alignLeft="@+id/tableLayout"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="385dp"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:layout_height="28dp"
+                android:id="@+id/tableLayout2">
+            <TableRow android:layout_gravity="center"
+                      android:gravity="center">
+                <TextView
+                        android:id="@+id/text_save_reset"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@id/set_date_time"
+                        android:text="List entries"
+                        android:textStyle="bold"/>
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="420dp"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:id="@+id/tableLayout"
+                android:background="@drawable/rounded_shape">
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal" android:layout_column="0"
+                    android:layout_gravity="center_horizontal">
+                <TextView
+                        android:id="@+id/hotwater_validities_textview"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tableLayout"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"/>
+            </TableRow>
+        </TableLayout>
 
     </RelativeLayout>
 
