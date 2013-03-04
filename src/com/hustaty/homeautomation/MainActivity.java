@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.hustaty.homeautomation.receiver.ActivityBroadcastReceiver;
 import com.hustaty.homeautomation.receiver.AlarmManagerBroadcastReceiver;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
+import com.hustaty.homeautomation.util.LogUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -78,8 +79,10 @@ public class MainActivity extends FragmentActivity {
             alarmManagerBroadcastReceiver.cancelAlarm(this);
             alarmManagerBroadcastReceiver.setAlarm(this);
             Log.d(LOG_TAG, "#onCreate(): cancelling and setting Alarms");
+            LogUtil.appendLog(LOG_TAG + "#onCreate():  cancelling and setting Alarms");
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#onCreate(): " + e.getMessage());
         }
 
     }
@@ -114,6 +117,7 @@ public class MainActivity extends FragmentActivity {
             unregisterReceiver(this.activityBroadcastReceiver);
         }
         Log.d(LOG_TAG, "#onPause(): unregistering UI broadcastReceiver");
+        LogUtil.appendLog(LOG_TAG + "#onPause(): unregistering UI broadcastReceiver");
         super.onPause();
     }
 
@@ -121,6 +125,7 @@ public class MainActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         Log.d(LOG_TAG, "#onResume(): registering UI broadcastReceiver");
+        LogUtil.appendLog(LOG_TAG + "#onResume(): registering UI broadcastReceiver");
         if(this.activityBroadcastReceiver == null) {
             this.activityBroadcastReceiver = new ActivityBroadcastReceiver(this);
         }

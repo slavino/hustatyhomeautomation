@@ -15,6 +15,7 @@ import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.http.MyHttpClient;
 import com.hustaty.homeautomation.model.CommonResult;
 import com.hustaty.homeautomation.model.StoredEventResult;
+import com.hustaty.homeautomation.util.LogUtil;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -105,8 +106,10 @@ public class HotwaterFragment extends Fragment {
             }
         } catch (IOException e) {
             Log.e(LOG_TAG, e.getMessage());
+            LogUtil.appendLog(LOG_TAG + e.getMessage());
         } catch (HomeAutomationException e) {
             Log.e(LOG_TAG, e.getMessage());
+            LogUtil.appendLog(LOG_TAG + e.getMessage());
         }
 
         final ImageButton hotWaterSave = (ImageButton) view.findViewById(R.id.hotwater_save);
@@ -139,10 +142,13 @@ public class HotwaterFragment extends Fragment {
                 try {
                     CommonResult commonResult = myHttpClient.addStoredEvent(Appliance.HOTWATER, Command.HOTWATER_ON, calendar.getTime(), cal2.getTime(), true);
                     Toast.makeText(view.getContext(), commonResult.getResult(), Toast.LENGTH_LONG).show();
+                    LogUtil.appendLog(LOG_TAG + commonResult.getResult());
                 } catch (IOException e) {
                     Log.e(LOG_TAG, e.getMessage());
+                    LogUtil.appendLog(LOG_TAG + e.getMessage());
                 } catch (HomeAutomationException e) {
                     Log.e(LOG_TAG, e.getMessage());
+                    LogUtil.appendLog(LOG_TAG + e.getMessage());
                 }
             }
         });
@@ -155,10 +161,13 @@ public class HotwaterFragment extends Fragment {
                 try {
                     CommonResult commonResult = myHttpClient.removeStoredEvent(Appliance.HOTWATER, true);
                     Toast.makeText(view.getContext(), commonResult.getResult(), Toast.LENGTH_LONG).show();
+                    LogUtil.appendLog(LOG_TAG + commonResult.getResult());
                 } catch (IOException e) {
                     Log.e(LOG_TAG, e.getMessage());
+                    LogUtil.appendLog(LOG_TAG + e.getMessage());
                 } catch (HomeAutomationException e) {
                     Log.e(LOG_TAG, e.getMessage());
+                    LogUtil.appendLog(LOG_TAG + e.getMessage());
                 }
             }
         });

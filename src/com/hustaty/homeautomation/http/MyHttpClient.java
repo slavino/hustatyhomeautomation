@@ -18,6 +18,7 @@ import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.model.*;
 import com.hustaty.homeautomation.service.LocationService;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
+import com.hustaty.homeautomation.util.LogUtil;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -78,6 +79,8 @@ public class MyHttpClient extends DefaultHttpClient {
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "#MyHttpClient(): " + e.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#MyHttpClient(): " + e.getMessage());
+
         }
 
         URL_TO_USE = globalServerIP;
@@ -190,7 +193,9 @@ public class MyHttpClient extends DefaultHttpClient {
         ArduinoThermoServerStatus status = null;
         try {
             status = gson.fromJson(httpResponseText(response), ArduinoThermoServerStatus.class);
+            LogUtil.appendLog(LOG_TAG + "#getStoredEventResults(" + shutdownAfterGettingInfo + "): " + status);
         } catch (JsonSyntaxException jsonSyntaxException) {
+            LogUtil.appendLog(LOG_TAG + "#getThermoServerStatus(" + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage());
             throw new HomeAutomationException(jsonSyntaxException);
         }
 
@@ -239,7 +244,9 @@ public class MyHttpClient extends DefaultHttpClient {
         CommonResult result = null;
         try {
             result = gson.fromJson(httpResponseText(response), CommonResult.class);
+            LogUtil.appendLog(LOG_TAG + "#addStoredEvent(" + appliance.getValue() + "," + command.getValue() + "," + validFrom + "," + validUntil + "," + shutdownAfterGettingInfo + "): " + response);
         } catch (JsonSyntaxException jsonSyntaxException) {
+            LogUtil.appendLog(LOG_TAG + "#addStoredEvent(" + appliance.getValue() + "," + command.getValue() + "," + validFrom + "," + validUntil + "," + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage());
             throw new HomeAutomationException(jsonSyntaxException);
         }
 
@@ -280,7 +287,9 @@ public class MyHttpClient extends DefaultHttpClient {
         CommonResult result = null;
         try {
             result = gson.fromJson(httpResponseText(response), CommonResult.class);
+            LogUtil.appendLog(LOG_TAG + "#getStoredEventResults(" + appliance.getValue() + "," + shutdownAfterGettingInfo + "): " + result);
         } catch (JsonSyntaxException jsonSyntaxException) {
+            LogUtil.appendLog(LOG_TAG + "#removeStoredEvent(" + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage());
             throw new HomeAutomationException(jsonSyntaxException);
         }
 
@@ -325,7 +334,9 @@ public class MyHttpClient extends DefaultHttpClient {
 
         try {
             result = gson.fromJson(httpResponseText(response), arr);
+            LogUtil.appendLog(LOG_TAG + "#getStoredEventResults(" + appliance.getValue() + "," + shutdownAfterGettingInfo + "): " + result);
         } catch (JsonSyntaxException jsonSyntaxException) {
+            LogUtil.appendLog(LOG_TAG + "#getStoredEventResults(" + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage());
             throw new HomeAutomationException(jsonSyntaxException);
         }
 
@@ -365,7 +376,9 @@ public class MyHttpClient extends DefaultHttpClient {
 
         try {
             result = gson.fromJson(httpResponseText(response), arr);
+            LogUtil.appendLog(LOG_TAG + "#getTrafficInformation(" + shutdownAfterGettingInfo + "): " + result);
         } catch (JsonSyntaxException jsonSyntaxException) {
+            LogUtil.appendLog(LOG_TAG + "#getTrafficInformation(" + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage());
             throw new HomeAutomationException(jsonSyntaxException);
         }
 

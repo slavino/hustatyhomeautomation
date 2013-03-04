@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 import android.util.Log;
+import com.hustaty.homeautomation.util.LogUtil;
 
 public class LocationService {
 
@@ -22,6 +23,7 @@ public class LocationService {
         }
 
         Log.d(LOG_TAG, "#obtainCurrentLocation(): " + myLocation);
+        LogUtil.appendLog(LOG_TAG + "#obtainCurrentLocation(): " + myLocation);
 
 //        Intent intent = new Intent(AlarmManagerBroadcastReceiver.LOCATION_UPDATE_INTENT);
 //        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);

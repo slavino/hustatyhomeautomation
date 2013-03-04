@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.http.MyHttpClient;
 import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
+import com.hustaty.homeautomation.util.LogUtil;
 import org.apache.http.client.ClientProtocolException;
 
 import java.io.IOException;
@@ -40,6 +41,7 @@ public class StatusFragment extends Fragment {
             return null;
         } catch (ClientProtocolException e) {
             Log.e(LOG_TAG, e.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#onCreateView():" + e.getMessage());
         } catch (IOException e) {
             myHttpClient.useAnotherURL();
             try {
@@ -49,6 +51,7 @@ public class StatusFragment extends Fragment {
                 return null;
             } catch (IOException e1) {
                 Log.e(LOG_TAG, e1.getMessage());
+                LogUtil.appendLog(LOG_TAG + "#onCreateView():" + e1.getMessage());
             }
         }
 

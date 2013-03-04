@@ -15,6 +15,7 @@ import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
 import com.hustaty.homeautomation.model.TrafficInformation;
 import com.hustaty.homeautomation.service.LocationService;
 import com.hustaty.homeautomation.service.TrafficNotificationService;
+import com.hustaty.homeautomation.util.LogUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,10 +35,12 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
         if(Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             Log.d(LOG_TAG, "#onReceive(): BOOT_COMPLETED");
+            LogUtil.appendLog(LOG_TAG + "#onReceive(): BOOT_COMPLETED");
             LocationService.obtainCurrentLocation(context);
             setAlarm(context);
         } else {
             Log.d(LOG_TAG, "#onReceive(): " + intent.getAction());
+            LogUtil.appendLog(LOG_TAG + "#onReceive():" + intent.getAction());
             cancelAlarm(context);
             setAlarm(context);
         }
@@ -75,8 +78,10 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
         } catch (HomeAutomationException e) {
             Log.e(LOG_TAG, "#onStartCommand(): " + e.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#onStartCommand():" + e.getMessage());
         } catch (IOException e) {
             Log.e(LOG_TAG, "#onStartCommand(): " + e.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#onStartCommand():" + e.getMessage());
         }
 
         // Release the lock

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import com.hustaty.homeautomation.util.LogUtil;
 
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -49,6 +50,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#onCreate(): " + e.getMessage());
         } finally {
             editor.commit();
             findPreference("deviceID").setSummary(sp.getString("deviceID", getResources().getString(R.string.deviceID)));
@@ -78,6 +80,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     @Override
     protected void onStop() {
         Log.d(LOG_TAG, "#onStop()");
+        LogUtil.appendLog(LOG_TAG + "#onStop()");
         super.onStop();
     }
 }
