@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.hustaty.homeautomation.exception.HomeAutomationException;
@@ -18,6 +19,9 @@ import com.hustaty.homeautomation.service.TrafficNotificationService;
 import com.hustaty.homeautomation.util.LogUtil;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
@@ -72,8 +76,13 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             for(TrafficInformation trafficInformation : trafficInformationList) {
                 trafficInfoText.append(trafficInformation.getType() + ": " + trafficInformation.getDescription() + "\n");
             }
-            if(!("".equals(trafficInfoText))) {
-                new TrafficNotificationService(context, trafficInfoText.toString());
+            if(!("".equals(trafficInfoText.toString()))) {
+                Calendar cal = Calendar.getInstance();
+                Integer hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
+                boolean silentInfo = (hourOfDay < 7)  //not before 7a.m.
+                        || myHttpClient.getWifiInfo().getSSID()
+                            .equals(PreferenceManager.getDefaultSharedPreferences(context).getString("wifiSSID", "unknown"));
+                new TrafficNotificationService(context, trafficInfoText.toString(), silentInfo);
             }
 
         } catch (HomeAutomationException e) {

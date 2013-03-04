@@ -22,7 +22,7 @@
                 android:key="wifiSSID"
                 android:title="@string/wifissid_title"
                 android:summary="@string/wifissid_summary"
-                android:defaultValue="wtf_dpc"
+                android:defaultValue="defaultWiFiName"
                 android:editable="true"
                 android:inputType="textNoSuggestions"
                 />
