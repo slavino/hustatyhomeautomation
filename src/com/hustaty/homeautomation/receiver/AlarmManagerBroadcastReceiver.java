@@ -73,6 +73,10 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             List<TrafficInformation> trafficInformationList = myHttpClient.getTrafficInformation(true);
             StringBuilder trafficInfoText = new StringBuilder();
 
+            if(trafficInformationList.size() > 1) {
+                trafficInfoText.append("1/" + trafficInformationList.size() + " ");
+            }
+
             for(TrafficInformation trafficInformation : trafficInformationList) {
                 trafficInfoText.append(trafficInformation.getType() + ": " + trafficInformation.getDescription() + "\n");
             }
