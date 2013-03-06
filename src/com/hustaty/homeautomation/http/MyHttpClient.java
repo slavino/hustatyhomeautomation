@@ -353,13 +353,14 @@ public class MyHttpClient extends DefaultHttpClient {
 
     public List<TrafficInformation> getTrafficInformation(boolean shutdownAfterGettingInfo)  throws IOException, HomeAutomationException {
 
+        Location location = LocationService.obtainCurrentLocation(context);
+        double distance = attemptToGuessURL(location);
+
         HttpPost post = new HttpPost("https://" + URL_TO_USE + "/traffic/");
 
         post.addHeader("Host", URL_TO_USE);
         post.addHeader("User-Agent", "Hustaty Home Automation Android Client");
         post.addHeader("Connection", "Keep-Alive");
-
-        Location location = LocationService.obtainCurrentLocation(context);
 
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         if(location != null) {

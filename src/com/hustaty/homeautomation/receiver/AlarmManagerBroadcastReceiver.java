@@ -73,13 +73,11 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             List<TrafficInformation> trafficInformationList = myHttpClient.getTrafficInformation(true);
             StringBuilder trafficInfoText = new StringBuilder();
 
-            if(trafficInformationList.size() > 1) {
-                trafficInfoText.append("1/" + trafficInformationList.size() + " ");
-            }
-
             for(TrafficInformation trafficInformation : trafficInformationList) {
+                trafficInfoText.append("1/" + trafficInformationList.size() + " ");
                 trafficInfoText.append(trafficInformation.getType() + ": " + trafficInformation.getDescription() + "\n");
             }
+
             if(!("".equals(trafficInfoText.toString()))) {
                 Calendar cal = Calendar.getInstance();
                 Integer hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
