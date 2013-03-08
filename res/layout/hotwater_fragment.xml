@@ -200,29 +200,6 @@
             </TableRow>
         </TableLayout>
 
-        <!--<TableLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_marginTop="420dp"-->
-                <!--android:shrinkColumns="*"-->
-                <!--android:stretchColumns="*"-->
-                <!--android:id="@+id/tableLayout"-->
-                <!--android:background="@drawable/rounded_shape">-->
-            <!--<TableRow-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:gravity="center_horizontal" android:layout_column="0"-->
-                    <!--android:layout_gravity="center_horizontal">-->
-                <!--<TextView-->
-                        <!--android:id="@+id/hotwater_validities_textview"-->
-                        <!--android:layout_width="fill_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_below="@id/tableLayout"-->
-                        <!--android:layout_marginLeft="10dp"-->
-                        <!--android:layout_marginTop="10dp"/>-->
-            <!--</TableRow>-->
-        <!--</TableLayout>-->
-
         <!-- ListView (grid_items) -->
         <ListView android:id="@+id/listview"
                   android:layout_height="300dip"
