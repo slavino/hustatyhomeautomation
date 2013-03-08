@@ -75,27 +75,22 @@ public class HotwaterFragment extends Fragment {
                 ListView listView = (ListView)view.findViewById(R.id.listview);
 
                 String[] from = new String[]{
-                        "item_time_from",
                         "item_date_from",
-                        "item_date_to",
-                        "item_time_to",
+                        "item_date_until",
                         "item_status"};
                 int[] to = new int[]{
-                        R.id.item_time_from,
                         R.id.item_date_from,
-                        R.id.item_date_to,
-                        R.id.item_time_to,
+                        R.id.item_date_until,
                         R.id.item_status};
 
                 // prepare the list of all records
                 List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
-                for (int i = 0; i < 10; i++) {
+
+                for(StoredEventResult storedEventResult : storedEventResultList) {
                     HashMap<String, String> map = new HashMap<String, String>();
-                    map.put("item_time_from", "timeFrom_" + i);
-                    map.put("item_date_from", "dateFrom_" + i);
-                    map.put("item_date_to", "dateTo_" + i);
-                    map.put("item_time_to", "timeTo_" + i);
-                    map.put("item_status", "status_" + i);
+                    map.put("item_date_from", storedEventResult.getValidFrom().replace(" "," - "));
+                    map.put("item_date_until", storedEventResult.getValidUntil().replace(storedEventResult.getValidFrom().split(" ")[0],"-"));
+                    map.put("item_status", storedEventResult.getValueToPass().replace("HotWater:",""));
                     fillMaps.add(map);
                 }
 
