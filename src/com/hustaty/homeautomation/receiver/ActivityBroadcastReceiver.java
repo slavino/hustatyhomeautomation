@@ -31,9 +31,10 @@ public class ActivityBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if(this.activity != null) {
             Log.d(LOG_TAG, "#onReceive(): " + intent.getAction());
-            if(intent.hasExtra(AlarmManagerBroadcastReceiver.UI_EXTRA_ID)) {
-                String json = intent.getStringExtra(AlarmManagerBroadcastReceiver.UI_EXTRA_ID);
+            if(intent.hasExtra(AlarmManagerBroadcastReceiver.UI_INTENT_EXTRA_THERMOSTATUS_ID)) {
+                String json = intent.getStringExtra(AlarmManagerBroadcastReceiver.UI_INTENT_EXTRA_THERMOSTATUS_ID);
                 Log.d(LOG_TAG, json);
+
                 Gson gson = new Gson();
                 ArduinoThermoServerStatus thermoServerStatus = gson.fromJson(json, ArduinoThermoServerStatus.class);
 

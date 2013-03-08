@@ -44,16 +44,20 @@ public class ArduinoThermoServerStatus implements Serializable {
 
 	@SerializedName("reset")
 	private String reset;
-	
+
+    // outside
 	@SerializedName("t28F82D850400001F")
 	private String t28F82D850400001F;
-	
+
+    // bedroom
 	@SerializedName("t28B79F8504000082")
 	private String t28B79F8504000082;
-	
+
+    // upper lobby
 	@SerializedName("t28205B850400008B")
 	private String t28205B850400008B;
-	
+
+    // workroom
 	@SerializedName("t280F5B8504000019")
 	private String t280F5B8504000019;
 	
@@ -146,7 +150,8 @@ public class ArduinoThermoServerStatus implements Serializable {
 		this.reset = reset;
 	}
 
-	public String getT28F82D850400001F() {
+    // outside
+    public String getT28F82D850400001F() {
 		return t28F82D850400001F;
 	}
 
@@ -154,6 +159,7 @@ public class ArduinoThermoServerStatus implements Serializable {
 		t28F82D850400001F = t28f82d850400001f;
 	}
 
+    // bedroom
 	public String getT28B79F8504000082() {
 		return t28B79F8504000082;
 	}
@@ -162,6 +168,7 @@ public class ArduinoThermoServerStatus implements Serializable {
 		t28B79F8504000082 = t28b79f8504000082;
 	}
 
+    // upper lobby
 	public String getT28205B850400008B() {
 		return t28205B850400008B;
 	}
@@ -170,6 +177,7 @@ public class ArduinoThermoServerStatus implements Serializable {
 		t28205B850400008B = t28205b850400008b;
 	}
 
+    // workroom
 	public String getT280F5B8504000019() {
 		return t280F5B8504000019;
 	}

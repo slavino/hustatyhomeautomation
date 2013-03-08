@@ -25,12 +25,11 @@ public class TrafficNotificationService {
     public TrafficNotificationService(Context context, String notificationText, boolean silentNotification) {
 
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-//        Notification notification = new Notification(R.drawable.home, "Traffic: Police on way home!", System.currentTimeMillis());
 
         String notificationTitle = "Traffic Information";
 
         Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
-        Notification notification = new NotificationCompat.Builder(context).setContentTitle("Traffic: Police on way home!")
+        Notification notification = new NotificationCompat.Builder(context).setContentTitle("Traffic Information")
                 .setContentText(notificationTitle)
                 .setSmallIcon(R.drawable.home_notification)
                 .setLargeIcon(largeIcon)

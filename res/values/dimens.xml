@@ -12,4 +12,7 @@
     <dimen name="tableRowHeight" value="tableRowHeight">22dp</dimen>
 
     <dimen name="menu" value="menu">16dp</dimen>
+
+    <dimen name="widget_margin">8dp</dimen>
+
 </resources>

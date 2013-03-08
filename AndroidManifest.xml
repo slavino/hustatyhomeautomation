@@ -44,6 +44,17 @@
                 <action android:name="com.hustaty.homeautomation.LOCATION_UPDATE_INTENT" />
             </intent-filter>
         </receiver>
+
+        <receiver android:name="com.hustaty.homeautomation.receiver.MyAppWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.hustaty.homeautomation.UI_LOCATION_UPDATE_INTENT" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                       android:resource="@xml/widget" />
+
+        </receiver>
+
     </application>
 
 </manifest>

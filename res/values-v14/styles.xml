@@ -7,5 +7,5 @@
     <style value="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
     </style>
     -->
-
+    <dimen name="widget_margin">0dp</dimen>
 </resources>

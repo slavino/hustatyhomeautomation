@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/widget_margin"
+        android:background="@drawable/widget_background">
+
+    <LinearLayout
+            android:id="@+id/widget_layout_topElement"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:orientation="horizontal"
+            >
+
+        <!--Bedroom-->
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical">
+            <TextView
+                    android:id="@+id/widget_bedroom_temperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unknown_temperature"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/roomname_bedroom"/>
+        </LinearLayout>
+
+        <!--upper lobby-->
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical">
+            <TextView
+                    android:id="@+id/widget_upperlobby_temperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unknown_temperature"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/roomname_upperlobby"/>
+        </LinearLayout>
+
+        <!--work room-->
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical">
+            <TextView
+                    android:id="@+id/widget_workroom_temperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unknown_temperature"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/roomname_workroom"/>
+        </LinearLayout>
+
+        <!--outside-->
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical">
+            <TextView
+                    android:id="@+id/widget_outside_temperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unknown_temperature"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/roomname_outside"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="36dp"
+                  android:orientation="horizontal"
+                  android:layout_below="@id/widget_layout_topElement">
+        <TextView
+                android:id="@+id/widget_traffic_information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/unknown_value">
+        </TextView>
+    </LinearLayout>
+
+</RelativeLayout>

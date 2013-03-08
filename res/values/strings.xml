@@ -74,5 +74,7 @@
     <string name="reset">Reset</string>
 
     <string name="setup_hot_water">Setup hot water</string>
+    <string name="loading">Loading\u8230</string>
+    <string name="loadingLongText">Loading application, please wait\u8230</string>
 
 </resources>

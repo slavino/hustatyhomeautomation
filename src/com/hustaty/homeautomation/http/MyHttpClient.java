@@ -354,6 +354,8 @@ public class MyHttpClient extends DefaultHttpClient {
     public List<TrafficInformation> getTrafficInformation(boolean shutdownAfterGettingInfo)  throws IOException, HomeAutomationException {
 
         Location location = LocationService.obtainCurrentLocation(context);
+
+        //this is by default done in authentication but this part is allowed also for unauthenticated access
         double distance = attemptToGuessURL(location);
 
         HttpPost post = new HttpPost("https://" + URL_TO_USE + "/traffic/");

@@ -19,9 +19,7 @@ import com.hustaty.homeautomation.service.TrafficNotificationService;
 import com.hustaty.homeautomation.util.LogUtil;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
@@ -32,7 +30,9 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 	final public static String ONE_TIME = "onetime";
     final public static String LOCATION_UPDATE_INTENT = "com.hustaty.homeautomation.LOCATION_UPDATE_INTENT";
     final public static String UI_LOCATION_UPDATE_INTENT = "com.hustaty.homeautomation.UI_LOCATION_UPDATE_INTENT";
-    final public static String UI_EXTRA_ID = "arduinoThermoServerStatus";
+
+    final public static String UI_INTENT_EXTRA_THERMOSTATUS_ID = "arduinoThermoServerStatus";
+    final public static String UI_INTENT_EXTRA_TRAFFICINFO_ID = "trafficInformation";
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -64,13 +64,19 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         MyHttpClient myHttpClient = new MyHttpClient(context);
 
         try {
+
             ArduinoThermoServerStatus arduinoThermoServerStatus = myHttpClient.getThermoServerStatus(false);
+            List<TrafficInformation> trafficInformationList = myHttpClient.getTrafficInformation(true);
+
             Intent newIntent = new Intent(UI_LOCATION_UPDATE_INTENT);
+
             Gson gson = new Gson();
-            newIntent.putExtra(UI_EXTRA_ID, gson.toJson(arduinoThermoServerStatus));
+            newIntent.putExtra(UI_INTENT_EXTRA_THERMOSTATUS_ID, gson.toJson(arduinoThermoServerStatus));
+            if(trafficInformationList.size() > 0) {
+                newIntent.putExtra(UI_INTENT_EXTRA_TRAFFICINFO_ID, gson.toJson(trafficInformationList));
+            }
             context.sendBroadcast(newIntent);
 
-            List<TrafficInformation> trafficInformationList = myHttpClient.getTrafficInformation(true);
             StringBuilder trafficInfoText = new StringBuilder();
 
             for(TrafficInformation trafficInformation : trafficInformationList) {
