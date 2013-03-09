@@ -100,6 +100,12 @@
                   android:orientation="horizontal"
                   android:layout_below="@id/widget_layout_topElement"
                   android:layout_weight="4">
+        <ImageView
+                android:src="@drawable/police"
+                android:layout_width="26dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="2dp"/>
         <TextView
                 android:id="@+id/widget_traffic_information"
                 android:layout_width="match_parent"
