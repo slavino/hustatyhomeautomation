@@ -24,6 +24,7 @@
                     android:id="@+id/widget_bedroom_temperature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/unknown_temperature"/>
             <TextView
@@ -44,6 +45,7 @@
                     android:id="@+id/widget_upperlobby_temperature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/unknown_temperature"/>
             <TextView
@@ -64,6 +66,7 @@
                     android:id="@+id/widget_workroom_temperature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/unknown_temperature"/>
             <TextView
@@ -84,6 +87,7 @@
                     android:id="@+id/widget_outside_temperature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/unknown_temperature"/>
             <TextView
@@ -110,6 +114,7 @@
                 android:id="@+id/widget_traffic_information"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
                 android:text="@string/unknown_value">
         </TextView>
     </LinearLayout>
