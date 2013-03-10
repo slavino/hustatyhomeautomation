@@ -19,10 +19,7 @@ import com.hustaty.homeautomation.util.LogUtil;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: llisivko
@@ -154,6 +151,15 @@ public class HotwaterFragment extends Fragment {
                     Log.e(LOG_TAG, e.getMessage());
                     LogUtil.appendLog(LOG_TAG + e.getMessage());
                 }
+            }
+        });
+
+        ImageButton setCurrentTime = (ImageButton) view.findViewById(R.id.set_current_date_time);
+        setCurrentTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calendar.setTime(new Date());
+                hotWaterValidFrom.setText(sdf.format(calendar.getTime()));
             }
         });
 

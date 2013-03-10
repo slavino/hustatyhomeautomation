@@ -15,4 +15,5 @@
 
     <dimen name="widget_margin">8dp</dimen>
 
+    <dimen name="tableLayoutTopMargin">7dp</dimen>
 </resources>

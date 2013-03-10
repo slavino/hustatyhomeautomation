@@ -7,21 +7,20 @@
     <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#fff"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin">
+
         <TableLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/rounded_shape_2"
-                android:layout_alignLeft="@+id/tableLayout"
-                android:layout_alignParentTop="true"
                 android:layout_marginTop="0dp"
                 android:gravity="center|center_vertical|center_horizontal"
                 android:layout_height="28dp"
-                android:id="@+id/tableLayout2">
+                android:id="@+id/tableLayout1">
             <TableRow android:layout_gravity="center"
                       android:gravity="center">
                 <TextView
@@ -34,49 +33,75 @@
 
         <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginTop="35dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
-                android:id="@+id/tableLayout"
+                android:id="@+id/tableLayout2"
+                android:layout_below="@id/tableLayout1"
                 android:background="@drawable/rounded_shape">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="0"
-                    android:layout_gravity="center_horizontal">
+                    android:gravity="center_horizontal"
+                    android:layout_column="0"
+                    android:layout_gravity="center_horizontal"
+                    android:weightSum="2">
                 <EditText
                         android:id="@+id/hotwater_date_from"
-                        android:layout_width="wrap_content"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:clickable="false"
                         android:editable="false"
                         android:focusable="false"
-                        android:text="YYYY-mm-dd HH:mm:ss" android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"/>
+                        android:text="YYYY-mm-dd HH:mm:ss"
+                        android:gravity="center_horizontal"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="2"/>
+            </TableRow>
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_column="0"
+                    android:layout_gravity="center_horizontal"
+                    android:weightSum="2">
                 <ImageButton
                         android:id="@+id/set_date_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/hotwater_date_from"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:src="@drawable/clock1"
+                        android:scaleType="centerInside"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginTop="10dp" android:layout_marginRight="5dp"/>
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"/>
+                <ImageButton
+                        android:id="@+id/set_current_date_time"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/clock"
+                        android:scaleType="centerInside"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"/>
             </TableRow>
         </TableLayout>
-
 
         <!--Validity-->
         <TableLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/rounded_shape_2"
-                android:layout_alignLeft="@+id/tableLayout"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="140dp"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:gravity="center|center_vertical|center_horizontal"
                 android:layout_height="28dp"
-                android:id="@+id/tableLayout2">
+                android:layout_below="@id/tableLayout2"
+                android:id="@+id/tableLayout3">
             <TableRow android:layout_gravity="center"
                       android:gravity="center">
                 <TextView
@@ -92,15 +117,17 @@
         <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="175dp"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
-                android:id="@+id/tableLayout"
+                android:id="@+id/tableLayout4"
+                android:layout_below="@id/tableLayout3"
                 android:background="@drawable/rounded_shape">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="0"
+                    android:gravity="center_horizontal"
+                    android:layout_column="0"
                     android:layout_gravity="center_horizontal">
                 <EditText
                         android:id="@+id/hotwater_validity"
@@ -110,7 +137,9 @@
                         android:layout_below="@id/set_date_time"
                         android:singleLine="true"
                         android:editable="true"
-                        android:text="60" android:layout_marginLeft="10dp" android:layout_marginTop="10dp"
+                        android:text="60"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
                         android:layout_margin="10dp"
                         android:inputType="number"/>
                 <TextView
@@ -119,21 +148,22 @@
                         android:layout_width="wrap_content"
                         android:layout_below="@id/set_date_time"
                         android:layout_toRightOf="@id/hotwater_validity"
-                        android:text=" minutes" android:layout_margin="10dp"/>
+                        android:text=" minutes"
+                        android:layout_margin="10dp"/>
             </TableRow>
         </TableLayout>
 
         <TableLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/rounded_shape_2"
-                android:layout_alignLeft="@+id/tableLayout"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="255dp"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:gravity="center|center_vertical|center_horizontal"
                 android:layout_height="28dp"
-                android:id="@+id/tableLayout2">
-            <TableRow android:layout_gravity="center"
-                      android:gravity="center">
+                android:layout_below="@id/tableLayout4"
+                android:id="@+id/tableLayout5">
+            <TableRow
+                    android:layout_gravity="center"
+                    android:gravity="center">
                 <TextView
                         android:id="@+id/text_save_reset"
                         android:layout_height="wrap_content"
@@ -147,15 +177,17 @@
         <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="290dp"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
-                android:id="@+id/tableLayout"
+                android:id="@+id/tableLayout6"
+                android:layout_below="@id/tableLayout5"
                 android:background="@drawable/rounded_shape">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="0"
+                    android:gravity="center_horizontal"
+                    android:layout_column="0"
                     android:layout_gravity="center_horizontal">
                 <!--Save-->
                 <ImageButton
@@ -165,8 +197,11 @@
                         android:layout_centerHorizontal="true"
                         android:layout_below="@id/hotwater_validity"
                         android:src="@android:drawable/ic_menu_save"
-                        android:text="@string/save" android:layout_marginLeft="10dp" android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp" android:layout_marginBottom="10dp"/>
+                        android:text="@string/save"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"/>
                 <!--Reset-->
                 <ImageButton
                         android:id="@+id/hotwater_reset"
@@ -175,21 +210,22 @@
                         android:layout_centerHorizontal="true"
                         android:layout_below="@id/hotwater_save"
                         android:src="@android:drawable/ic_menu_delete"
-                        android:text="@string/reset" android:layout_margin="10dp"/>
+                        android:text="@string/reset"
+                        android:layout_margin="10dp"/>
             </TableRow>
         </TableLayout>
 
         <TableLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/rounded_shape_2"
-                android:layout_alignLeft="@+id/tableLayout"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="385dp"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:gravity="center|center_vertical|center_horizontal"
                 android:layout_height="28dp"
-                android:id="@+id/tableLayout2">
-            <TableRow android:layout_gravity="center"
-                      android:gravity="center">
+                android:layout_below="@id/tableLayout6"
+                android:id="@+id/tableLayout7">
+            <TableRow
+                    android:layout_gravity="center"
+                    android:gravity="center">
                 <TextView
                         android:id="@+id/text_save_reset"
                         android:layout_height="wrap_content"
@@ -202,9 +238,9 @@
 
         <!-- ListView (grid_items) -->
         <ListView android:id="@+id/listview"
-                  android:layout_height="300dip"
+                  android:layout_height="300dp"
                   android:layout_width="match_parent"
-                  android:layout_below="@id/tableLayout2">
+                  android:layout_below="@id/tableLayout7">
         </ListView>
 
     </RelativeLayout>
