@@ -159,6 +159,7 @@ public class HotwaterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 calendar.setTime(new Date());
+                calendar.set(Calendar.SECOND, 0);
                 hotWaterValidFrom.setText(sdf.format(calendar.getTime()));
             }
         });
