@@ -85,6 +85,14 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
                     RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
                     if (arduinoThermoServerStatus != null) {
 
+                        if ("1".equals(arduinoThermoServerStatus.getSecurityArmed())) {
+                            remoteViews.setImageViewResource(R.id.widgetLeftIcon, R.drawable.home_alarm_state_locked);
+                        } else if ("0".equals(arduinoThermoServerStatus.getSecurityArmed())) {
+                            remoteViews.setImageViewResource(R.id.widgetLeftIcon, R.drawable.home_alarm_state_unlocked);
+                        } else {
+                            remoteViews.setImageViewResource(R.id.widgetLeftIcon, R.drawable.home_alarm_state_unknown);
+                        }
+
                         if (arduinoThermoServerStatus.getT28B79F8504000082() != null) {
                             remoteViews.setTextViewText(R.id.widget_bedroom_temperature, arduinoThermoServerStatus.getT28B79F8504000082() + "\u00b0C");
                         } else {
@@ -113,6 +121,7 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM. HH:mm:ss");
 
                     StringBuilder stringBuilder = new StringBuilder();
+
                     if (trafficInformationList != null) {
                         for (TrafficInformation ti : trafficInformationList) {
                             stringBuilder.append(ti.getType() + ": ");

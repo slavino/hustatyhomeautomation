@@ -105,7 +105,8 @@
                   android:layout_below="@id/widget_layout_topElement"
                   android:layout_weight="4">
         <ImageView
-                android:src="@drawable/police"
+                android:id="@+id/widgetLeftIcon"
+                android:src="@drawable/home_alarm_state_unknown"
                 android:layout_width="26dp"
                 android:layout_height="36dp"
                 android:layout_marginTop="2dp"

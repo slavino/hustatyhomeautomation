@@ -60,7 +60,34 @@ public class ArduinoThermoServerStatus implements Serializable {
     // workroom
 	@SerializedName("t280F5B8504000019")
 	private String t280F5B8504000019;
-	
+
+    @SerializedName("ARM")
+    private String securityArmed;
+
+    @SerializedName("ALM")
+    private String securityAlarm;
+
+    @SerializedName("FIR")
+    private String securityFire;
+
+    @SerializedName("TMP")
+    private String securityTamper;
+
+    @SerializedName("PNC")
+    private String securityPanic;
+
+    @SerializedName("FLT")
+    private String securityFault;
+
+    @SerializedName("AC")
+    private String securityPowerSupply;
+
+    @SerializedName("LB")
+    private String securityLowBattery;
+
+    @SerializedName("PGY")
+    private String securityPgY;
+
 	public String getLastCommunicationFromArduino() {
 		return lastCommunicationFromArduino;
 	}
@@ -185,5 +212,76 @@ public class ArduinoThermoServerStatus implements Serializable {
 	public void setT280F5B8504000019(String t280f5b8504000019) {
 		t280F5B8504000019 = t280f5b8504000019;
 	}
-	
+
+    public String getSecurityArmed() {
+        return securityArmed;
+    }
+
+    public void setSecurityArmed(String securityArmed) {
+        this.securityArmed = securityArmed;
+    }
+
+    public String getSecurityAlarm() {
+        return securityAlarm;
+    }
+
+    public void setSecurityAlarm(String securityAlarm) {
+        this.securityAlarm = securityAlarm;
+    }
+
+    public String getSecurityFire() {
+        return securityFire;
+    }
+
+    public void setSecurityFire(String securityFire) {
+        this.securityFire = securityFire;
+    }
+
+    public String getSecurityTamper() {
+        return securityTamper;
+    }
+
+    public void setSecurityTamper(String securityTamper) {
+        this.securityTamper = securityTamper;
+    }
+
+    public String getSecurityPanic() {
+        return securityPanic;
+    }
+
+    public void setSecurityPanic(String securityPanic) {
+        this.securityPanic = securityPanic;
+    }
+
+    public String getSecurityFault() {
+        return securityFault;
+    }
+
+    public void setSecurityFault(String securityFault) {
+        this.securityFault = securityFault;
+    }
+
+    public String getSecurityPowerSupply() {
+        return securityPowerSupply;
+    }
+
+    public void setSecurityPowerSupply(String securityPowerSupply) {
+        this.securityPowerSupply = securityPowerSupply;
+    }
+
+    public String getSecurityLowBattery() {
+        return securityLowBattery;
+    }
+
+    public void setSecurityLowBattery(String securityLowBattery) {
+        this.securityLowBattery = securityLowBattery;
+    }
+
+    public String getSecurityPgY() {
+        return securityPgY;
+    }
+
+    public void setSecurityPgY(String securityPgY) {
+        this.securityPgY = securityPgY;
+    }
 }
