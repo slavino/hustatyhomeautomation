@@ -97,13 +97,13 @@ public class StatusFragment extends Fragment {
             TextView securitySystemStatus = (TextView) view.findViewById(R.id.textView_security_system_armed);
             securitySystemStatus.setText(
                     "ARMED: " + thermoServerStatus.getSecurityArmed()
-                    + "\tALARM: " + thermoServerStatus.getSecurityAlarm()
+                    + "        ALARM: " + thermoServerStatus.getSecurityAlarm()
                     + "\nFAULT: " + thermoServerStatus.getSecurityFault()
-                    + "\tFIRE: " + thermoServerStatus.getSecurityFire()
+                    + "        FIRE: " + thermoServerStatus.getSecurityFire()
                     + "\nLOW BATTERY: " + thermoServerStatus.getSecurityLowBattery()
-                    + "\tPANIC: " + thermoServerStatus.getSecurityPanic()
+                    + "        PANIC: " + thermoServerStatus.getSecurityPanic()
                     + "\nPOWER: " + thermoServerStatus.getSecurityPowerSupply()
-                    + "\tTAMPER: " + thermoServerStatus.getSecurityTamper()
+                    + "        TAMPER: " + thermoServerStatus.getSecurityTamper()
                     + "\nPgY: " + thermoServerStatus.getSecurityPgY()
             ) ;
 
