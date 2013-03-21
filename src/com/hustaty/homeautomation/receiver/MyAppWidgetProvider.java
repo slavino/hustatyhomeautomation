@@ -6,6 +6,9 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.util.Log;
 import android.widget.RemoteViews;
 import com.google.gson.Gson;
@@ -19,6 +22,7 @@ import com.hustaty.homeautomation.model.TrafficInformation;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -91,6 +95,13 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
                             remoteViews.setImageViewResource(R.id.widgetLeftIcon, R.drawable.home_alarm_state_unlocked);
                         } else {
                             remoteViews.setImageViewResource(R.id.widgetLeftIcon, R.drawable.home_alarm_state_unknown);
+                            MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.nice_cut);
+                            mediaPlayer.start();
+                        }
+
+                        if("1".equals(arduinoThermoServerStatus.getSecurityAlarm())) {
+                            MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.nice_cut);
+                            mediaPlayer.start();
                         }
 
                         if (arduinoThermoServerStatus.getT28B79F8504000082() != null) {

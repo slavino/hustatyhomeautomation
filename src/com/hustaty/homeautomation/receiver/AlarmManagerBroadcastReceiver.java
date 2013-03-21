@@ -79,8 +79,9 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
             StringBuilder trafficInfoText = new StringBuilder();
 
+            int counter = 1;
             for(TrafficInformation trafficInformation : trafficInformationList) {
-                trafficInfoText.append("1/" + trafficInformationList.size() + " ");
+                trafficInfoText.append((counter++) + "/" + trafficInformationList.size() + " ");
                 trafficInfoText.append(trafficInformation.getType() + ": " + trafficInformation.getDescription() + "\n");
             }
 
@@ -88,8 +89,12 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
                 Calendar cal = Calendar.getInstance();
                 Integer hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
                 boolean silentInfo = (hourOfDay < 7)  //not before 7a.m.
-                        || myHttpClient.getWifiInfo().getSSID()
-                            .equals(PreferenceManager.getDefaultSharedPreferences(context).getString("wifiSSID", "unknown"));
+                        || (
+                        myHttpClient != null
+                                && myHttpClient.getWifiInfo() != null
+                                && PreferenceManager.getDefaultSharedPreferences(context).getString("wifiSSID", "unknown").equals(myHttpClient.getWifiInfo().getSSID())
+
+                );
                 new TrafficNotificationService(context, trafficInfoText.toString(), silentInfo);
             }
 
