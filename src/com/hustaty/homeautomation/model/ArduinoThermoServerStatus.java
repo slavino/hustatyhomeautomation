@@ -61,6 +61,10 @@ public class ArduinoThermoServerStatus implements Serializable {
 	@SerializedName("t280F5B8504000019")
 	private String t280F5B8504000019;
 
+    // entrance lobby
+    @SerializedName("t28F1E685040000DB")
+    private String t28F1E685040000DB;
+
     @SerializedName("ARM")
     private String securityArmed;
 
@@ -212,6 +216,15 @@ public class ArduinoThermoServerStatus implements Serializable {
 	public void setT280F5B8504000019(String t280f5b8504000019) {
 		t280F5B8504000019 = t280f5b8504000019;
 	}
+
+    // entrance lobby
+    public String getT28F1E685040000DB() {
+        return t28F1E685040000DB;
+    }
+
+    public void setT28F1E685040000DB(String t28F1E685040000DB) {
+        this.t28F1E685040000DB = t28F1E685040000DB;
+    }
 
     public String getSecurityArmed() {
         return securityArmed;

@@ -41,10 +41,11 @@
     <string name="homelongitude_summary">Your home GPS longitude in XY.ZZZZZZ format</string>
     <string name="device_information_category_title">Device information</string>
     <string name="deviceID">Device ID</string>
-    <string name="roomname_upperlobby">Horná chodba</string>
+    <string name="roomname_upperlobby">Hor.chodba</string>
     <string name="roomname_bedroom">Spálňa</string>
     <string name="roomname_outside">Vonku</string>
     <string name="roomname_workroom">Pracovňa</string>
+    <string name="roomname_entrancelobby">Vchod</string>
     <string name="unknown_temperature">--.-- \u00b0C</string>
 
     <string name="temperatures">Temperatures</string>
