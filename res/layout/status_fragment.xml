@@ -33,7 +33,7 @@
 
         <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="126dp"
+                android:layout_height="195dp"
                 android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
@@ -121,6 +121,52 @@
                           android:layout_gravity="center_horizontal"/>
                 <TextView android:id="@+id/textView_roomname_outside"
                           android:text="@string/roomname_outside"
+                          android:layout_height="wrap_content"
+                          android:layout_width="wrap_content"
+                          android:textStyle="bold"
+                          android:textSize="@dimen/roomNameMainActivityFontSize"
+                          android:layout_gravity="center_horizontal"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                        android:layout_gravity="center_horizontal"></TextView>
+                <TextView
+                        android:layout_gravity="center_horizontal"></TextView>
+            </TableRow>
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_column="0">
+                <TextView android:id="@+id/textView_roomtemp_entrancehall"
+                          android:text="@string/unknown_temperature"
+                          style="TemperatureMainScreen"
+                          android:layout_height="wrap_content"
+                          android:layout_width="fill_parent"
+                          android:textSize="@dimen/tempMainActivityFontSize"
+                          android:layout_gravity="center_horizontal"/>
+                <TextView android:id="@+id/textView_roomtemp_undefined"
+                          android:text="@string/unknown_temperature"
+                          style="TemperatureMainScreen"
+                          android:layout_height="wrap_content"
+                          android:layout_width="fill_parent"
+                          android:textSize="@dimen/tempMainActivityFontSize"
+                          android:layout_gravity="center_horizontal"/>
+            </TableRow>
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_column="1">
+                <TextView android:id="@+id/textView_roomname_entrancehall"
+                          android:text="@string/roomname_entrancehall"
+                          android:layout_height="wrap_content"
+                          android:layout_width="wrap_content"
+                          android:textStyle="bold"
+                          android:textSize="@dimen/roomNameMainActivityFontSize"
+                          android:layout_gravity="center_horizontal"/>
+                <TextView android:id="@+id/textView_roomname_undefined"
+                          android:text="@string/roomname_undefined"
                           android:layout_height="wrap_content"
                           android:layout_width="wrap_content"
                           android:textStyle="bold"
@@ -448,6 +494,46 @@
                     android:layout_column="1">
                 <TextView
                         android:id="@+id/textView_last_communication_from_arduino_val"
+                        android:text="@string/unknown_value"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center"/>
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/rounded_shape_2"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
+                android:gravity="center|center_vertical|center_horizontal"
+                android:layout_height="40dp"
+                android:layout_below="@id/statustableLayout14"
+                android:id="@+id/statustableLayout15">
+            <TableRow android:layout_gravity="center"
+                      android:gravity="center">
+                <TextView
+                        android:text="@string/security_system_status"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/menu"/>
+            </TableRow>
+        </TableLayout>
+
+        <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="91dp"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:background="@drawable/rounded_shape"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
+                android:layout_below="@id/statustableLayout15"
+                android:id="@+id/statustableLayout16">
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_column="1">
+                <TextView
+                        android:id="@+id/textView_security_system_armed"
                         android:text="@string/unknown_value"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"

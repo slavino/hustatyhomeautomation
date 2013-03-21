@@ -77,5 +77,8 @@
     <string name="setup_hot_water">Setup hot water</string>
     <string name="loading">Loading\u8230</string>
     <string name="loadingLongText">Loading application, please wait\u8230</string>
+    <string name="roomname_entrancehall">Vchod</string>
+    <string name="roomname_undefined"/>
+    <string name="security_system_status">Security system</string>
 
 </resources>
