@@ -9,7 +9,8 @@ public enum Appliance {
 
     HOTWATER("HotWater"),
     HEATING("Heating"),
-    HEATING_INTERRUPT("HeatingInterrupt");
+    HEATING_INTERRUPT("HeatingInterrupt"),
+    HEATING_PUMP("HeatingPump");
 
     private String value;
 

@@ -12,7 +12,9 @@ public enum Command {
     HEATING_ON("heatingON"),
     HEATING_OFF("heatingOFF"),
     HEATINGINTERRUPT_ON("heatingInterruptON"),
-    HEATINGINTERRUPT_OFF("heatingInterruptOFF");
+    HEATINGINTERRUPT_OFF("heatingInterruptOFF"),
+    HEATINGPUMP_ON("heatingPumpON"),
+    HEATINGPUMP_OFF("heatingPumpOFF");
 
     private String value;
 
