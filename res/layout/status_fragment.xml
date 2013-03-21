@@ -7,7 +7,7 @@
     <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#fff"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -17,39 +17,46 @@
         <TableLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/rounded_shape_2"
-                android:layout_alignLeft="@+id/tableLayout"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:gravity="center|center_vertical|center_horizontal"
-                android:layout_height="28dp" android:id="@+id/tableLayout2">
-            <TableRow android:layout_gravity="center" android:gravity="center">
+                android:layout_height="28dp"
+                android:id="@+id/statustableLayout">
+            <TableRow android:layout_gravity="center"
+                      android:gravity="center">
                 <TextView
                         android:id="@+id/textView_temperatures"
                         android:text="@string/temperatures"
-                        android:textStyle="bold" android:textSize="@dimen/menu"/>
+                        android:textStyle="bold"
+                        android:textSize="@dimen/menu"/>
             </TableRow>
         </TableLayout>
 
         <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="126dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
-                android:id="@+id/tableLayout"
+                android:layout_below="@id/statustableLayout"
+                android:id="@+id/statustableLayout2"
                 android:background="@drawable/rounded_shape">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="0"
+                    android:gravity="center_horizontal"
+                    android:layout_column="0"
                     android:layout_gravity="center_horizontal">
-                <TextView android:id="@+id/textView_roomtemp_bedroom" android:text="@string/unknown_temperature"
-                          style="TemperatureMainScreen" android:layout_height="wrap_content"
+                <TextView android:id="@+id/textView_roomtemp_bedroom"
+                          android:text="@string/unknown_temperature"
+                          style="TemperatureMainScreen"
+                          android:layout_height="wrap_content"
                           android:layout_width="fill_parent"
                           android:textSize="@dimen/tempMainActivityFontSize"
                           android:layout_gravity="center_horizontal"/>
-                <TextView android:id="@+id/textView_roomtemp_upperlobby" android:text="@string/unknown_temperature"
-                          style="TemperatureMainScreen" android:layout_height="fill_parent"
+                <TextView android:id="@+id/textView_roomtemp_upperlobby"
+                          android:text="@string/unknown_temperature"
+                          style="TemperatureMainScreen"
+                          android:layout_height="fill_parent"
                           android:layout_width="fill_parent"
                           android:textSize="@dimen/tempMainActivityFontSize"
                           android:layout_gravity="center_horizontal"/>
@@ -57,33 +64,45 @@
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="1">
-                <TextView android:id="@+id/textView_roomname_bedroom" android:text="@string/roomname_bedroom"
-                          android:layout_height="wrap_content" android:layout_width="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_column="1">
+                <TextView android:id="@+id/textView_roomname_bedroom"
+                          android:text="@string/roomname_bedroom"
+                          android:layout_height="wrap_content"
+                          android:layout_width="wrap_content"
                           android:textStyle="bold"
                           android:textSize="@dimen/roomNameMainActivityFontSize"
                           android:layout_gravity="center_horizontal"/>
-                <TextView android:id="@+id/textView_roomname_upperlobby" android:text="@string/roomname_upperlobby"
-                          android:layout_height="wrap_content" android:layout_width="wrap_content"
+                <TextView android:id="@+id/textView_roomname_upperlobby"
+                          android:text="@string/roomname_upperlobby"
+                          android:layout_height="wrap_content"
+                          android:layout_width="wrap_content"
                           android:textStyle="bold"
                           android:textSize="@dimen/roomNameMainActivityFontSize"
                           android:layout_gravity="center_horizontal"/>
             </TableRow>
             <TableRow>
-                <TextView android:layout_gravity="center_horizontal"></TextView>
-                <TextView android:layout_gravity="center_horizontal"></TextView>
+                <TextView
+                        android:layout_gravity="center_horizontal"></TextView>
+                <TextView
+                        android:layout_gravity="center_horizontal"></TextView>
             </TableRow>
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="0">
-                <TextView android:id="@+id/textView_roomtemp_workroom" android:text="@string/unknown_temperature"
-                          style="TemperatureMainScreen" android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_column="0">
+                <TextView android:id="@+id/textView_roomtemp_workroom"
+                          android:text="@string/unknown_temperature"
+                          style="TemperatureMainScreen"
+                          android:layout_height="wrap_content"
                           android:layout_width="fill_parent"
                           android:textSize="@dimen/tempMainActivityFontSize"
                           android:layout_gravity="center_horizontal"/>
-                <TextView android:id="@+id/textView_roomtemp_outside" android:text="@string/unknown_temperature"
-                          style="TemperatureMainScreen" android:layout_height="wrap_content"
+                <TextView android:id="@+id/textView_roomtemp_outside"
+                          android:text="@string/unknown_temperature"
+                          style="TemperatureMainScreen"
+                          android:layout_height="wrap_content"
                           android:layout_width="fill_parent"
                           android:textSize="@dimen/tempMainActivityFontSize"
                           android:layout_gravity="center_horizontal"/>
@@ -91,14 +110,19 @@
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="1">
-                <TextView android:id="@+id/textView_roomname_workroom" android:text="@string/roomname_workroom"
-                          android:layout_height="wrap_content" android:layout_width="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_column="1">
+                <TextView android:id="@+id/textView_roomname_workroom"
+                          android:text="@string/roomname_workroom"
+                          android:layout_height="wrap_content"
+                          android:layout_width="wrap_content"
                           android:textStyle="bold"
                           android:textSize="@dimen/roomNameMainActivityFontSize"
                           android:layout_gravity="center_horizontal"/>
-                <TextView android:id="@+id/textView_roomname_outside" android:text="@string/roomname_outside"
-                          android:layout_height="wrap_content" android:layout_width="wrap_content"
+                <TextView android:id="@+id/textView_roomname_outside"
+                          android:text="@string/roomname_outside"
+                          android:layout_height="wrap_content"
+                          android:layout_width="wrap_content"
                           android:textStyle="bold"
                           android:textSize="@dimen/roomNameMainActivityFontSize"
                           android:layout_gravity="center_horizontal"/>
@@ -108,17 +132,19 @@
         <TableLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/rounded_shape_2"
-                android:layout_alignLeft="@+id/tableLayout"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="180dp"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:gravity="center|center_vertical|center_horizontal"
-                android:layout_height="28dp" android:id="@+id/tableLayout2">
-        <TableRow android:layout_gravity="center" android:gravity="center">
-            <TextView
-                    android:id="@+id/textView_thermostat"
-                    android:text="@string/thermostat"
-                    android:textStyle="bold" android:textSize="@dimen/menu"/>
-        </TableRow>
+                android:layout_height="28dp"
+                android:layout_below="@id/statustableLayout2"
+                android:id="@+id/statustableLayout3">
+            <TableRow android:layout_gravity="center"
+                      android:gravity="center">
+                <TextView
+                        android:id="@+id/textView_thermostat"
+                        android:text="@string/thermostat"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/menu"/>
+            </TableRow>
         </TableLayout>
 
         <TableLayout
@@ -126,50 +152,53 @@
                 android:layout_height="81dp"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
-                android:id="@+id/tableLayout"
                 android:background="@drawable/rounded_shape"
-                android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
-                android:layout_marginTop="215dp">
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
+                android:layout_below="@id/statustableLayout3"
+                android:id="@+id/statustableLayout4">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="0"
+                    android:gravity="center_horizontal"
+                    android:layout_column="0"
                     android:layout_gravity="center_horizontal">
                 <TextView
-                    android:id="@+id/textView_thermostat_1"
-                    android:text="@string/thermostat_1"
-                    android:layout_height="wrap_content"
-                    android:layout_width="fill_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:textStyle="bold"/>
+                        android:id="@+id/textView_thermostat_1"
+                        android:text="@string/thermostat_1"
+                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:textStyle="bold"/>
                 <TextView
-                    android:id="@+id/textView_thermostat_2"
-                    android:text="@string/thermostat_2"
-                    android:layout_width="fill_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:textStyle="bold"/>
+                        android:id="@+id/textView_thermostat_2"
+                        android:text="@string/thermostat_2"
+                        android:layout_width="fill_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:textStyle="bold"/>
             </TableRow>
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="1">
+                    android:gravity="center_horizontal"
+                    android:layout_column="1">
                 <TextView
-                    android:id="@+id/textView_thermostat_1_val"
-                    android:text="@string/unknown_value"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center_horizontal"/>
+                        android:id="@+id/textView_thermostat_1_val"
+                        android:text="@string/unknown_value"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center_horizontal"/>
                 <TextView
-                    android:id="@+id/textView_thermostat_2_val"
-                    android:text="@string/unknown_value"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center_horizontal"/>
+                        android:id="@+id/textView_thermostat_2_val"
+                        android:text="@string/unknown_value"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center_horizontal"/>
             </TableRow>
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="0"
+                    android:gravity="center_horizontal"
+                    android:layout_column="0"
                     android:layout_gravity="center_horizontal">
                 <TextView
                         android:id="@+id/textView_heating_supply"
@@ -178,35 +207,39 @@
                         android:layout_width="fill_parent"
                         android:layout_gravity="center_horizontal"
                         android:textStyle="bold"/>
-                <TextView />
+                <TextView/>
             </TableRow>
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="1">
+                    android:gravity="center_horizontal"
+                    android:layout_column="1">
                 <TextView
                         android:id="@+id/textView_heating_supply_val"
                         android:text="@string/unknown_value"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:layout_gravity="center_horizontal"/>
-                <TextView />
+                <TextView/>
             </TableRow>
         </TableLayout>
 
         <TableLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/rounded_shape_2"
-                android:layout_alignLeft="@+id/tableLayout"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="315dp"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:gravity="center|center_vertical|center_horizontal"
-                android:layout_height="28dp" android:id="@+id/tableLayout2">
-            <TableRow android:layout_gravity="center" android:gravity="center">
+                android:layout_height="28dp"
+                android:layout_below="@id/statustableLayout4"
+                android:id="@+id/statustableLayout5">
+            <TableRow
+                    android:layout_gravity="center"
+                    android:gravity="center">
                 <TextView
                         android:id="@+id/textView_hot_water"
                         android:text="@string/hot_water"
-                        android:textStyle="bold" android:textSize="@dimen/menu"/>
+                        android:textStyle="bold"
+                        android:textSize="@dimen/menu"/>
             </TableRow>
         </TableLayout>
 
@@ -215,14 +248,15 @@
                 android:layout_height="41dp"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
-                android:id="@+id/tableLayout"
                 android:background="@drawable/rounded_shape"
-                android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
-                android:layout_marginTop="350dp">
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
+                android:layout_below="@id/statustableLayout5"
+                android:id="@+id/statustableLayout6">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="0"
+                    android:gravity="center_horizontal"
+                    android:layout_column="0"
                     android:layout_gravity="center_horizontal">
                 <TextView
                         android:id="@+id/textView_hot_water_switch"
@@ -241,7 +275,8 @@
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="1">
+                    android:gravity="center_horizontal"
+                    android:layout_column="1">
                 <TextView
                         android:id="@+id/textView_hot_water_switch_val"
                         android:text="@string/unknown_value"
@@ -260,16 +295,17 @@
         <TableLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/rounded_shape_2"
-                android:layout_alignLeft="@+id/tableLayout"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="415dp"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:gravity="center|center_vertical|center_horizontal"
-                android:layout_height="40dp" android:id="@+id/tableLayout2">
+                android:layout_height="40dp"
+                android:layout_below="@id/statustableLayout6"
+                android:id="@+id/statustableLayout7">
             <TableRow android:layout_gravity="center" android:gravity="center">
                 <TextView
                         android:id="@+id/textView_remaining_time_for_last_server_command"
                         android:text="@string/remaining_time_for_last_server_command"
-                        android:textStyle="bold" android:textSize="@dimen/menu"/>
+                        android:textStyle="bold"
+                        android:textSize="@dimen/menu"/>
             </TableRow>
         </TableLayout>
 
@@ -278,14 +314,15 @@
                 android:layout_height="41dp"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
-                android:id="@+id/tableLayout"
                 android:background="@drawable/rounded_shape"
-                android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
-                android:layout_marginTop="462dp">
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
+                android:layout_below="@id/statustableLayout7"
+                android:id="@+id/statustableLayout8">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="1">
+                    android:gravity="center_horizontal"
+                    android:layout_column="1">
                 <TextView
                         android:id="@+id/textView_remaining_time_for_last_server_command_val"
                         android:text="@string/unknown_value"
@@ -298,16 +335,18 @@
         <TableLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/rounded_shape_2"
-                android:layout_alignLeft="@+id/tableLayout"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="527dp"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:gravity="center|center_vertical|center_horizontal"
-                android:layout_height="28dp" android:id="@+id/tableLayout2">
-            <TableRow android:layout_gravity="center" android:gravity="center">
+                android:layout_height="28dp"
+                android:layout_below="@id/statustableLayout8"
+                android:id="@+id/statustableLayout9">
+            <TableRow android:layout_gravity="center"
+                      android:gravity="center">
                 <TextView
                         android:id="@+id/textView_arduino_uptime"
                         android:text="@string/arduino_uptime"
-                        android:textStyle="bold" android:textSize="@dimen/menu"/>
+                        android:textStyle="bold"
+                        android:textSize="@dimen/menu"/>
             </TableRow>
         </TableLayout>
 
@@ -316,14 +355,15 @@
                 android:layout_height="41dp"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
-                android:id="@+id/tableLayout"
                 android:background="@drawable/rounded_shape"
-                android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
-                android:layout_marginTop="562dp">
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
+                android:layout_below="@id/statustableLayout9"
+                android:id="@+id/statustableLayout10">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="1">
+                    android:gravity="center_horizontal"
+                    android:layout_column="1">
                 <TextView
                         android:id="@+id/textView_arduino_uptime_val"
                         android:text="@string/unknown_value"
@@ -336,12 +376,13 @@
         <TableLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/rounded_shape_2"
-                android:layout_alignLeft="@+id/tableLayout"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="627dp"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:gravity="center|center_vertical|center_horizontal"
-                android:layout_height="28dp" android:id="@+id/tableLayout2">
-            <TableRow android:layout_gravity="center" android:gravity="center">
+                android:layout_height="28dp"
+                android:layout_below="@id/statustableLayout10"
+                android:id="@+id/statustableLayout11">
+            <TableRow android:layout_gravity="center"
+                      android:gravity="center">
                 <TextView
                         android:id="@+id/textView_arduino2_uptime"
                         android:text="@string/arduino2_uptime"
@@ -354,14 +395,15 @@
                 android:layout_height="41dp"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
-                android:id="@+id/tableLayout"
                 android:background="@drawable/rounded_shape"
-                android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
-                android:layout_marginTop="662dp">
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
+                android:layout_below="@id/statustableLayout11"
+                android:id="@+id/statustableLayout12">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="1">
+                    android:gravity="center_horizontal"
+                    android:layout_column="1">
                 <TextView
                         android:id="@+id/textView_arduino2_uptime_val"
                         android:text="@string/unknown_value"
@@ -375,16 +417,18 @@
         <TableLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/rounded_shape_2"
-                android:layout_alignLeft="@+id/tableLayout"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="727dp"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:gravity="center|center_vertical|center_horizontal"
-                android:layout_height="40dp" android:id="@+id/tableLayout2">
-            <TableRow android:layout_gravity="center" android:gravity="center">
+                android:layout_height="40dp"
+                android:layout_below="@id/statustableLayout12"
+                android:id="@+id/statustableLayout13">
+            <TableRow android:layout_gravity="center"
+                      android:gravity="center">
                 <TextView
                         android:id="@+id/textView_last_communication_from_arduino"
                         android:text="@string/last_communication_from_arduino"
-                        android:textStyle="bold" android:textSize="@dimen/menu"/>
+                        android:textStyle="bold"
+                        android:textSize="@dimen/menu"/>
             </TableRow>
         </TableLayout>
 
@@ -393,14 +437,15 @@
                 android:layout_height="41dp"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
-                android:id="@+id/tableLayout"
                 android:background="@drawable/rounded_shape"
-                android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
-                android:layout_marginTop="774dp">
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
+                android:layout_below="@id/statustableLayout13"
+                android:id="@+id/statustableLayout14">
             <TableRow
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal" android:layout_column="1">
+                    android:gravity="center_horizontal"
+                    android:layout_column="1">
                 <TextView
                         android:id="@+id/textView_last_communication_from_arduino_val"
                         android:text="@string/unknown_value"

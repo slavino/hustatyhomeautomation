@@ -6,12 +6,6 @@ import java.io.Serializable;
 
 public class ArduinoThermoServerStatus implements Serializable {
 
-//	EXAMPLE : {"LastCommunicationFromArduino":"2013-02-17 20:02:02",
-//	"thermostat1":"0","thermostat2":"1","hotWaterSwitch":"0","hotWaterSupply":"0",
-//	"heatingState":"1","remainingTimeForLastServerCommand":"0","freeMemory":"3066",
-//	"uptime":"6172510","reset":"","t28F82D850400001F":"-0.88","t28B79F8504000082":"20.06",
-//	"t28205B850400008B":"23.19","t280F5B8504000019":"20.62"}
-	
 	@SerializedName("LastCommunicationFromArduino")
 	private String lastCommunicationFromArduino;
 	
