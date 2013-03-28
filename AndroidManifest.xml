@@ -16,6 +16,14 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- App receives GCM messages. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission android:name="com.hustaty.homeautomation.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+    <uses-permission android:name="com.hustaty.homeautomation.permission.C2D_MESSAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/home"
@@ -38,14 +46,16 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name="com.hustaty.homeautomation.receiver.AlarmManagerBroadcastReceiver">
+        <receiver
+                android:name="com.hustaty.homeautomation.receiver.AlarmManagerBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="com.hustaty.homeautomation.LOCATION_UPDATE_INTENT" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.hustaty.homeautomation.receiver.MyAppWidgetProvider">
+        <receiver
+                android:name="com.hustaty.homeautomation.receiver.MyAppWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.hustaty.homeautomation.UI_LOCATION_UPDATE_INTENT" />
@@ -54,6 +64,18 @@
                        android:resource="@xml/widget" />
 
         </receiver>
+
+        <receiver
+                android:name="com.google.android.gcm.GCMBroadcastReceiver"
+                android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="com.hustaty.homeautomation" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.hustaty.homeautomation.service.GCMIntentService"/>
 
     </application>
 

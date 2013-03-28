@@ -80,5 +80,22 @@
     <string name="roomname_entrancehall">Vchod</string>
     <string name="roomname_undefined"/>
     <string name="security_system_status">Security system</string>
+    <string name="last_security_update">Last security sys update</string>
+    <string name="gcm_category_title">GCM settings</string>
+    <string name="gcm_sender_id_summary">GCM sender identificator</string>
+    <string name="gcm_sender_id_title">GCM sender ID</string>
+    <string name="gcm_sender_url_title">GCM URL</string>
+    <string name="gcm_sender_url_summary">Google cloud messaging server</string>
+    <string name="gcm_error">GCM Error</string>
+    <string name="gcm_deleted">GCM Deleted</string>
+    <string name="gcm_message">GCM Message</string>
+    <string name="gcm_recoverable_error">GCM Recoverable error</string>
+    <string name="gcm_registered">GCM registered</string>
+    <string name="gcm_unregistered">GCM unregistered</string>
+    <string name="server_unregister_error">GCM Unregister error</string>
+    <string name="server_unregistered">GCM Unregistered</string>
+    <string name="server_register_error">GCM Register error</string>
+    <string name="server_registering">GCM Server registering</string>
+    <string name="server_registered">GCM Server registered</string>
 
 </resources>

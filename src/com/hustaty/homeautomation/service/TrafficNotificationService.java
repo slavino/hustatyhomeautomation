@@ -31,7 +31,7 @@ public class TrafficNotificationService {
         Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.police);
         Notification notification = new NotificationCompat.Builder(context).setContentTitle("Traffic Information")
                 .setContentText(notificationTitle)
-                .setSmallIcon(R.drawable.police)
+                .setSmallIcon(R.drawable.police_notification)
                 .setLargeIcon(largeIcon)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(notificationText))
                 .build();

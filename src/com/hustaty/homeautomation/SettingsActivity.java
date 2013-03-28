@@ -54,6 +54,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         } finally {
             editor.commit();
             findPreference("deviceID").setSummary(sp.getString("deviceID", getResources().getString(R.string.deviceID)));
+            findPreference("SECUPDATETIME").setSummary(sp.getString("SECUPDATETIME", getResources().getString(R.string.unknown_value)));
         }
         setResult(Activity.RESULT_CANCELED);
     }

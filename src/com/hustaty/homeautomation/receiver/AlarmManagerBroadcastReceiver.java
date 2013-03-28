@@ -5,11 +5,14 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import com.google.gson.Gson;
+import com.hustaty.homeautomation.R;
 import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.http.MyHttpClient;
 import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
@@ -19,25 +22,25 @@ import com.hustaty.homeautomation.service.TrafficNotificationService;
 import com.hustaty.homeautomation.util.LogUtil;
 
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
     // logger entry
     private final static String LOG_TAG = AlarmManagerBroadcastReceiver.class.getName();
 
-	final public static String ONE_TIME = "onetime";
+    final public static String ONE_TIME = "onetime";
     final public static String LOCATION_UPDATE_INTENT = "com.hustaty.homeautomation.LOCATION_UPDATE_INTENT";
     final public static String UI_LOCATION_UPDATE_INTENT = "com.hustaty.homeautomation.UI_LOCATION_UPDATE_INTENT";
 
     final public static String UI_INTENT_EXTRA_THERMOSTATUS_ID = "arduinoThermoServerStatus";
     final public static String UI_INTENT_EXTRA_TRAFFICINFO_ID = "trafficInformation";
 
-	@Override
-	public void onReceive(Context context, Intent intent) {
+    @Override
+    public void onReceive(Context context, Intent intent) {
 
-        if(Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             Log.d(LOG_TAG, "#onReceive(): BOOT_COMPLETED");
             LogUtil.appendLog(LOG_TAG + "#onReceive(): BOOT_COMPLETED");
             LocationService.obtainCurrentLocation(context);
@@ -49,30 +52,31 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             setAlarm(context);
         }
 
-		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-		PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "HustatyHomeAutomation");
-		// Acquire the lock
-		wl.acquire();
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "HustatyHomeAutomation");
 
-		// You can do the processing here.
-		Bundle extras = intent.getExtras();
+        // Acquire the lock
+        wl.acquire();
 
-		if (extras != null && extras.getBoolean(ONE_TIME, Boolean.FALSE)) {
-            //TODO
-		}
+        Bundle extras = intent.getExtras();
 
         MyHttpClient myHttpClient = new MyHttpClient(context);
 
         try {
 
             ArduinoThermoServerStatus arduinoThermoServerStatus = myHttpClient.getThermoServerStatus(false);
+
+            //TEST
+            updatePreferences(context, arduinoThermoServerStatus);
+            //END OF TEST
+
             List<TrafficInformation> trafficInformationList = myHttpClient.getTrafficInformation(true);
 
             Intent newIntent = new Intent(UI_LOCATION_UPDATE_INTENT);
 
             Gson gson = new Gson();
             newIntent.putExtra(UI_INTENT_EXTRA_THERMOSTATUS_ID, gson.toJson(arduinoThermoServerStatus));
-            if(trafficInformationList.size() > 0) {
+            if (trafficInformationList.size() > 0) {
                 newIntent.putExtra(UI_INTENT_EXTRA_TRAFFICINFO_ID, gson.toJson(trafficInformationList));
             }
             context.sendBroadcast(newIntent);
@@ -80,12 +84,12 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             StringBuilder trafficInfoText = new StringBuilder();
 
             int counter = 1;
-            for(TrafficInformation trafficInformation : trafficInformationList) {
+            for (TrafficInformation trafficInformation : trafficInformationList) {
                 trafficInfoText.append((counter++) + "/" + trafficInformationList.size() + " ");
                 trafficInfoText.append(trafficInformation.getType() + ": " + trafficInformation.getDescription() + "\n");
             }
 
-            if(!("".equals(trafficInfoText.toString()))) {
+            if (!("".equals(trafficInfoText.toString()))) {
                 Calendar cal = Calendar.getInstance();
                 Integer hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
                 boolean silentInfo = (hourOfDay < 7)  //not before 7a.m.
@@ -107,27 +111,91 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         }
 
         // Release the lock
-		wl.release();
-	}
+        wl.release();
+    }
 
-	public void setAlarm(Context context) {
+    public void setAlarm(Context context) {
         Log.d(LOG_TAG, "#setAlarm(): ");
-		AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-		Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
-		intent.putExtra(ONE_TIME, Boolean.FALSE);
-		PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, /*0*/ PendingIntent.FLAG_CANCEL_CURRENT);
-		// After after 300 seconds
-        int INTERVAL = 300*1000;
-		am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + INTERVAL, INTERVAL, pi);
-	}
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
+        intent.putExtra(ONE_TIME, Boolean.FALSE);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, /*0*/ PendingIntent.FLAG_CANCEL_CURRENT);
+        // After after 300 seconds
+        int INTERVAL = 300 * 1000;
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + INTERVAL, INTERVAL, pi);
+    }
 
-	public void cancelAlarm(Context context) {
+    public void cancelAlarm(Context context) {
         Log.d(LOG_TAG, "#cancelAlarm(): ");
-		Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
-		PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
-		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-		alarmManager.cancel(sender);
-	}
+        Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
+        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(sender);
+    }
+
+    private String updatePreferences(Context context, ArduinoThermoServerStatus arduinoThermoServerStatus) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Map<String, ?> currentState = sharedPreferences.getAll();
+
+        boolean changeOccured = false;
+
+        SimpleDateFormat mysqlDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sharedPreferences.edit().putString("SECUPDATETIME", mysqlDateFormat.format(new Date())).commit();
+
+        if(!arduinoThermoServerStatus.getSecurityArmed().equals(currentState.get("ARM"))) {
+            changeOccured = true;
+            sharedPreferences.edit().putString("ARM", arduinoThermoServerStatus.getSecurityArmed()).commit();
+        }
+
+        if(!arduinoThermoServerStatus.getSecurityAlarm().equals(currentState.get("ALM"))) {
+            changeOccured = true;
+            sharedPreferences.edit().putString("ALM", arduinoThermoServerStatus.getSecurityAlarm()).commit();
+        }
+
+        if(!arduinoThermoServerStatus.getSecurityFault().equals(currentState.get("FLT"))) {
+            changeOccured = true;
+            sharedPreferences.edit().putString("FLT", arduinoThermoServerStatus.getSecurityFault()).commit();
+        }
+
+        if(!arduinoThermoServerStatus.getSecurityFire().equals(currentState.get("FIR"))) {
+            changeOccured = true;
+            sharedPreferences.edit().putString("FIR", arduinoThermoServerStatus.getSecurityFire()).commit();
+        }
+
+        if(!arduinoThermoServerStatus.getSecurityTamper().equals(currentState.get("TMP"))) {
+            changeOccured = true;
+            sharedPreferences.edit().putString("TMP", arduinoThermoServerStatus.getSecurityTamper()).commit();
+        }
+
+        if(!arduinoThermoServerStatus.getSecurityPowerSupply().equals(currentState.get("AC"))) {
+            changeOccured = true;
+            sharedPreferences.edit().putString("AC", arduinoThermoServerStatus.getSecurityPowerSupply()).commit();
+        }
+
+        if(!arduinoThermoServerStatus.getSecurityLowBattery().equals(currentState.get("LB"))) {
+            changeOccured = true;
+            sharedPreferences.edit().putString("LB", arduinoThermoServerStatus.getSecurityLowBattery()).commit();
+        }
+
+        if(!arduinoThermoServerStatus.getSecurityPgY().equals(currentState.get("PGY"))) {
+            changeOccured = true;
+            sharedPreferences.edit().putString("PGY", arduinoThermoServerStatus.getSecurityPgY()).commit();
+        }
+
+        if(changeOccured) {
+            play(context);
+        }
+
+        return null;
+    }
+
+    private void play(Context context) {
+        MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.nice_cut);
+        mediaPlayer.start();
+//        if(!mediaPlayer.isPlaying()) {
+//            mediaPlayer.release();
+//        }
+    }
 
 //	public void setOnetimeTimer(Context context) {
 //		AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

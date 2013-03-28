@@ -1,8 +1,10 @@
 package com.hustaty.homeautomation;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ResolveInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,9 +15,12 @@ import android.view.*;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import com.google.android.gcm.GCMRegistrar;
 import com.hustaty.homeautomation.receiver.ActivityBroadcastReceiver;
 import com.hustaty.homeautomation.receiver.AlarmManagerBroadcastReceiver;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
+import com.hustaty.homeautomation.util.CommonUtil;
+import com.hustaty.homeautomation.util.GCMServerUtil;
 import com.hustaty.homeautomation.util.LogUtil;
 
 import java.util.List;
@@ -33,6 +38,8 @@ public class MainActivity extends FragmentActivity {
     StatusFragment statusFragment;
     HeatingFragment heatingFragment;
     HotwaterFragment hotwaterFragment;
+
+    AsyncTask<Void, Void, Void> mRegisterTask;
 
     // logger entry
     private final static String LOG_TAG = MainActivity.class.getName();
@@ -227,4 +234,57 @@ public class MainActivity extends FragmentActivity {
         return view;
     }
 
+    private void gcmStuff() {
+        // Make sure the device has the proper dependencies.
+        GCMRegistrar.checkDevice(this);
+        // Make sure the manifest was properly set - comment out this line
+        // while developing the app, then uncomment it when it's ready.
+        GCMRegistrar.checkManifest(this);
+        setContentView(R.layout.main);
+//        mDisplay = (TextView) findViewById(R.id.display);
+        //registerReceiver(mHandleMessageReceiver, new IntentFilter(CommonUtil.DISPLAY_MESSAGE_ACTION));
+        final String regId = GCMRegistrar.getRegistrationId(this);
+
+        if (regId.equals("")) {
+            // Automatically registers application on startup.
+            GCMRegistrar.register(this, (String)ApplicationPreferences.getPreferences().get("gcm_sender_id"));
+        } else {
+
+            // Device is already registered on GCM, check server.
+            if (GCMRegistrar.isRegisteredOnServer(this)) {
+                // Skips registration.
+                //mDisplay.append(getString(R.string.already_registered) + "\n");
+            } else {
+                // Try to register again, but not in the UI thread.
+                // It's also necessary to cancel the thread onDestroy(),
+                // hence the use of AsyncTask instead of a raw thread.
+                final Context context = this;
+                mRegisterTask = new AsyncTask<Void, Void, Void>() {
+
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        boolean registered =
+                                GCMServerUtil.register(context, regId);
+                        // At this point all attempts to register with the app
+                        // server failed, so we need to unregister the device
+                        // from GCM - the app will try to register again when
+                        // it is restarted. Note that GCM will send an
+                        // unregistered callback upon completion, but
+                        // GCMIntentService.onUnregistered() will ignore it.
+                        if (!registered) {
+                            GCMRegistrar.unregister(context);
+                        }
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void result) {
+                        mRegisterTask = null;
+                    }
+
+                };
+                mRegisterTask.execute(null, null, null);
+            }
+        }
+    }
 }

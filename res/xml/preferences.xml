@@ -87,6 +87,29 @@
                 android:numeric="signed|decimal"
                 />
     </PreferenceCategory>
+
+    <PreferenceCategory
+            android:title="@string/gcm_category_title">
+
+        <EditTextPreference
+                android:key="gcm_sender_id"
+                android:title="@string/gcm_sender_id_title"
+                android:summary="@string/gcm_sender_id_summary"
+                android:defaultValue="0"
+                android:editable="true"
+                android:numeric="signed|decimal"
+                />
+
+        <EditTextPreference
+                android:key="gcm_sender_url"
+                android:title="@string/gcm_sender_url_title"
+                android:summary="@string/gcm_sender_url_summary"
+                android:defaultValue="0"
+                android:editable="true"
+                android:inputType="textUri"
+                />
+    </PreferenceCategory>
+
     <PreferenceCategory
             android:title="@string/device_information_category_title">
         <Preference
@@ -96,6 +119,12 @@
                 android:selectable="false"
                 android:persistent="true"
                 android:shouldDisableView="false"/>
-
+        <Preference
+                android:key="SECUPDATETIME"
+                android:title="@string/last_security_update"
+                android:enabled="false"
+                android:selectable="false"
+                android:persistent="true"
+                android:shouldDisableView="false"/>
     </PreferenceCategory>
 </PreferenceScreen>
