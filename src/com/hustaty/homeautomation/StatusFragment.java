@@ -61,11 +61,13 @@ public class StatusFragment extends Fragment {
             TextView outside = (TextView) view.findViewById(R.id.textView_roomtemp_outside);
             TextView upperLobby = (TextView) view.findViewById(R.id.textView_roomtemp_upperlobby);
             TextView entranceHall = (TextView) view.findViewById(R.id.textView_roomtemp_entrancehall);
+            TextView kitchen = (TextView) view.findViewById(R.id.textView_roomtemp_kitchen);
             workroom.setText(thermoServerStatus.getT280F5B8504000019() + "\u00b0C");
             bedroom.setText(thermoServerStatus.getT28B79F8504000082() + "\u00b0C");
             outside.setText(thermoServerStatus.getT28F82D850400001F() + "\u00b0C");
             upperLobby.setText(thermoServerStatus.getT28205B850400008B() + "\u00b0C");
             entranceHall.setText(thermoServerStatus.getT28F1E685040000DB() + "\u00b0C");
+            kitchen.setText(thermoServerStatus.getT28C9C9AA040000EA() + "\u00b0C");
 
             TextView thermostat1Value = (TextView) view.findViewById(R.id.textView_thermostat_1_val);
             thermostat1Value.setText("1".equals(thermoServerStatus.getThermostat1()) ? "ON" : "OFF") ;
@@ -129,6 +131,11 @@ public class StatusFragment extends Fragment {
         }
     }
 
+    /**
+     * Formats millis to human readable string.
+     * @param ms
+     * @return
+     */
     private String formatMillis(String ms) {
         Long millis = new Long(ms);
         Long seconds = millis/1000;

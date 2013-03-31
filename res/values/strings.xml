@@ -97,5 +97,6 @@
     <string name="server_register_error">GCM Register error</string>
     <string name="server_registering">GCM Server registering</string>
     <string name="server_registered">GCM Server registered</string>
+    <string name="roomname_kitchen">Kuchyňa</string>
 
 </resources>

@@ -59,6 +59,10 @@ public class ArduinoThermoServerStatus implements Serializable {
     @SerializedName("t28F1E685040000DB")
     private String t28F1E685040000DB;
 
+    // kitchen
+    @SerializedName("t28C9C9AA040000EA")
+    private String t28C9C9AA040000EA;
+
     @SerializedName("ARM")
     private String securityArmed;
 
@@ -218,6 +222,14 @@ public class ArduinoThermoServerStatus implements Serializable {
 
     public void setT28F1E685040000DB(String t28F1E685040000DB) {
         this.t28F1E685040000DB = t28F1E685040000DB;
+    }
+
+    public String getT28C9C9AA040000EA() {
+        return t28C9C9AA040000EA;
+    }
+
+    public void setT28C9C9AA040000EA(String t28C9C9AA040000EA) {
+        this.t28C9C9AA040000EA = t28C9C9AA040000EA;
     }
 
     public String getSecurityArmed() {
