@@ -52,7 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal|center_vertical"
-                    android:text="@string/roomname_upperlobby"/>
+                    android:text="@string/roomname_upperlobby_short"/>
         </LinearLayout>
 
         <!--work room-->
@@ -73,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal|center_vertical"
-                    android:text="@string/roomname_workroom"/>
+                    android:text="@string/roomname_workroom_short"/>
         </LinearLayout>
 
         <!--kitchen-->
@@ -94,7 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal|center_vertical"
-                    android:text="@string/roomname_kitchen"/>
+                    android:text="@string/roomname_kitchen_short"/>
         </LinearLayout>
 
         <!--entrance lobby-->
