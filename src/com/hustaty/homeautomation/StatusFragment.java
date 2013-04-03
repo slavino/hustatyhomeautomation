@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.TextView;
 import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.http.MyHttpClient;
@@ -31,6 +29,8 @@ public class StatusFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.status_fragment, container, false);
+
+        setHasOptionsMenu(true);
 
         MyHttpClient myHttpClient = new MyHttpClient(view.getContext());
         ArduinoThermoServerStatus thermoServerStatus = null;
@@ -152,4 +152,11 @@ public class StatusFragment extends Fragment {
                 + ( (minutes > 0 || hours>0 || days > 0) ? minutes + "m " : "")
                 + seconds + "." + millis + "s";
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
 }

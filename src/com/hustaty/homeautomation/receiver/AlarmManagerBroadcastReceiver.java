@@ -6,7 +6,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
@@ -189,12 +191,23 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         return null;
     }
 
-    private void play(Context context) {
-        MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.nice_cut);
-        mediaPlayer.start();
-//        if(!mediaPlayer.isPlaying()) {
-//            mediaPlayer.release();
-//        }
+    private void play(final Context context) {
+
+        final SoundPool soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        final int sound = soundPool.load(context, R.raw.nice_cut, 1);
+
+        new Thread(){
+            public void run(){
+                try {
+                    Thread.sleep(500);
+                    soundPool.play(sound, 1.0f, 1.0f, 0, 0, 1.0f);
+                } catch (InterruptedException e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                }
+                soundPool.play(sound, 1.0f, 1.0f, 0, 0, 1.0f);
+            }
+        }.start();
+
     }
 
 //	public void setOnetimeTimer(Context context) {

@@ -41,11 +41,12 @@
     <string name="homelongitude_summary">Your home GPS longitude in XY.ZZZZZZ format</string>
     <string name="device_information_category_title">Device information</string>
     <string name="deviceID">Device ID</string>
-    <string name="roomname_upperlobby">Hor.chodba</string>
+    <string name="roomname_upperlobby">H.Chod.</string>
     <string name="roomname_bedroom">Spálňa</string>
     <string name="roomname_outside">Vonku</string>
     <string name="roomname_workroom">Pracovňa</string>
     <string name="roomname_entrancelobby">Vchod</string>
+    <string name="roomname_kitchen">Kuchyňa</string>
     <string name="unknown_temperature">--.-- \u00b0C</string>
 
     <string name="temperatures">Temperatures</string>
@@ -81,6 +82,8 @@
     <string name="roomname_undefined"/>
     <string name="security_system_status">Security system</string>
     <string name="last_security_update">Last security sys update</string>
+
+    <!--GCM stuff-->
     <string name="gcm_category_title">GCM settings</string>
     <string name="gcm_sender_id_summary">GCM sender identificator</string>
     <string name="gcm_sender_id_title">GCM sender ID</string>
@@ -97,6 +100,5 @@
     <string name="server_register_error">GCM Register error</string>
     <string name="server_registering">GCM Server registering</string>
     <string name="server_registered">GCM Server registered</string>
-    <string name="roomname_kitchen">Kuchyňa</string>
 
 </resources>
