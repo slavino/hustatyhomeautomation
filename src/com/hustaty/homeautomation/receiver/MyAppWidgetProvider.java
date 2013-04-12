@@ -90,7 +90,11 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
                     if (arduinoThermoServerStatus != null) {
 
                         if ("1".equals(arduinoThermoServerStatus.getSecurityArmed())) {
-                            remoteViews.setImageViewResource(R.id.widgetLeftIcon, R.drawable.home_alarm_state_locked);
+                            if("1".equals(arduinoThermoServerStatus.getSecurityPgY())) {
+                                remoteViews.setImageViewResource(R.id.widgetLeftIcon, R.drawable.home_alarm_state_locked_ab);
+                            } else {
+                                remoteViews.setImageViewResource(R.id.widgetLeftIcon, R.drawable.home_alarm_state_locked);
+                            }
                         } else if ("0".equals(arduinoThermoServerStatus.getSecurityArmed())) {
                             remoteViews.setImageViewResource(R.id.widgetLeftIcon, R.drawable.home_alarm_state_unlocked);
                         } else {
