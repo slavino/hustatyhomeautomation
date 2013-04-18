@@ -103,6 +103,15 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
                             mediaPlayer.start();
                         }
 
+                        if(arduinoThermoServerStatus.getNightHour() == true) {
+                            remoteViews.setImageViewResource(R.id.widgetLeftIcon, R.drawable.home_heating_mode_night);
+                        } else if(arduinoThermoServerStatus.getNightHour() == false) {
+                            remoteViews.setImageViewResource(R.id.widgetLeftIcon, R.drawable.home_heating_mode_day);
+                        } else {
+                            remoteViews.setImageViewResource(R.id.widgetLeftIcon, R.drawable.home_heating_mode_unknown);
+                        }
+
+
                         if("1".equals(arduinoThermoServerStatus.getSecurityAlarm())) {
                             MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.nice_cut);
                             mediaPlayer.start();

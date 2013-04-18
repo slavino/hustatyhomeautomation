@@ -30,8 +30,6 @@ public class StatusFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.status_fragment, container, false);
 
-        setHasOptionsMenu(true);
-
         MyHttpClient myHttpClient = new MyHttpClient(view.getContext());
         ArduinoThermoServerStatus thermoServerStatus = null;
         try {

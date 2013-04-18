@@ -90,6 +90,9 @@ public class ArduinoThermoServerStatus implements Serializable {
     @SerializedName("PGY")
     private String securityPgY;
 
+    @SerializedName("nightHour")
+    private Boolean nightHour;
+
 	public String getLastCommunicationFromArduino() {
 		return lastCommunicationFromArduino;
 	}
@@ -302,5 +305,13 @@ public class ArduinoThermoServerStatus implements Serializable {
 
     public void setSecurityPgY(String securityPgY) {
         this.securityPgY = securityPgY;
+    }
+
+    public Boolean getNightHour() {
+        return nightHour;
+    }
+
+    public void setNightHour(Boolean nightHour) {
+        this.nightHour = nightHour;
     }
 }
