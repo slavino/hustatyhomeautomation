@@ -104,11 +104,11 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
                         }
 
                         if(arduinoThermoServerStatus.getNightHour() == true) {
-                            remoteViews.setImageViewResource(R.id.widgetLeftIcon, R.drawable.home_heating_mode_night);
+                            remoteViews.setImageViewResource(R.id.widgetRightIcon, R.drawable.home_heating_mode_night);
                         } else if(arduinoThermoServerStatus.getNightHour() == false) {
-                            remoteViews.setImageViewResource(R.id.widgetLeftIcon, R.drawable.home_heating_mode_day);
+                            remoteViews.setImageViewResource(R.id.widgetRightIcon, R.drawable.home_heating_mode_day);
                         } else {
-                            remoteViews.setImageViewResource(R.id.widgetLeftIcon, R.drawable.home_heating_mode_unknown);
+                            remoteViews.setImageViewResource(R.id.widgetRightIcon, R.drawable.home_heating_mode_unknown);
                         }
 
 
