@@ -19,7 +19,9 @@ import android.view.*;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.google.android.gcm.GCMRegistrar;
+import com.hustaty.homeautomation.gcm.ServerUtilities;
 import com.hustaty.homeautomation.receiver.ActivityBroadcastReceiver;
 import com.hustaty.homeautomation.receiver.AlarmManagerBroadcastReceiver;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
@@ -85,6 +87,9 @@ public class MainActivity extends FragmentActivity {
 
         this.activityBroadcastReceiver = new ActivityBroadcastReceiver(this);
         registerReceiver(activityBroadcastReceiver, new IntentFilter(AlarmManagerBroadcastReceiver.UI_LOCATION_UPDATE_INTENT));
+
+        //EXPERIMENTAL
+        //gcmStuff();
 
         try {
             AlarmManagerBroadcastReceiver alarmManagerBroadcastReceiver = new AlarmManagerBroadcastReceiver();
@@ -245,25 +250,31 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void gcmStuff() {
+
+        if(CommonUtil.SERVER_URL == null && "".equals(CommonUtil.SERVER_URL)) {
+          return;
+        }
+
         // Make sure the device has the proper dependencies.
         GCMRegistrar.checkDevice(this);
         // Make sure the manifest was properly set - comment out this line
         // while developing the app, then uncomment it when it's ready.
         GCMRegistrar.checkManifest(this);
-        setContentView(R.layout.main);
-//        mDisplay = (TextView) findViewById(R.id.display);
         //registerReceiver(mHandleMessageReceiver, new IntentFilter(CommonUtil.DISPLAY_MESSAGE_ACTION));
         final String regId = GCMRegistrar.getRegistrationId(this);
 
         if (regId.equals("")) {
             // Automatically registers application on startup.
-            GCMRegistrar.register(this, (String)ApplicationPreferences.getPreferences().get("gcm_sender_id"));
+            Toast.makeText(this, "registering to GCM", Toast.LENGTH_SHORT).show();
+            GCMRegistrar.register(this, CommonUtil.SENDER_ID);
+            ServerUtilities.register(this, GCMRegistrar.getRegistrationId(this));
         } else {
 
             // Device is already registered on GCM, check server.
             if (GCMRegistrar.isRegisteredOnServer(this)) {
                 // Skips registration.
                 //mDisplay.append(getString(R.string.already_registered) + "\n");
+              Toast.makeText(this, "GCM already registered", Toast.LENGTH_SHORT).show();
             } else {
                 // Try to register again, but not in the UI thread.
                 // It's also necessary to cancel the thread onDestroy(),

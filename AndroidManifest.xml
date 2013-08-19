@@ -66,17 +66,17 @@
 
         </receiver>
 
-        <receiver
-                android:name="com.google.android.gcm.GCMBroadcastReceiver"
-                android:permission="com.google.android.c2dm.permission.SEND" >
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="com.hustaty.homeautomation" />
-            </intent-filter>
-        </receiver>
-
-        <service android:name="com.hustaty.homeautomation.service.GCMIntentService"/>
+        <!-- OFF for a while -->
+        <!--<receiver-->
+                <!--android:name="com.google.android.gcm.GCMBroadcastReceiver"-->
+                <!--android:permission="com.google.android.c2dm.permission.SEND" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
+                <!--<action android:name="com.google.android.c2dm.intent.REGISTRATION" />-->
+                <!--<category android:name="com.hustaty.homeautomation.service" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+        <!--<service android:name="com.hustaty.homeautomation.service.GCMIntentService"/>-->
 
     </application>
 

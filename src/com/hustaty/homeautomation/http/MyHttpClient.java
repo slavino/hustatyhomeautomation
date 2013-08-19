@@ -124,9 +124,9 @@ public class MyHttpClient extends DefaultHttpClient {
                     case INACTIVE:
                         break;
                     default:
-                        deviceLocationInfo.setWifi(wifiInfo.getSSID());
-                        LogUtil.appendLog(LOG_TAG + "#authenticate(): setting wifi " + wifiInfo.getSSID());
-                        Log.d(LOG_TAG, "#authenticate(): setting wifi " + wifiInfo.getSSID());
+                        deviceLocationInfo.setWifi(wifiInfo.getSSID().replace("\"",""));
+                        LogUtil.appendLog(LOG_TAG + "#authenticate(): setting wifi " + deviceLocationInfo.getWifi());
+                        Log.d(LOG_TAG, "#authenticate(): setting wifi " + deviceLocationInfo.getWifi());
                         break;
                 }
             }
