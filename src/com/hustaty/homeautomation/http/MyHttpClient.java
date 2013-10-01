@@ -444,7 +444,7 @@ public class MyHttpClient extends DefaultHttpClient {
         double distance = house.distanceTo(location);
         WifiInfo wifiInfo = getWifiInfo();
         if (HOME_WIFI_SSID != null
-                && HOME_WIFI_SSID.equals(wifiInfo.getSSID())) {
+                && HOME_WIFI_SSID.equals(wifiInfo.getSSID().replace("\"", ""))) {
             URL_TO_USE = localNetworkServerIP;
         } else {
             URL_TO_USE = globalServerIP;
@@ -469,7 +469,7 @@ public class MyHttpClient extends DefaultHttpClient {
      * Swap the URLs.
      */
     public static void useAnotherURL() {
-        if (URL_TO_USE.equals(localNetworkServerIP)) {
+        if (URL_TO_USE.equalsIgnoreCase(localNetworkServerIP)) {
             URL_TO_USE = globalServerIP;
         } else {
             URL_TO_USE = localNetworkServerIP;

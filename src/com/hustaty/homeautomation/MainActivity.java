@@ -21,7 +21,6 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gcm.GCMRegistrar;
-import com.hustaty.homeautomation.gcm.ServerUtilities;
 import com.hustaty.homeautomation.receiver.ActivityBroadcastReceiver;
 import com.hustaty.homeautomation.receiver.AlarmManagerBroadcastReceiver;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
@@ -267,7 +266,7 @@ public class MainActivity extends FragmentActivity {
             // Automatically registers application on startup.
             Toast.makeText(this, "registering to GCM", Toast.LENGTH_SHORT).show();
             GCMRegistrar.register(this, CommonUtil.SENDER_ID);
-            ServerUtilities.register(this, GCMRegistrar.getRegistrationId(this));
+            GCMServerUtil.register(this, GCMRegistrar.getRegistrationId(this));
         } else {
 
             // Device is already registered on GCM, check server.
