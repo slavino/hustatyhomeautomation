@@ -1,5 +1,9 @@
 package com.hustaty.homeautomation;
 
+import java.io.IOException;
+
+import org.apache.http.client.ClientProtocolException;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,13 +12,11 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.*;
 import android.widget.TextView;
+
 import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.http.MyHttpClient;
 import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
 import com.hustaty.homeautomation.util.LogUtil;
-import org.apache.http.client.ClientProtocolException;
-
-import java.io.IOException;
 
 /**
  * User: llisivko
@@ -135,20 +137,26 @@ public class StatusFragment extends Fragment {
      * @return
      */
     private String formatMillis(String ms) {
-        Long millis = new Long(ms);
-        Long seconds = millis/1000;
-        Long minutes = seconds/60;
-        Long hours = minutes/60;
-        Long days  = hours/24;
-        millis %= 1000;
-        seconds %= 60;
-        minutes %= 60;
-        hours %= 24;
+        try {
+            Long millis = new Long(ms);
+            Long seconds = millis/1000;
+            Long minutes = seconds/60;
+            Long hours = minutes/60;
+            Long days  = hours/24;
+            millis %= 1000;
+            seconds %= 60;
+            minutes %= 60;
+            hours %= 24;
 
-        return ( (days > 0) ? days +"d " : "")
-                + ( (hours > 0 || days > 0) ? hours + "h " : "")
-                + ( (minutes > 0 || hours>0 || days > 0) ? minutes + "m " : "")
-                + seconds + "." + millis + "s";
+            return ( (days > 0) ? days +"d " : "")
+                    + ( (hours > 0 || days > 0) ? hours + "h " : "")
+                    + ( (minutes > 0 || hours>0 || days > 0) ? minutes + "m " : "")
+                    + seconds + "." + millis + "s";
+        } catch (NumberFormatException nfe) {
+            LogUtil.appendLog(LOG_TAG + "#formatMillis(): " + ms + nfe.getMessage());
+        }
+        return "N/A";
+
     }
 
     @Override
