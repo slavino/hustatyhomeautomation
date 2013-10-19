@@ -105,9 +105,9 @@ public class MyHttpClient extends DefaultHttpClient {
     private boolean authenticate() throws IOException {
         Location location = LocationService.obtainCurrentLocation(context);
         String gpsData = "";
+        double distance = attemptToGuessURL(location);
 
         if (location != null) {
-            double distance = attemptToGuessURL(location);
             String deviceID = PreferenceManager.getDefaultSharedPreferences(context).getString("deviceID", "unknown");
             DeviceLocationInfo deviceLocationInfo = new DeviceLocationInfo();
             deviceLocationInfo.setLatitude(location.getLatitude());
@@ -436,15 +436,21 @@ public class MyHttpClient extends DefaultHttpClient {
      * @return
      */
     private double attemptToGuessURL(Location location) {
-        Location house = new Location(LocationManager.NETWORK_PROVIDER);
-        house.setLatitude(homeLatitude);
-        house.setLongitude(homeLongitude);
 
-        //your current distance from home
-        double distance = house.distanceTo(location);
+        double distance = 0;
+
+        if(location != null) {
+            Location house = new Location(LocationManager.NETWORK_PROVIDER);
+            house.setLatitude(homeLatitude);
+            house.setLongitude(homeLongitude);
+
+            //your current distance from home
+            distance = house.distanceTo(location);
+        }
+
         WifiInfo wifiInfo = getWifiInfo();
         if (HOME_WIFI_SSID != null
-                && HOME_WIFI_SSID.equals(wifiInfo.getSSID().replace("\"", ""))) {
+                && HOME_WIFI_SSID.equalsIgnoreCase(wifiInfo.getSSID().replace("\"", ""))) {
             URL_TO_USE = localNetworkServerIP;
         } else {
             URL_TO_USE = globalServerIP;
