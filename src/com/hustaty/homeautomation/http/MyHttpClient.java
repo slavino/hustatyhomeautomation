@@ -93,7 +93,8 @@ public class MyHttpClient extends DefaultHttpClient {
         // Register for port 443 our SSLSocketFactory with our keystore
         // to the ConnectionManager
         registry.register(new Scheme("https", newSslSocketFactory(), 443));
-        return new SingleClientConnManager(getParams(), registry);
+        ClientConnectionManager clientConnectionManager = new SingleClientConnManager(getParams(), registry);
+        return clientConnectionManager;
     }
 
     /**
@@ -105,7 +106,7 @@ public class MyHttpClient extends DefaultHttpClient {
     private boolean authenticate() throws IOException {
         Location location = LocationService.obtainCurrentLocation(context);
         String gpsData = "";
-        double distance = attemptToGuessURL(location);
+        Double distance = attemptToGuessURL(location);
 
         if (location != null) {
             String deviceID = PreferenceManager.getDefaultSharedPreferences(context).getString("deviceID", "unknown");
@@ -113,7 +114,7 @@ public class MyHttpClient extends DefaultHttpClient {
             deviceLocationInfo.setLatitude(location.getLatitude());
             deviceLocationInfo.setLongitude(location.getLongitude());
             deviceLocationInfo.setAccuracy(location.getAccuracy());
-            deviceLocationInfo.setDistance(distance);
+            deviceLocationInfo.setDistance(distance == null ? 0 : distance);
             deviceLocationInfo.setDeviceId(deviceID);
             WifiInfo wifiInfo = getWifiInfo();
             if(wifiInfo != null
@@ -450,6 +451,7 @@ public class MyHttpClient extends DefaultHttpClient {
 
         WifiInfo wifiInfo = getWifiInfo();
         if (HOME_WIFI_SSID != null
+                && (wifiInfo.getSSID() != null)
                 && HOME_WIFI_SSID.equalsIgnoreCase(wifiInfo.getSSID().replace("\"", ""))) {
             URL_TO_USE = localNetworkServerIP;
         } else {
