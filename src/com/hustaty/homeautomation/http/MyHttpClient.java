@@ -114,7 +114,7 @@ public class MyHttpClient extends DefaultHttpClient {
             deviceLocationInfo.setLatitude(location.getLatitude());
             deviceLocationInfo.setLongitude(location.getLongitude());
             deviceLocationInfo.setAccuracy(location.getAccuracy());
-            deviceLocationInfo.setDistance(distance == null ? 0 : distance);
+            deviceLocationInfo.setDistance(distance == null ? 150000 : distance); //150km rather than expecting the user be home
             deviceLocationInfo.setDeviceId(deviceID);
             WifiInfo wifiInfo = getWifiInfo();
             if(wifiInfo != null
