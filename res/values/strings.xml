@@ -32,7 +32,7 @@
     <string name="applicationPIN_summary">Enter the application PIN</string>
 
     <string name="wifissid_title">WiFi SSID</string>
-    <string name="wifissid_summary">Your home WiFi value</string>
+    <string name="wifissid_summary">Your home WiFi name</string>
 
     <string name="homelatitude_title">Latitude</string>
     <string name="homelatitude_summary">Your home GPS latitude in XY.ZZZZZZ format</string>
@@ -103,5 +103,6 @@
     <string name="server_register_error">GCM Register error</string>
     <string name="server_registering">GCM Server registering</string>
     <string name="server_registered">GCM Server registered</string>
+    <string name="deviceGcmID">GCM ID</string>
 
 </resources>

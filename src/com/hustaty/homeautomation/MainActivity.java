@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.hustaty.homeautomation.exception.HomeAutomationException;
+import com.hustaty.homeautomation.http.MyHttpClient;
 import com.hustaty.homeautomation.receiver.ActivityBroadcastReceiver;
 import com.hustaty.homeautomation.receiver.AlarmManagerBroadcastReceiver;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
@@ -407,6 +409,15 @@ public class MainActivity extends FragmentActivity {
     private void sendRegistrationIdToBackend() {
         //TODO Your implementation here.
         LogUtil.appendLog(LOG_TAG+ ": ########## REGID is " + regid);
+        Log.i(LOG_TAG, "DeviceID: " + ApplicationPreferences.getPreferences(this.getApplicationContext()).get("deviceID") + " has GCM RegID: " + regid);
+        MyHttpClient myHttpClient = new MyHttpClient(context);
+        try {
+            myHttpClient.addGCMDeviceEntry(ApplicationPreferences.getPreferences(this.getApplicationContext()).get("deviceID").toString(), regid, true);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "#sendRegistrationIdToBackend(): " + e.getMessage());
+        } catch (HomeAutomationException e) {
+            Log.e(LOG_TAG, "#sendRegistrationIdToBackend(): " + e.getMessage());
+        }
     }
 
     /**

@@ -112,6 +112,13 @@
                 android:persistent="true"
                 android:shouldDisableView="false"/>
         <Preference
+                android:key="PROPERTY_REG_ID"
+                android:title="@string/deviceGcmID"
+                android:enabled="false"
+                android:selectable="false"
+                android:persistent="true"
+                android:shouldDisableView="false"/>
+        <Preference
                 android:key="SECUPDATETIME"
                 android:title="@string/last_security_update"
                 android:enabled="false"

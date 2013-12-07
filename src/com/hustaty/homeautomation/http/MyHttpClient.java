@@ -289,7 +289,7 @@ public class MyHttpClient extends DefaultHttpClient {
         CommonResult result = null;
         try {
             result = gson.fromJson(httpResponseText(response), CommonResult.class);
-            LogUtil.appendLog(LOG_TAG + "#getStoredEventResults(" + appliance.getValue() + "," + shutdownAfterGettingInfo + "): " + result);
+            LogUtil.appendLog(LOG_TAG + "#removeStoredEvent(" + appliance.getValue() + "," + shutdownAfterGettingInfo + "): " + result);
         } catch (JsonSyntaxException jsonSyntaxException) {
             LogUtil.appendLog(LOG_TAG + "#removeStoredEvent(" + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage());
             throw new HomeAutomationException(jsonSyntaxException);
@@ -303,6 +303,51 @@ public class MyHttpClient extends DefaultHttpClient {
 
     }
 
+    /**
+     * Adds entry about successfully registered device to DB.
+     *
+     * @param deviceID
+     * @param gcmId
+     * @param shutdownAfterGettingInfo
+     * @return
+     * @throws IOException
+     * @throws HomeAutomationException
+     */
+    public CommonResult addGCMDeviceEntry(String deviceID, String gcmId, boolean shutdownAfterGettingInfo) throws IOException, HomeAutomationException {
+
+        authenticate();
+
+        HttpPost post = new HttpPost("https://" + URL_TO_USE + "/v1/registerGcm.php");
+
+        post.addHeader("Host", URL_TO_USE);
+        post.addHeader("User-Agent", "Hustaty Home Automation Android Client");
+        post.addHeader("Cookie", cookieInformation);
+        post.addHeader("Connection", "Keep-Alive");
+
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("deviceID", deviceID));
+        nameValuePairs.add(new BasicNameValuePair("gcmid", gcmId));
+        post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+        HttpResponse response = this.execute(post);
+
+        Gson gson = new Gson();
+        CommonResult result = null;
+        try {
+            result = gson.fromJson(httpResponseText(response), CommonResult.class);
+            LogUtil.appendLog(LOG_TAG + "#addGCMDeviceEntry('" + deviceID + "','" + gcmId + "'," + shutdownAfterGettingInfo + "): " + result);
+        } catch (JsonSyntaxException jsonSyntaxException) {
+            LogUtil.appendLog(LOG_TAG + "#addGCMDeviceEntry(" + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage());
+            throw new HomeAutomationException(jsonSyntaxException);
+        }
+
+        if(shutdownAfterGettingInfo) {
+            shutdownConnectionManager();
+        }
+
+        return result;
+
+    }
 
     /**
      * Gets List of all stored events.
