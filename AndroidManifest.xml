@@ -24,6 +24,7 @@
     <permission android:name="com.hustaty.homeautomation.permission.C2D_MESSAGE" android:protectionLevel="signature" />
     <uses-permission android:name="com.hustaty.homeautomation.permission.C2D_MESSAGE" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/home"
@@ -67,16 +68,18 @@
         </receiver>
 
         <!-- OFF for a while -->
-        <!--<receiver-->
-                <!--android:name="com.google.android.gcm.GCMBroadcastReceiver"-->
-                <!--android:permission="com.google.android.c2dm.permission.SEND" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
+        <receiver
+                android:name="com.hustaty.homeautomation.receiver.GcmBroadcastReceiver"
+                android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <!--<action android:name="com.google.android.c2dm.intent.REGISTRATION" />-->
-                <!--<category android:name="com.hustaty.homeautomation.service" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
-        <!--<service android:name="com.hustaty.homeautomation.service.GCMIntentService"/>-->
+                <category android:name="com.hustaty.homeautomation" />
+            </intent-filter>
+        </receiver>
+        <service android:name="com.hustaty.homeautomation.GCMIntentService"/>
+
+        <meta-data android:name="com.google.android.gms.version" android:value="4030500" />
 
     </application>
 

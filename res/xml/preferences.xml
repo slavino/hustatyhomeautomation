@@ -95,19 +95,11 @@
                 android:key="gcm_sender_id"
                 android:title="@string/gcm_sender_id_title"
                 android:summary="@string/gcm_sender_id_summary"
-                android:defaultValue="0"
+                android:defaultValue=""
                 android:editable="true"
                 android:numeric="signed|decimal"
                 />
 
-        <EditTextPreference
-                android:key="gcm_sender_url"
-                android:title="@string/gcm_sender_url_title"
-                android:summary="@string/gcm_sender_url_summary"
-                android:defaultValue="0"
-                android:editable="true"
-                android:inputType="textUri"
-                />
     </PreferenceCategory>
 
     <PreferenceCategory
