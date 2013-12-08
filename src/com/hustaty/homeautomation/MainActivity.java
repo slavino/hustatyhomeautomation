@@ -407,7 +407,6 @@ public class MainActivity extends FragmentActivity {
      * using the 'from' address in the message.
      */
     private void sendRegistrationIdToBackend() {
-        //TODO Your implementation here.
         LogUtil.appendLog(LOG_TAG+ ": ########## REGID is " + regid);
         Log.i(LOG_TAG, "DeviceID: " + ApplicationPreferences.getPreferences(this.getApplicationContext()).get("deviceID") + " has GCM RegID: " + regid);
         MyHttpClient myHttpClient = new MyHttpClient(context);

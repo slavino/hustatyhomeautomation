@@ -1,10 +1,12 @@
 package com.hustaty.homeautomation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 //import javax.crypto.*;
 //import java.io.File;
@@ -24,6 +26,17 @@ public class HeatingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.heating_fragment, container, false);
+
+        //HACK for devices without MENU button
+        Button settingsButton = (Button)view.findViewById(R.id.settingsLaunch);
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
 
 //        SecretKey key = null;
 //        try {
