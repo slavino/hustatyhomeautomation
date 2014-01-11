@@ -94,11 +94,14 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             if (!("".equals(trafficInfoText.toString()))) {
                 Calendar cal = Calendar.getInstance();
                 Integer hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
-                boolean silentInfo = (hourOfDay < 7)  //not before 7a.m.
+                boolean silentInfo =
+                        (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("silentTrafficNotifications", false) //user selected silent
+                        ||
+                        (hourOfDay < 7)  //not before 7:00am
                         || (
                         myHttpClient != null
                                 && myHttpClient.getWifiInfo() != null
-                                && PreferenceManager.getDefaultSharedPreferences(context).getString("wifiSSID", "unknown").equals(myHttpClient.getWifiInfo().getSSID())
+                                && PreferenceManager.getDefaultSharedPreferences(context).getString("wifiSSID", "unknown").equals(myHttpClient.getWifiInfo().getSSID()))
 
                 );
                 new TrafficNotificationService(context, trafficInfoText.toString(), silentInfo);

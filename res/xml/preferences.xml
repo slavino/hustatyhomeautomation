@@ -103,6 +103,18 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+            android:title="@string/device_notifications">
+        <CheckBoxPreference
+                android:key="silentTrafficNotifications"
+                android:title="@string/silentTrafficNotifications"
+                android:summary="@string/silentTrafficNotifications_summary"
+                android:defaultValue="false"
+                android:editable="true"
+                />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
             android:title="@string/device_information_category_title">
         <Preference
                 android:key="deviceID"

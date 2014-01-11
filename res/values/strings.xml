@@ -105,4 +105,9 @@
     <string name="server_registered">GCM Server registered</string>
     <string name="deviceGcmID">GCM ID</string>
 
+    <!--Notifications-->
+    <string name="device_notifications">Notifications</string>
+    <string name="silentTrafficNotifications">Silent traffic notifications</string>
+    <string name="silentTrafficNotifications_summary">Don\u0027t play sound when receiving traffic notifications from application.</string>
+
 </resources>

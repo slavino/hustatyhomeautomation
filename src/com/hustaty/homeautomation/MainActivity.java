@@ -185,6 +185,7 @@ public class MainActivity extends FragmentActivity {
     public void exit() {
         Log.i(LOG_TAG, "#exit(): ### EXITING APPLICATION ###");
         finish();
+//        System.runFinalization();
         System.runFinalizersOnExit(true);
         System.exit(0);
     }
