@@ -62,7 +62,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sp, String key) {
 
-        if (key.equals("mail_preference_key")) {
+        if ("mail_preference_key".equals(key)) {
             // Search for a valid mail pattern
             String pattern = "mailpattern";
             String value = sp.getString(key, null);
