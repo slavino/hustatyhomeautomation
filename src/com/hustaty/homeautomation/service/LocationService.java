@@ -20,6 +20,7 @@ public class LocationService {
         LocationService.myLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
         if(LocationService.myLocation == null) {
+            LocationService.myLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         }
 
         Log.d(LOG_TAG, "#obtainCurrentLocation(): " + myLocation);
