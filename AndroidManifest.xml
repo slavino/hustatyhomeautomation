@@ -56,6 +56,7 @@
             </intent-filter>
         </receiver>
 
+        <!--Status Widget-->
         <receiver
                 android:name="com.hustaty.homeautomation.receiver.MyAppWidgetProvider">
             <intent-filter>
@@ -64,7 +65,18 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"
                        android:resource="@xml/widget" />
+        </receiver>
 
+        <!--Hotwater widget-->
+        <receiver
+                android:name="com.hustaty.homeautomation.receiver.HotWaterWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.hustaty.homeautomation.UI_LOCATION_UPDATE_INTENT" />
+                <action android:name="com.hustaty.homeautomation.HOTWATER_WIDGET_CLICK" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                       android:resource="@xml/xml_waterwidget" />
         </receiver>
 
         <!-- OFF for a while -->
