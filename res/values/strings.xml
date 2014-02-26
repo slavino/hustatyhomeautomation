@@ -110,4 +110,7 @@
     <string name="silentTrafficNotifications">Silent traffic notifications</string>
     <string name="silentTrafficNotifications_summary">Don\u0027t play sound when receiving traffic notifications from application.</string>
 
+
+    <string name="setNow">Now</string>
+
 </resources>
