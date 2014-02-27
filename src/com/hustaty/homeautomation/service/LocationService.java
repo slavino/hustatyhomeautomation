@@ -6,10 +6,14 @@ import android.location.LocationManager;
 import android.util.Log;
 import com.hustaty.homeautomation.util.LogUtil;
 
+import java.util.Date;
+
 public class LocationService {
 
     // logger entry
     private final static String LOG_TAG = LocationService.class.getName();
+
+    private static final long GPS_TIMEOUT = 30L * 60L * 1000L; //30 minutes in millis
 
     private static Location myLocation;
 
@@ -37,8 +41,11 @@ public class LocationService {
 //        if(isNetworkLocationAvailable(context)) {
             //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime, minDistance, pendingIntent);
 //        }
+        if((new Date()).before(new Date(myLocation.getTime() + GPS_TIMEOUT))) {
+            return myLocation;
+        }
 
-        return myLocation;
+        return null;
 
 	}
 

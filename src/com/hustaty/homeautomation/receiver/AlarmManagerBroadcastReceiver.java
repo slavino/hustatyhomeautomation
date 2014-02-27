@@ -83,6 +83,12 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             }
             context.sendBroadcast(newIntent);
 
+            //TEST with hotWater
+            Intent hotWaterIntent = new Intent(HotWaterWidgetProvider.HOTWATER_STATE);
+            hotWaterIntent.putExtra(HotWaterWidgetProvider.HOTWATER_STATE, arduinoThermoServerStatus.getHotWaterSupply());
+            context.sendBroadcast(hotWaterIntent);
+            //END OF TEST with hotWater
+
             StringBuilder trafficInfoText = new StringBuilder();
 
             int counter = 1;

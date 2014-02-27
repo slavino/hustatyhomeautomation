@@ -16,12 +16,14 @@ import com.hustaty.homeautomation.R;
 public class HotWaterWidgetProvider extends AppWidgetProvider {
 
     public static final String HOTWATER_WIDGET_CLICK = "com.hustaty.homeautomation.HOTWATER_WIDGET_CLICK";
+    public static final String HOTWATER_STATE = "com.hustaty.homeautomation.HOTWATER_STATE";
 
     private static final String LOG_TAG = HotWaterWidgetProvider.class.getName();
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(LOG_TAG, "#onReceive() started");
+        super.onReceive(context, intent);
 
         RemoteViews updateView = new RemoteViews(context.getPackageName(), R.layout.waterwidget);
         ComponentName thisWidget = new ComponentName(context, HotWaterWidgetProvider.class);
@@ -45,9 +47,21 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
             //get Appwidget manager and change widget image
             AppWidgetManager.getInstance(context).updateAppWidget(thisWidget, updateView);
 
+        } else if(HOTWATER_STATE.equals(intent.getAction())) {
+            String hotwaterinfo = intent.getStringExtra(HOTWATER_STATE);
+            Log.d(LOG_TAG, "--> Hotwater state is " + hotwaterinfo);
+            if("0".equals(hotwaterinfo))  {
+                updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_off_state);
+            } else if("1".equals(hotwaterinfo)) {
+                updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_off_state);
+            } else {
+                updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_unknown_state);
+            }
         }
 
-        super.onReceive(context, intent);
+        //trigger update through AppWidgetManager
+        AppWidgetManager.getInstance(context).updateAppWidget(thisWidget, updateView);
+
     }
 
     @Override
