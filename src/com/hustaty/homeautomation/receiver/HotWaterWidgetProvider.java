@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.hustaty.homeautomation.R;
 import com.hustaty.homeautomation.enums.Appliance;
 import com.hustaty.homeautomation.enums.Command;
+import com.hustaty.homeautomation.enums.SharedPreferencesKeys;
 import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.http.MyHttpClient;
 import com.hustaty.homeautomation.model.CommonResult;
@@ -74,7 +75,7 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
                     if(RESULT_OK.equals(commonResult.getResult())) {
                         //everything is OK
                         updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_on_state);
-                        sharedPreferences.edit().putString("hotWaterSupply", HOTWATER_STATE_ON).commit();
+                        sharedPreferences.edit().putString(SharedPreferencesKeys.HEATINGSYSTEM_HOTWATERSUPPLY.getKey(), HOTWATER_STATE_ON).commit();
                     } else {
                         //something went wrong and API returned other than OK
                         updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_unknown_state);
@@ -92,7 +93,7 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
                     CommonResult commonResult = myHttpClient.removeStoredEvent(Appliance.HOTWATER, true);
                     if(RESULT_OK.equals(commonResult.getResult())) {
                         updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_off_state);
-                        sharedPreferences.edit().putString("hotWaterSupply", HOTWATER_STATE_OFF).commit();
+                        sharedPreferences.edit().putString(SharedPreferencesKeys.HEATINGSYSTEM_HOTWATERSUPPLY.getKey(), HOTWATER_STATE_OFF).commit();
                     } else {
                         updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_unknown_state);
                     }

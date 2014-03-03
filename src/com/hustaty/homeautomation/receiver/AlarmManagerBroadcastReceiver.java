@@ -15,6 +15,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.hustaty.homeautomation.R;
+import com.hustaty.homeautomation.enums.SharedPreferencesKeys;
 import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.http.MyHttpClient;
 import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
@@ -101,13 +102,13 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
                 Calendar cal = Calendar.getInstance();
                 Integer hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
                 boolean silentInfo =
-                        (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("silentTrafficNotifications", false) //user selected silent
+                        (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(SharedPreferencesKeys.APPLICATIONPREFERENCES_SILENTTRAFFICNOTIFICATIONS.getKey(), false) //user selected silent
                         ||
                         (hourOfDay < 7)  //not before 7:00am
                         || (
                         myHttpClient != null
                                 && myHttpClient.getWifiInfo() != null
-                                && PreferenceManager.getDefaultSharedPreferences(context).getString("wifiSSID", "unknown").equals(myHttpClient.getWifiInfo().getSSID()))
+                                && PreferenceManager.getDefaultSharedPreferences(context).getString(SharedPreferencesKeys.APPLICATIONPREFERENCES_WIFI_SSID.getKey(), "unknown").equals(myHttpClient.getWifiInfo().getSSID()))
 
                 );
                 new TrafficNotificationService(context, trafficInfoText.toString(), silentInfo);
@@ -151,46 +152,46 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         boolean changeOccured = false;
 
         SimpleDateFormat mysqlDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        sharedPreferences.edit().putString("SECUPDATETIME", mysqlDateFormat.format(new Date())).commit();
+        sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_UPDATETIME.getKey(), mysqlDateFormat.format(new Date())).commit();
 
-        if(!arduinoThermoServerStatus.getSecurityArmed().equals(currentState.get("ARM"))) {
+        if(!arduinoThermoServerStatus.getSecurityArmed().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_ARMED.getKey()))) {
             changeOccured = true;
-            sharedPreferences.edit().putString("ARM", arduinoThermoServerStatus.getSecurityArmed()).commit();
+            sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_ARMED.getKey(), arduinoThermoServerStatus.getSecurityArmed()).commit();
         }
 
-        if(!arduinoThermoServerStatus.getSecurityAlarm().equals(currentState.get("ALM"))) {
+        if(!arduinoThermoServerStatus.getSecurityAlarm().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_ALARM.getKey()))) {
             changeOccured = true;
-            sharedPreferences.edit().putString("ALM", arduinoThermoServerStatus.getSecurityAlarm()).commit();
+            sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_ALARM.getKey(), arduinoThermoServerStatus.getSecurityAlarm()).commit();
         }
 
-        if(!arduinoThermoServerStatus.getSecurityFault().equals(currentState.get("FLT"))) {
+        if(!arduinoThermoServerStatus.getSecurityFault().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_FAULT.getKey()))) {
             changeOccured = true;
-            sharedPreferences.edit().putString("FLT", arduinoThermoServerStatus.getSecurityFault()).commit();
+            sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_FAULT.getKey(), arduinoThermoServerStatus.getSecurityFault()).commit();
         }
 
-        if(!arduinoThermoServerStatus.getSecurityFire().equals(currentState.get("FIR"))) {
+        if(!arduinoThermoServerStatus.getSecurityFire().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_FIRE.getKey()))) {
             changeOccured = true;
-            sharedPreferences.edit().putString("FIR", arduinoThermoServerStatus.getSecurityFire()).commit();
+            sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_FIRE.getKey(), arduinoThermoServerStatus.getSecurityFire()).commit();
         }
 
-        if(!arduinoThermoServerStatus.getSecurityTamper().equals(currentState.get("TMP"))) {
+        if(!arduinoThermoServerStatus.getSecurityTamper().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_TAMPERED.getKey()))) {
             changeOccured = true;
-            sharedPreferences.edit().putString("TMP", arduinoThermoServerStatus.getSecurityTamper()).commit();
+            sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_TAMPERED.getKey(), arduinoThermoServerStatus.getSecurityTamper()).commit();
         }
 
-        if(!arduinoThermoServerStatus.getSecurityPowerSupply().equals(currentState.get("AC"))) {
+        if(!arduinoThermoServerStatus.getSecurityPowerSupply().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_ACPOWERFAILURE.getKey()))) {
             changeOccured = true;
-            sharedPreferences.edit().putString("AC", arduinoThermoServerStatus.getSecurityPowerSupply()).commit();
+            sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_ACPOWERFAILURE.getKey(), arduinoThermoServerStatus.getSecurityPowerSupply()).commit();
         }
 
-        if(!arduinoThermoServerStatus.getSecurityLowBattery().equals(currentState.get("LB"))) {
+        if(!arduinoThermoServerStatus.getSecurityLowBattery().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_LOWBATTERY.getKey()))) {
             changeOccured = true;
-            sharedPreferences.edit().putString("LB", arduinoThermoServerStatus.getSecurityLowBattery()).commit();
+            sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_LOWBATTERY.getKey(), arduinoThermoServerStatus.getSecurityLowBattery()).commit();
         }
 
-        if(!arduinoThermoServerStatus.getSecurityPgY().equals(currentState.get("PGY"))) {
+        if(!arduinoThermoServerStatus.getSecurityPgY().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_PGY.getKey()))) {
             changeOccured = true;
-            sharedPreferences.edit().putString("PGY", arduinoThermoServerStatus.getSecurityPgY()).commit();
+            sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_PGY.getKey(), arduinoThermoServerStatus.getSecurityPgY()).commit();
         }
 
         if(arduinoThermoServerStatus.getHotWaterSupply() != null) {
