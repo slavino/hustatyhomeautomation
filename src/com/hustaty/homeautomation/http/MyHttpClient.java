@@ -247,11 +247,11 @@ public class MyHttpClient extends DefaultHttpClient {
         CommonResult result = null;
         try {
             result = gson.fromJson(httpResponseText(response), CommonResult.class);
-            Log.d(LOG_TAG, "#addStoredEvent(" + appliance.getValue() + "," + command.getValue() + "," + validFrom + "," + validUntil + "," + shutdownAfterGettingInfo + "): " + response);
-            LogUtil.appendLog(LOG_TAG + "#addStoredEvent(" + appliance.getValue() + "," + command.getValue() + "," + validFrom + "," + validUntil + "," + shutdownAfterGettingInfo + "): " + response);
+            Log.d(LOG_TAG, "#addStoredEvent(" + appliance.getValue() + "," + command.getValue() + "," + validFrom + "," + validUntil + "," + shutdownAfterGettingInfo + "): " + result.getResult());
+            LogUtil.appendLog(LOG_TAG + "#addStoredEvent(" + appliance.getValue() + "," + command.getValue() + "," + validFrom + "," + validUntil + "," + shutdownAfterGettingInfo + "): " + result.getResult());
         } catch (JsonSyntaxException jsonSyntaxException) {
             LogUtil.appendLog(LOG_TAG + "#addStoredEvent(" + appliance.getValue() + "," + command.getValue() + "," + validFrom + "," + validUntil + "," + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage());
-            Log.d(LOG_TAG, "#addStoredEvent(" + appliance.getValue() + "," + command.getValue() + "," + validFrom + "," + validUntil + "," + shutdownAfterGettingInfo + "): " + response);
+            Log.d(LOG_TAG, "#addStoredEvent(" + appliance.getValue() + "," + command.getValue() + "," + validFrom + "," + validUntil + "," + shutdownAfterGettingInfo + "): " + result.getResult());
             throw new HomeAutomationException(jsonSyntaxException);
         }
 
@@ -293,10 +293,10 @@ public class MyHttpClient extends DefaultHttpClient {
         try {
             result = gson.fromJson(httpResponseText(response), CommonResult.class);
             Log.d(LOG_TAG, "#removeStoredEvent(" + appliance.getValue() + "," + shutdownAfterGettingInfo + "): " + result);
-            LogUtil.appendLog(LOG_TAG + "#removeStoredEvent(" + appliance.getValue() + "," + shutdownAfterGettingInfo + "): " + result);
+            LogUtil.appendLog(LOG_TAG + "#removeStoredEvent(" + appliance.getValue() + "," + shutdownAfterGettingInfo + "): " + result.getResult());
         } catch (JsonSyntaxException jsonSyntaxException) {
             LogUtil.appendLog(LOG_TAG + "#removeStoredEvent(" + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage());
-            Log.d(LOG_TAG, "#removeStoredEvent(" + appliance.getValue() + "," + shutdownAfterGettingInfo + "): " + result);
+            Log.d(LOG_TAG, "#removeStoredEvent(" + appliance.getValue() + "," + shutdownAfterGettingInfo + "): " + result.getResult());
             throw new HomeAutomationException(jsonSyntaxException);
         }
 
