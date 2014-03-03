@@ -47,7 +47,7 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
         //TEST
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         Map<String, ?> currentState = sharedPreferences.getAll();
-        String hotWaterStoredState = (String)currentState.get("hotWaterSupply");
+        String hotWaterStoredState = (String)currentState.get(SharedPreferencesKeys.HEATINGSYSTEM_HOTWATERSUPPLY.getKey());
         Log.d(LOG_TAG, "hotwater stored State is: " + hotWaterStoredState);
         //TEST
 
@@ -72,12 +72,17 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
                 cal.add(Calendar.HOUR, 1);
                 try {
                     CommonResult commonResult = myHttpClient.addStoredEvent(Appliance.HOTWATER, Command.HOTWATER_ON, new Date(), cal.getTime(), true);
-                    if(RESULT_OK.equals(commonResult.getResult())) {
+                    if(commonResult != null
+                        && commonResult.getResult() != null
+                        && (commonResult.getResult().startsWith(RESULT_OK)
+                            || RESULT_OK.equals(commonResult.getResult()))) {
                         //everything is OK
+                        Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): adding stored event for switching on hotwater SUCCEEDED");
                         updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_on_state);
                         sharedPreferences.edit().putString(SharedPreferencesKeys.HEATINGSYSTEM_HOTWATERSUPPLY.getKey(), HOTWATER_STATE_ON).commit();
                     } else {
                         //something went wrong and API returned other than OK
+                        Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): adding stored event for switching on hotwater FAILED" + commonResult.getResult());
                         updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_unknown_state);
                     }
                     Toast.makeText(context, commonResult.getResult(), Toast.LENGTH_LONG).show();
@@ -87,14 +92,20 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
                     Log.e(LOG_TAG, e.getMessage());
                 }
             } else if(HOTWATER_STATE_ON.equals(hotWaterStoredState)) {
-//                updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_onoff_state);
                 clickIntent.putExtra(HOTWATER_STATE, HOTWATER_STATE_ON);
                 try {
                     CommonResult commonResult = myHttpClient.removeStoredEvent(Appliance.HOTWATER, true);
-                    if(RESULT_OK.equals(commonResult.getResult())) {
+                    if(commonResult != null
+                        && commonResult.getResult() != null
+                        && (commonResult.getResult().startsWith(RESULT_OK)
+                            || RESULT_OK.equals(commonResult.getResult()))) {
+                        //everything is OK
+                        Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): removing stored event for hotwater SUCCEEDED");
                         updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_off_state);
                         sharedPreferences.edit().putString(SharedPreferencesKeys.HEATINGSYSTEM_HOTWATERSUPPLY.getKey(), HOTWATER_STATE_OFF).commit();
                     } else {
+                        //something went wrong and API returned other than OK
+                        Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): removing stored event for hotwater FAILED " + commonResult.getResult());
                         updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_unknown_state);
                     }
                     Toast.makeText(context, commonResult.getResult(), Toast.LENGTH_LONG).show();

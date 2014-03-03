@@ -14,6 +14,7 @@ import com.google.gson.reflect.TypeToken;
 import com.hustaty.homeautomation.R;
 import com.hustaty.homeautomation.enums.Appliance;
 import com.hustaty.homeautomation.enums.Command;
+import com.hustaty.homeautomation.enums.SharedPreferencesKeys;
 import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.model.*;
 import com.hustaty.homeautomation.service.LocationService;
@@ -69,13 +70,13 @@ public class MyHttpClient extends DefaultHttpClient {
 
         try {
             Map<String, ?> preferences = ApplicationPreferences.getPreferences(context);
-            MyHttpClient.login = (String) preferences.get("username");
-            MyHttpClient.password = (String) preferences.get("password");
-            HOME_WIFI_SSID = (String) preferences.get("wifiSSID");
-            localNetworkServerIP = (String) preferences.get("localNetworkServerIP");
-            globalServerIP = (String) preferences.get("globalServerIP");
-            homeLatitude = Double.parseDouble((String) preferences.get("homeLatitude"));
-            homeLongitude = Double.parseDouble((String) preferences.get("homeLongitude"));
+            MyHttpClient.login = (String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_USERNAME.getKey());
+            MyHttpClient.password = (String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_PASSWORD.getKey());
+            HOME_WIFI_SSID = (String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_WIFI_SSID.getKey());
+            localNetworkServerIP = (String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_LOCALSERVERIPADDRESS.getKey());
+            globalServerIP = (String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_GLOBALSERVERIPADDRESS.getKey());
+            homeLatitude = Double.parseDouble((String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_HOMEGPSLAT.getKey()));
+            homeLongitude = Double.parseDouble((String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_HOMEGPSLON.getKey()));
 
         } catch (Exception e) {
             Log.e(LOG_TAG, "#MyHttpClient(): " + e.getMessage());
@@ -109,7 +110,7 @@ public class MyHttpClient extends DefaultHttpClient {
         Double distance = attemptToGuessURL(location);
 
         if (location != null) {
-            String deviceID = PreferenceManager.getDefaultSharedPreferences(context).getString("deviceID", "unknown");
+            String deviceID = PreferenceManager.getDefaultSharedPreferences(context).getString(SharedPreferencesKeys.APPLICATIONPREFERENCES_DEVICEID.getKey(), "unknown");
             DeviceLocationInfo deviceLocationInfo = new DeviceLocationInfo();
             deviceLocationInfo.setLatitude(location.getLatitude());
             deviceLocationInfo.setLongitude(location.getLongitude());
@@ -401,6 +402,14 @@ public class MyHttpClient extends DefaultHttpClient {
     }
 
 
+    /**
+     * Retreives traffic onformation in your area.
+     *
+     * @param shutdownAfterGettingInfo connection manager shutdown true/false
+     * @return list of traffic information in your area
+     * @throws IOException
+     * @throws HomeAutomationException
+     */
     public List<TrafficInformation> getTrafficInformation(boolean shutdownAfterGettingInfo)  throws IOException, HomeAutomationException {
 
         Location location = LocationService.obtainCurrentLocation(context);
