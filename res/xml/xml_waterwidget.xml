@@ -4,5 +4,6 @@
                     android:minHeight="72dp"
                     android:initialLayout="@layout/waterwidget"
                     android:updatePeriodMillis="0"
-                    android:widgetCategory="keyguard|home_screen">
+                    android:widgetCategory="keyguard|home_screen"
+                    android:previewImage="@drawable/shower_widget_off_state">
 </appwidget-provider>

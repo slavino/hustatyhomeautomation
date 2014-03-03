@@ -114,11 +114,11 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             }
 
         } catch (HomeAutomationException e) {
-            Log.e(LOG_TAG, "#onStartCommand(): " + e.getMessage());
-            LogUtil.appendLog(LOG_TAG + "#onStartCommand():" + e.getMessage());
+            Log.e(LOG_TAG, "#onReceive(): " + e.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#onReceive():" + e.getMessage());
         } catch (IOException e) {
-            Log.e(LOG_TAG, "#onStartCommand(): " + e.getMessage());
-            LogUtil.appendLog(LOG_TAG + "#onStartCommand():" + e.getMessage());
+            Log.e(LOG_TAG, "#onReceive(): " + e.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#onReceive():" + e.getMessage());
         }
 
         // Release the lock
@@ -191,6 +191,10 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         if(!arduinoThermoServerStatus.getSecurityPgY().equals(currentState.get("PGY"))) {
             changeOccured = true;
             sharedPreferences.edit().putString("PGY", arduinoThermoServerStatus.getSecurityPgY()).commit();
+        }
+
+        if(arduinoThermoServerStatus.getHotWaterSupply() != null) {
+            sharedPreferences.edit().putString("hotWaterSupply", arduinoThermoServerStatus.getHotWaterSupply()).commit();
         }
 
         if(changeOccured) {

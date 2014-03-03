@@ -246,9 +246,11 @@ public class MyHttpClient extends DefaultHttpClient {
         CommonResult result = null;
         try {
             result = gson.fromJson(httpResponseText(response), CommonResult.class);
+            Log.d(LOG_TAG, "#addStoredEvent(" + appliance.getValue() + "," + command.getValue() + "," + validFrom + "," + validUntil + "," + shutdownAfterGettingInfo + "): " + response);
             LogUtil.appendLog(LOG_TAG + "#addStoredEvent(" + appliance.getValue() + "," + command.getValue() + "," + validFrom + "," + validUntil + "," + shutdownAfterGettingInfo + "): " + response);
         } catch (JsonSyntaxException jsonSyntaxException) {
             LogUtil.appendLog(LOG_TAG + "#addStoredEvent(" + appliance.getValue() + "," + command.getValue() + "," + validFrom + "," + validUntil + "," + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage());
+            Log.d(LOG_TAG, "#addStoredEvent(" + appliance.getValue() + "," + command.getValue() + "," + validFrom + "," + validUntil + "," + shutdownAfterGettingInfo + "): " + response);
             throw new HomeAutomationException(jsonSyntaxException);
         }
 
@@ -289,9 +291,11 @@ public class MyHttpClient extends DefaultHttpClient {
         CommonResult result = null;
         try {
             result = gson.fromJson(httpResponseText(response), CommonResult.class);
+            Log.d(LOG_TAG, "#removeStoredEvent(" + appliance.getValue() + "," + shutdownAfterGettingInfo + "): " + result);
             LogUtil.appendLog(LOG_TAG + "#removeStoredEvent(" + appliance.getValue() + "," + shutdownAfterGettingInfo + "): " + result);
         } catch (JsonSyntaxException jsonSyntaxException) {
             LogUtil.appendLog(LOG_TAG + "#removeStoredEvent(" + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage());
+            Log.d(LOG_TAG, "#removeStoredEvent(" + appliance.getValue() + "," + shutdownAfterGettingInfo + "): " + result);
             throw new HomeAutomationException(jsonSyntaxException);
         }
 
@@ -401,6 +405,11 @@ public class MyHttpClient extends DefaultHttpClient {
 
         Location location = LocationService.obtainCurrentLocation(context);
 
+        if(location == null
+                || (new Date()).after(new Date(location.getTime() + LocationService.GPS_TIMEOUT))) {
+            return null;//new ArrayList<TrafficInformation>();
+        }
+
         //this is by default done in authentication but this part is allowed also for unauthenticated access
         double distance = attemptToGuessURL(location);
 
@@ -426,9 +435,9 @@ public class MyHttpClient extends DefaultHttpClient {
 
         try {
             result = gson.fromJson(httpResponseText(response), arr);
-            LogUtil.appendLog(LOG_TAG + "#getTrafficInformation(" + shutdownAfterGettingInfo + "): " + result);
+            LogUtil.appendLog(LOG_TAG + "#getTrafficInformation(shutdown:" + shutdownAfterGettingInfo + "): " + result);
         } catch (JsonSyntaxException jsonSyntaxException) {
-            LogUtil.appendLog(LOG_TAG + "#getTrafficInformation(" + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#getTrafficInformation(shutdown:" + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage());
             throw new HomeAutomationException(jsonSyntaxException);
         }
 

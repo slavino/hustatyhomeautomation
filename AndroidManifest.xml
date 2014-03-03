@@ -72,6 +72,7 @@
                 android:name="com.hustaty.homeautomation.receiver.HotWaterWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="com.hustaty.homeautomation.UI_LOCATION_UPDATE_INTENT" />
                 <action android:name="com.hustaty.homeautomation.HOTWATER_WIDGET_CLICK" />
                 <action android:name="com.hustaty.homeautomation.HOTWATER_STATE" />

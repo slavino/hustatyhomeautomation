@@ -6,9 +6,22 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 import com.hustaty.homeautomation.R;
+import com.hustaty.homeautomation.enums.Appliance;
+import com.hustaty.homeautomation.enums.Command;
+import com.hustaty.homeautomation.exception.HomeAutomationException;
+import com.hustaty.homeautomation.http.MyHttpClient;
+import com.hustaty.homeautomation.model.CommonResult;
+
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by user on 2/26/14.
@@ -18,50 +31,116 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
     public static final String HOTWATER_WIDGET_CLICK = "com.hustaty.homeautomation.HOTWATER_WIDGET_CLICK";
     public static final String HOTWATER_STATE = "com.hustaty.homeautomation.HOTWATER_STATE";
 
+    public static final String HOTWATER_STATE_OFF = "0";
+    public static final String HOTWATER_STATE_ON = "1";
+    public static final String HOTWATER_STATE_UNKNOWN = "UNKNOWN";
+
+    public static final String RESULT_OK = "OK";
+
     private static final String LOG_TAG = HotWaterWidgetProvider.class.getName();
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(LOG_TAG, "#onReceive() started");
-        super.onReceive(context, intent);
+        Log.d(LOG_TAG, "#onReceive() started with " + intent.getAction() + " --> " + intent.getExtras());
+
+        //TEST
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Map<String, ?> currentState = sharedPreferences.getAll();
+        String hotWaterStoredState = (String)currentState.get("hotWaterSupply");
+        Log.d(LOG_TAG, "hotwater stored State is: " + hotWaterStoredState);
+        //TEST
 
         RemoteViews updateView = new RemoteViews(context.getPackageName(), R.layout.waterwidget);
         ComponentName thisWidget = new ComponentName(context, HotWaterWidgetProvider.class);
 
         if (HotWaterWidgetProvider.HOTWATER_WIDGET_CLICK.equals(intent.getAction())) {
-
             //toggle widget according to current state
-            if (true /*hotwater is on*/) {
-                updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_on_state);
-            } else {
-                updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_off_state);
-            }
-
             Intent clickIntent = new Intent(HotWaterWidgetProvider.HOTWATER_WIDGET_CLICK);
+            clickIntent.putExtra(HOTWATER_STATE, HOTWATER_STATE_OFF); //just to have default value
+            updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_onoff_state);
+
+            //TEST - to view interaction - trigger update through AppWidgetManager
+            AppWidgetManager.getInstance(context).updateAppWidget(thisWidget, updateView);
+
+            MyHttpClient myHttpClient = new MyHttpClient(context);
+
+            if(HOTWATER_STATE_OFF.equals(hotWaterStoredState)) {
+//                updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_onoff_state);
+                clickIntent.putExtra(HOTWATER_STATE, HOTWATER_STATE_OFF);
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.HOUR, 1);
+                try {
+                    CommonResult commonResult = myHttpClient.addStoredEvent(Appliance.HOTWATER, Command.HOTWATER_ON, new Date(), cal.getTime(), true);
+                    if(RESULT_OK.equals(commonResult.getResult())) {
+                        //everything is OK
+                        updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_on_state);
+                        sharedPreferences.edit().putString("hotWaterSupply", HOTWATER_STATE_ON).commit();
+                    } else {
+                        //something went wrong and API returned other than OK
+                        updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_unknown_state);
+                    }
+                    Toast.makeText(context, commonResult.getResult(), Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                } catch (HomeAutomationException e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                }
+            } else if(HOTWATER_STATE_ON.equals(hotWaterStoredState)) {
+//                updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_onoff_state);
+                clickIntent.putExtra(HOTWATER_STATE, HOTWATER_STATE_ON);
+                try {
+                    CommonResult commonResult = myHttpClient.removeStoredEvent(Appliance.HOTWATER, true);
+                    if(RESULT_OK.equals(commonResult.getResult())) {
+                        updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_off_state);
+                        sharedPreferences.edit().putString("hotWaterSupply", HOTWATER_STATE_OFF).commit();
+                    } else {
+                        updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_unknown_state);
+                    }
+                    Toast.makeText(context, commonResult.getResult(), Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                } catch (HomeAutomationException e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                }
+            }
 
             PendingIntent pendingIntentClick = PendingIntent.getBroadcast(context, 0, clickIntent, 0);
             updateView.setOnClickPendingIntent(R.id.hotwater_widget_imagebutton, pendingIntentClick);
 
-            Log.d(LOG_TAG, "Setting pending intent");
-
-            //get Appwidget manager and change widget image
-            AppWidgetManager.getInstance(context).updateAppWidget(thisWidget, updateView);
+            Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): Setting pending intent");
 
         } else if(HOTWATER_STATE.equals(intent.getAction())) {
             String hotwaterinfo = intent.getStringExtra(HOTWATER_STATE);
-            Log.d(LOG_TAG, "--> Hotwater state is " + hotwaterinfo);
-            if("0".equals(hotwaterinfo))  {
+            Log.d(LOG_TAG, "#onReceive(HOTWATER_STATE): --> Hotwater state is " + hotwaterinfo);
+
+            Intent clickIntent = new Intent(HotWaterWidgetProvider.HOTWATER_WIDGET_CLICK);
+
+            if(HOTWATER_STATE_OFF.equals(hotwaterinfo))  {
                 updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_off_state);
-            } else if("1".equals(hotwaterinfo)) {
-                updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_off_state);
+                clickIntent.putExtra(HOTWATER_STATE, HOTWATER_STATE_OFF);
+            } else if(HOTWATER_STATE_ON.equals(hotwaterinfo)) {
+                updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_on_state);
+                clickIntent.putExtra(HOTWATER_STATE, HOTWATER_STATE_ON);
             } else {
                 updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_unknown_state);
+                clickIntent.putExtra(HOTWATER_STATE, HOTWATER_STATE_OFF);
             }
+            PendingIntent pendingIntentClick = PendingIntent.getBroadcast(context, 0, clickIntent, 0);
+            updateView.setOnClickPendingIntent(R.id.hotwater_widget_imagebutton, pendingIntentClick);
+
+        } else {
+            Log.d(LOG_TAG, "#onReceive(" + intent.getAction() +"): else part, setting pending intent only");
+            Intent clickIntent = new Intent(HotWaterWidgetProvider.HOTWATER_WIDGET_CLICK);
+            clickIntent.putExtra(HOTWATER_STATE, HOTWATER_STATE_OFF);
+            PendingIntent pendingIntentClick = PendingIntent.getBroadcast(context, 0, clickIntent, 0);
+            updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_unknown_state);
+            updateView.setOnClickPendingIntent(R.id.hotwater_widget_imagebutton, pendingIntentClick);
         }
 
         //trigger update through AppWidgetManager
         AppWidgetManager.getInstance(context).updateAppWidget(thisWidget, updateView);
 
+        super.onReceive(context, intent);
     }
 
     @Override
@@ -104,4 +183,6 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
 
         super.onDisabled(context);
     }
+
+
 }

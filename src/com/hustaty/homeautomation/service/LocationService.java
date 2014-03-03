@@ -13,7 +13,7 @@ public class LocationService {
     // logger entry
     private final static String LOG_TAG = LocationService.class.getName();
 
-    private static final long GPS_TIMEOUT = 30L * 60L * 1000L; //30 minutes in millis
+    public static final long GPS_TIMEOUT = 30L * 60L * 1000L; //30 minutes in millis
 
     private static Location myLocation;
 
