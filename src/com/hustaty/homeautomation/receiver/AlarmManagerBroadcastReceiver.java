@@ -115,11 +115,11 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             }
 
         } catch (HomeAutomationException e) {
-            Log.e(LOG_TAG, "#onReceive(): " + e.getMessage());
-            LogUtil.appendLog(LOG_TAG + "#onReceive():" + e.getMessage());
+            Log.e(LOG_TAG, "#onReceive(HAException): " + e.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#onReceive(HAException):" + e.getMessage());
         } catch (IOException e) {
-            Log.e(LOG_TAG, "#onReceive(): " + e.getMessage());
-            LogUtil.appendLog(LOG_TAG + "#onReceive():" + e.getMessage());
+            Log.e(LOG_TAG, "#onReceive(IOexception): " + e.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#onReceive(IOexception):" + e.getMessage());
         }
 
         // Release the lock

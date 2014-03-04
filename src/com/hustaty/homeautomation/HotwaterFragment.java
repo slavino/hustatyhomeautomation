@@ -45,8 +45,8 @@ public class HotwaterFragment extends Fragment {
         View view = inflater.inflate(R.layout.hotwater_fragment, container, false);
         calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, 1);
-        calendar.set(Calendar.HOUR_OF_DAY, 7);
-        calendar.set(Calendar.MINUTE, 15);
+        calendar.set(Calendar.HOUR_OF_DAY, 6);
+        calendar.set(Calendar.MINUTE, 05);
         calendar.set(Calendar.SECOND, 0);
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -84,6 +84,15 @@ public class HotwaterFragment extends Fragment {
                 // fill in the grid_item layout
                 SimpleAdapter adapter = new SimpleAdapter(view.getContext(), fillMaps, R.layout.grid_item, from, to);
                 listView.setAdapter(adapter);
+
+                listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Log.i(LOG_TAG, "$AdapterView.OnItemLongClickListener#onItemLongClick(): i:" + i + " - l:" + l);
+                        //TODO: handle long click to delete the item
+                        return false;
+                    }
+                });
 
             }
         } catch (IOException e) {
