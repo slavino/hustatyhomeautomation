@@ -100,31 +100,61 @@ public class MainActivity extends FragmentActivity {
 
         //EXPERIMENTAL
         // Check device for Play Services APK.
-        if (checkPlayServices()) {
-            // If this check succeeds, proceed with normal processing.
-            // Otherwise, prompt user to get valid Play Services APK.
-            context = getApplicationContext();
-            SENDER_ID = CommonUtil.getSenderId(context);
-            gcm = GoogleCloudMessaging.getInstance(this);
-            regid = getRegistrationId(context);
+//        if (checkPlayServices()) {
+//            // If this check succeeds, proceed with normal processing.
+//            // Otherwise, prompt user to get valid Play Services APK.
+//            context = getApplicationContext();
+//            SENDER_ID = CommonUtil.getSenderId(context);
+//            gcm = GoogleCloudMessaging.getInstance(this);
+//            regid = getRegistrationId(context);
+//
+//            if (regid.isEmpty()) {
+//                registerInBackground(5);
+//            }
+//
+//        }
 
-            if (regid.isEmpty()) {
-                registerInBackground(5);
+        new Thread() {
+            public void run() {
+                try {
+                    //EXPERIMENTAL
+                    // Check device for Play Services APK.
+                    if (checkPlayServices()) {
+                        // If this check succeeds, proceed with normal processing.
+                        // Otherwise, prompt user to get valid Play Services APK.
+                        context = getApplicationContext();
+                        SENDER_ID = CommonUtil.getSenderId(context);
+                        gcm = GoogleCloudMessaging.getInstance(MainActivity.this);
+                        regid = getRegistrationId(context);
+
+                        if (regid.isEmpty()) {
+                            registerInBackground(5);
+                        }
+
+                    }
+
+                    AlarmManagerBroadcastReceiver alarmManagerBroadcastReceiver = new AlarmManagerBroadcastReceiver();
+                    alarmManagerBroadcastReceiver.cancelAlarm(MainActivity.this);
+                    alarmManagerBroadcastReceiver.setAlarm(MainActivity.this);
+                    Log.d(LOG_TAG, "#onCreate(): cancelling and setting Alarms");
+                    LogUtil.appendLog(LOG_TAG + "#onCreate():  cancelling and setting Alarms");
+                } catch (Exception e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                    LogUtil.appendLog(LOG_TAG + "#onCreate(): " + e.getMessage());
+                }
             }
+        }.start();
 
-        }
-
-
-        try {
-            AlarmManagerBroadcastReceiver alarmManagerBroadcastReceiver = new AlarmManagerBroadcastReceiver();
-            alarmManagerBroadcastReceiver.cancelAlarm(this);
-            alarmManagerBroadcastReceiver.setAlarm(this);
-            Log.d(LOG_TAG, "#onCreate(): cancelling and setting Alarms");
-            LogUtil.appendLog(LOG_TAG + "#onCreate():  cancelling and setting Alarms");
-        } catch (Exception e) {
-            Log.e(LOG_TAG, e.getMessage());
-            LogUtil.appendLog(LOG_TAG + "#onCreate(): " + e.getMessage());
-        }
+//        try {
+//            AlarmManagerBroadcastReceiver alarmManagerBroadcastReceiver = new AlarmManagerBroadcastReceiver();
+//            alarmManagerBroadcastReceiver.cancelAlarm(this);
+//            alarmManagerBroadcastReceiver.setAlarm(this);
+//            Log.d(LOG_TAG, "#onCreate(): cancelling and setting Alarms");
+//            LogUtil.appendLog(LOG_TAG + "#onCreate():  cancelling and setting Alarms");
+//        } catch (Exception e) {
+//            Log.e(LOG_TAG, e.getMessage());
+//            LogUtil.appendLog(LOG_TAG + "#onCreate(): " + e.getMessage());
+//        }
 
     }
 

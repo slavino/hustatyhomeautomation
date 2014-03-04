@@ -34,6 +34,7 @@ public class StatusFragment extends Fragment {
 
         MyHttpClient myHttpClient = new MyHttpClient(view.getContext());
         ArduinoThermoServerStatus thermoServerStatus = null;
+
         try {
             thermoServerStatus = myHttpClient.getThermoServerStatus(true);
         } catch (HomeAutomationException e) {

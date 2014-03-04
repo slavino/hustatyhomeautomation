@@ -82,13 +82,14 @@ public class HotwaterFragment extends Fragment {
                 }
 
                 // fill in the grid_item layout
-                SimpleAdapter adapter = new SimpleAdapter(view.getContext(), fillMaps, R.layout.grid_item, from, to);
+                final SimpleAdapter adapter = new SimpleAdapter(view.getContext(), fillMaps, R.layout.grid_item, from, to);
                 listView.setAdapter(adapter);
 
                 listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Log.i(LOG_TAG, "$AdapterView.OnItemLongClickListener#onItemLongClick(): i:" + i + " - l:" + l);
+                        Log.i(LOG_TAG, adapter.getItem(i).toString());
                         //TODO: handle long click to delete the item
                         return false;
                     }
