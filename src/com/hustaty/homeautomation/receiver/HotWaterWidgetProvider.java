@@ -42,7 +42,7 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(LOG_TAG, "#onReceive() started with " + intent.getAction() + " --> " + intent.getExtras());
+        Log.d(LOG_TAG, "#onReceive(): method started with " + intent.getAction() + " --> " + intent.getExtras());
 
         //TEST
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -157,27 +157,37 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        Log.d(LOG_TAG, "#onUpdate() started");
+        Log.d(LOG_TAG, "#onUpdate(): method started");
         RemoteViews updateView = new RemoteViews(context.getPackageName(), R.layout.waterwidget);
 
-        appWidgetManager.updateAppWidget(appWidgetIds, updateView);
 
-        if (true /* hotwater is ON */) {
+        //TEST
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Map<String, ?> currentState = sharedPreferences.getAll();
+        String hotWaterStoredState = (String)currentState.get(SharedPreferencesKeys.HEATINGSYSTEM_HOTWATERSUPPLY.getKey());
+        Log.d(LOG_TAG, "hotwater stored State is: " + hotWaterStoredState);
+        //TEST
+
+        if (HOTWATER_STATE_ON.equals(hotWaterStoredState)) {
             updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_on_state);
-        } else {
+        } else if(HOTWATER_STATE_OFF.equals(hotWaterStoredState)) {
             updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_off_state);
+        } else {
+            updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_unknown_state);
         }
 
         Intent clickIntent = new Intent(HotWaterWidgetProvider.HOTWATER_WIDGET_CLICK);
 
-        PendingIntent pendingIntentClick = PendingIntent.getBroadcast(context, 0, clickIntent, 0);
-        updateView.setOnClickPendingIntent(R.id.hotwater_widget_imagebutton, pendingIntentClick);
+        PendingIntent pendingClickIntent = PendingIntent.getBroadcast(context, 0, clickIntent, 0);
+        updateView.setOnClickPendingIntent(R.id.hotwater_widget_imagebutton, pendingClickIntent);
 
-        Log.d(LOG_TAG, "Setting pending intent");
+        Log.d(LOG_TAG, "#onUpdate(): Setting pending intent");
 
         for(int id : appWidgetIds){
             appWidgetManager.updateAppWidget(id, updateView);
         }
+//        appWidgetManager.updateAppWidget(appWidgetIds, updateView);
+
 
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }

@@ -3,8 +3,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:minHeight="72dp"
-        android:minWidth="72dp"
+        android:minHeight="56dp"
+        android:minWidth="56dp"
         android:gravity="center"
         android:id="@+id/Base">
 

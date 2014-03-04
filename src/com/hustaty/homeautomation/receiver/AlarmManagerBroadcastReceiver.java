@@ -127,7 +127,7 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
     }
 
     public void setAlarm(Context context) {
-        Log.d(LOG_TAG, "#setAlarm(): ");
+        Log.d(LOG_TAG, "#setAlarm(): method started");
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
         intent.putExtra(ONE_TIME, Boolean.FALSE);

@@ -545,6 +545,7 @@ public class MyHttpClient extends DefaultHttpClient {
         } else {
             URL_TO_USE = localNetworkServerIP;
         }
+        Log.d(LOG_TAG, "#useAnotherURL(): switching URL_TO_USE to: " + URL_TO_USE);
     }
 
     /**

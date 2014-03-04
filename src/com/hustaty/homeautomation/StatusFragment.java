@@ -97,8 +97,18 @@ public class StatusFragment extends Fragment {
             lastCommunicationFromArduinoValue.setText(thermoServerStatus.getLastCommunicationFromArduino()) ;
 
             TextView securitySystemStatus = (TextView) view.findViewById(R.id.textView_security_system_armed);
+
+            String armedState = "NONE ";
+            if("1".equals(thermoServerStatus.getSecurityArmed())) {
+                if("1".equals(thermoServerStatus.getSecurityPgY())) {
+                    armedState = "NIGHT";
+                } else if("0".equals(thermoServerStatus.getSecurityPgY())) {
+                    armedState = "FULL ";
+                }
+            }
+
             securitySystemStatus.setText(
-                    "ARMED: " + thermoServerStatus.getSecurityArmed()
+                    "ARMED: " + armedState
                     + "        ALARM: " + thermoServerStatus.getSecurityAlarm()
                     + "\nFAULT: " + thermoServerStatus.getSecurityFault()
                     + "        FIRE: " + thermoServerStatus.getSecurityFire()
@@ -107,6 +117,7 @@ public class StatusFragment extends Fragment {
                     + "\nPOWER: " + thermoServerStatus.getSecurityPowerSupply()
                     + "        TAMPER: " + thermoServerStatus.getSecurityTamper()
                     + "\nPgY: " + thermoServerStatus.getSecurityPgY()
+                    + "        ARM: " + thermoServerStatus.getSecurityArmed()
             ) ;
 
         }
