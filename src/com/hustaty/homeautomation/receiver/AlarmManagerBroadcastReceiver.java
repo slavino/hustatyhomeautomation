@@ -93,9 +93,11 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             StringBuilder trafficInfoText = new StringBuilder();
 
             int counter = 1;
-            for (TrafficInformation trafficInformation : trafficInformationList) {
-                trafficInfoText.append((counter++) + "/" + trafficInformationList.size() + " ");
-                trafficInfoText.append(trafficInformation.getType() + ": " + trafficInformation.getDescription() + "\n");
+            if(trafficInformationList != null) {
+                for (TrafficInformation trafficInformation : trafficInformationList) {
+                    trafficInfoText.append((counter++) + "/" + trafficInformationList.size() + " ");
+                    trafficInfoText.append(trafficInformation.getType() + ": " + trafficInformation.getDescription() + "\n");
+                }
             }
 
             if (!("".equals(trafficInfoText.toString()))) {
@@ -115,7 +117,7 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             }
 
         } catch (HomeAutomationException e) {
-            Log.e(LOG_TAG, "#onReceive(HAException): " + e);
+            Log.e(LOG_TAG, "#onReceive(HAException): " + e.getMessage());
             LogUtil.appendLog(LOG_TAG + "#onReceive(HAException):" + e.getMessage());
         } catch (IOException e) {
 
