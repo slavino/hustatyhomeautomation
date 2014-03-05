@@ -3,92 +3,98 @@ package com.hustaty.homeautomation.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class ArduinoThermoServerStatus implements Serializable {
 
+    private static final String UNKNOWN_TEMPERATURE = "--.--";
+    private static final String UNKNOWN_STATE = "-1";
+    private static final String UNKNOWN_VALUE = "--";
+    private static final String DEFAULT_VALUE = "0";
+
 	@SerializedName("LastCommunicationFromArduino")
-	private String lastCommunicationFromArduino;
+	private String lastCommunicationFromArduino = new Date().toString();
 	
 	@SerializedName("thermostat1")
-	private String thermostat1;
+	private String thermostat1 = UNKNOWN_STATE;
 
 	@SerializedName("thermostat2")
-	private String thermostat2;
+	private String thermostat2 = UNKNOWN_STATE;
 	
 	@SerializedName("hotWaterSwitch")
-	private String hotWaterSwitch;
+	private String hotWaterSwitch = UNKNOWN_STATE;
 	
 	@SerializedName("hotWaterSupply")
-	private String hotWaterSupply;
+	private String hotWaterSupply = UNKNOWN_STATE;
 	
 	@SerializedName("heatingState")
-	private String heatingState;
+	private String heatingState = UNKNOWN_STATE;
 	
 	@SerializedName("remainingTimeForLastServerCommand")
-	private String remainingTimeForLastServerCommand;
+	private String remainingTimeForLastServerCommand = UNKNOWN_STATE;
 	
 	@SerializedName("freeMemory")
-	private String freeMemory;
+	private String freeMemory = UNKNOWN_VALUE;
 	
 	@SerializedName("uptime")
-	private String uptime;
+	private String uptime = UNKNOWN_VALUE;
 
 	@SerializedName("uptime2")
-	private String uptime2;
+	private String uptime2 = UNKNOWN_VALUE;
 
 	@SerializedName("reset")
-	private String reset;
+	private String reset = UNKNOWN_VALUE;
 
     // outside
 	@SerializedName("t28F82D850400001F")
-	private String t28F82D850400001F;
+	private String t28F82D850400001F = UNKNOWN_TEMPERATURE;
 
     // bedroom
 	@SerializedName("t28B79F8504000082")
-	private String t28B79F8504000082;
+	private String t28B79F8504000082 = UNKNOWN_TEMPERATURE;
 
     // upper lobby
 	@SerializedName("t28205B850400008B")
-	private String t28205B850400008B;
+	private String t28205B850400008B = UNKNOWN_TEMPERATURE;
 
     // workroom
 	@SerializedName("t280F5B8504000019")
-	private String t280F5B8504000019;
+	private String t280F5B8504000019 = UNKNOWN_TEMPERATURE;
 
     // entrance lobby
     @SerializedName("t28F1E685040000DB")
-    private String t28F1E685040000DB;
+    private String t28F1E685040000DB = UNKNOWN_TEMPERATURE;
 
     // kitchen
     @SerializedName("t28C9C9AA040000EA")
-    private String t28C9C9AA040000EA;
+    private String t28C9C9AA040000EA = UNKNOWN_TEMPERATURE;
 
     @SerializedName("ARM")
-    private String securityArmed;
+    private String securityArmed = DEFAULT_VALUE;
 
     @SerializedName("ALM")
-    private String securityAlarm;
+    private String securityAlarm = DEFAULT_VALUE;
 
     @SerializedName("FIR")
-    private String securityFire;
+    private String securityFire = DEFAULT_VALUE;
 
     @SerializedName("TMP")
-    private String securityTamper;
+    private String securityTamper = DEFAULT_VALUE;
 
     @SerializedName("PNC")
-    private String securityPanic;
+    private String securityPanic = DEFAULT_VALUE;
 
     @SerializedName("FLT")
-    private String securityFault;
+    private String securityFault = DEFAULT_VALUE;
 
     @SerializedName("AC")
-    private String securityPowerSupply;
+    private String securityPowerSupply = DEFAULT_VALUE;
 
     @SerializedName("LB")
-    private String securityLowBattery;
+    private String securityLowBattery = DEFAULT_VALUE;
 
     @SerializedName("PGY")
-    private String securityPgY;
+    private String securityPgY = DEFAULT_VALUE;
 
     @SerializedName("nightHour")
     private Boolean nightHour;

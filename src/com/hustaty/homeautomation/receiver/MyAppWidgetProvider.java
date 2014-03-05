@@ -103,10 +103,12 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
                             mediaPlayer.start();
                         }
 
-                        if(arduinoThermoServerStatus.getNightHour() == true) {
-                            remoteViews.setImageViewResource(R.id.widgetRightIcon, R.drawable.home_heating_mode_night);
-                        } else if(arduinoThermoServerStatus.getNightHour() == false) {
-                            remoteViews.setImageViewResource(R.id.widgetRightIcon, R.drawable.home_heating_mode_day);
+                        if(arduinoThermoServerStatus.getNightHour() != null) {
+                            if(arduinoThermoServerStatus.getNightHour() == true) {
+                                remoteViews.setImageViewResource(R.id.widgetRightIcon, R.drawable.home_heating_mode_night);
+                            } else if(arduinoThermoServerStatus.getNightHour() == false) {
+                                remoteViews.setImageViewResource(R.id.widgetRightIcon, R.drawable.home_heating_mode_day);
+                            }
                         } else {
                             remoteViews.setImageViewResource(R.id.widgetRightIcon, R.drawable.home_heating_mode_unknown);
                         }

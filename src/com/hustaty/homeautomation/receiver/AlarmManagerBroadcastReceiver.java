@@ -79,7 +79,7 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
             Gson gson = new Gson();
             newIntent.putExtra(UI_INTENT_EXTRA_THERMOSTATUS_ID, gson.toJson(arduinoThermoServerStatus));
-            if (trafficInformationList.size() > 0) {
+            if (trafficInformationList != null && trafficInformationList.size() > 0) {
                 newIntent.putExtra(UI_INTENT_EXTRA_TRAFFICINFO_ID, gson.toJson(trafficInformationList));
             }
             context.sendBroadcast(newIntent);
@@ -115,11 +115,27 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             }
 
         } catch (HomeAutomationException e) {
-            Log.e(LOG_TAG, "#onReceive(HAException): " + e.getMessage());
+            Log.e(LOG_TAG, "#onReceive(HAException): " + e);
             LogUtil.appendLog(LOG_TAG + "#onReceive(HAException):" + e.getMessage());
         } catch (IOException e) {
+
             Log.e(LOG_TAG, "#onReceive(IOexception): " + e.getMessage());
             LogUtil.appendLog(LOG_TAG + "#onReceive(IOexception):" + e.getMessage());
+
+            //notify the widgets via Intents
+
+            Intent newIntent = new Intent(UI_LOCATION_UPDATE_INTENT);
+            Gson gson = new Gson();
+            ArduinoThermoServerStatus arduinoThermoServerStatus = new ArduinoThermoServerStatus();
+            newIntent.putExtra(UI_INTENT_EXTRA_THERMOSTATUS_ID, gson.toJson(arduinoThermoServerStatus));
+            context.sendBroadcast(newIntent);
+
+            //TEST with hotWater
+            Intent hotWaterIntent = new Intent(HotWaterWidgetProvider.HOTWATER_STATE);
+            hotWaterIntent.putExtra(HotWaterWidgetProvider.HOTWATER_STATE, HotWaterWidgetProvider.HOTWATER_STATE_UNKNOWN);
+            context.sendBroadcast(hotWaterIntent);
+            //END OF TEST with hotWater
+
         }
 
         // Release the lock
