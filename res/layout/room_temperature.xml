@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+    <TextView
+            android:id="@+id/roomgrid_roomname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="Helvetica"
+            android:textSize="@dimen/roomgrid_headingFontSize"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Text Roomname"
+            />
+    <TextView
+            android:id="@+id/roomgrid_roomtemperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="Helvetica"
+            android:textSize="@dimen/roomgrid_currentTemperatureFontSize"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/unknown_temperature"
+            />
+
+    <!--Bottom bar-->
+    <RelativeLayout
+            android:id="@+id/roomgrid_bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <!--Comfort/Day temperature-->
+        <RelativeLayout
+                android:id="@+id/roomgrid_bottomBar_comfortTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:layout_alignParentLeft="true">
+            <ImageView
+                    android:id="@+id/roomgrid_bottomBar_comfortTemp_icon"
+                    android:layout_width="@dimen/roomgrid_bottomBarFontSize"
+                    android:layout_height="@dimen/roomgrid_bottomBarFontSize"
+                    android:src="@drawable/home_heating_mode_day"
+                    />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textSize="@dimen/roomgrid_bottomBarFontSize"
+                    android:text="@string/unknown_temperature"
+                    android:layout_toRightOf="@id/roomgrid_bottomBar_comfortTemp_icon"/>
+
+        </RelativeLayout>
+
+        <!--House Section-->
+        <TextView
+                android:id="@+id/roomgrid_bottomBar_houseSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="A"
+                />
+
+        <!--Night temperature-->
+        <RelativeLayout
+                android:id="@+id/roomgrid_bottomBar_nightTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:layout_alignParentRight="true">
+            <ImageView
+                    android:id="@+id/roomgrid_bottomBar_nightTemp_icon"
+                    android:layout_width="@dimen/roomgrid_bottomBarFontSize"
+                    android:layout_height="@dimen/roomgrid_bottomBarFontSize"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/home_heating_mode_night"
+                    />
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textSize="@dimen/roomgrid_bottomBarFontSize"
+                    android:text="@string/unknown_temperature"
+                    android:layout_toRightOf="@id/roomgrid_bottomBar_nightTemp_icon"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

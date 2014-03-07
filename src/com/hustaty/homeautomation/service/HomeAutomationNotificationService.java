@@ -12,6 +12,9 @@ import android.util.Log;
 import com.hustaty.homeautomation.R;
 import com.hustaty.homeautomation.util.LogUtil;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  * User: hustasl
  * Date: 12/7/13
@@ -56,6 +59,46 @@ public class HomeAutomationNotificationService {
 
         notificationManager.notify(notificationText.hashCode(), notification);
 
+        //TEST with TextToSpeech
+        TTSService ttsService = new TTSService(context);
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if(notificationText.contains("DISARMED") && !notificationText.contains("PGY ENDED")) {
+            stringBuilder.append("House is disarmed. Welcome home.");
+            notificationText.replace("DISARMED;", "");
+        }
+        if(notificationText.contains("ARMED") && !notificationText.contains("DISARMED")) {
+            stringBuilder.append("House just got armed.");
+            notificationText.replace("ARMED;", "");
+        }
+        if(notificationText.contains("PGY STARTED")) {
+            stringBuilder.append("Armed is only garage and ground floor.");
+            notificationText.replace("PGY STARTED;", "");
+        }
+        if(notificationText.contains("PGY ENDED")) {
+            stringBuilder.append("House is disarmed. Good morning.");
+            notificationText.replace("PGY ENDED;", "");
+        }
+        if(notificationText.trim().length() == 19) { // || notificationTextMatcher(notificationText.trim())) {
+            //ok, nothing else to bo spoken
+        } else {
+            //make an awful long message
+            stringBuilder.append(notificationText);
+        }
+
+        ttsService.setTextToBeSpoken(stringBuilder.toString());
+    }
+
+    private boolean notificationTextMatcher(String notificationText) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            format.parse(notificationText);
+            return true;
+        }
+        catch(ParseException e){
+            return false;
+        }
     }
 
 }

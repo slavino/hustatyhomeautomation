@@ -16,4 +16,9 @@
     <dimen name="widget_margin">8dp</dimen>
 
     <dimen name="tableLayoutTopMargin">7dp</dimen>
+
+    <!--Room grid-->
+    <dimen name="roomgrid_headingFontSize">20dp</dimen>
+    <dimen name="roomgrid_currentTemperatureFontSize">40dp</dimen>
+    <dimen name="roomgrid_bottomBarFontSize">15dp</dimen>
 </resources>
