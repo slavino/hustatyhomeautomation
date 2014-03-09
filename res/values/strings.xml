@@ -112,5 +112,7 @@
 
 
     <string name="setNow">Now</string>
+    <string name="ttsNotifications_summary">Text To Speech notifications received from GCM</string>
+    <string name="ttsNotifications">Mute TTS Engine</string>
 
 </resources>

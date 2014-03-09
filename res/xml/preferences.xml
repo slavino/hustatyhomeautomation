@@ -112,6 +112,14 @@
                 android:editable="true"
                 />
 
+        <CheckBoxPreference
+                android:key="ttsNotifications"
+                android:title="@string/ttsNotifications"
+                android:summary="@string/ttsNotifications_summary"
+                android:defaultValue="false"
+                android:editable="true"
+                />
+
     </PreferenceCategory>
 
     <PreferenceCategory
