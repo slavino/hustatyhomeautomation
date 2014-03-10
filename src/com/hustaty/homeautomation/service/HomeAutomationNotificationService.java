@@ -69,19 +69,20 @@ public class HomeAutomationNotificationService {
 
             if (notificationText.contains("DISARMED") && !notificationText.contains("PGY ENDED")) {
                 stringBuilder.append("House is disarmed. Welcome home.");
-                notificationText.replace("DISARMED;", "");
+                notificationText = notificationText.replace("DISARMED;", "");
             }
             if (notificationText.contains("ARMED") && !notificationText.contains("DISARMED")) {
                 stringBuilder.append("House just got armed.");
-                notificationText.replace("ARMED;", "");
+                notificationText = notificationText.replace("ARMED;", "");
             }
             if (notificationText.contains("PGY STARTED")) {
                 stringBuilder.append("Armed is only garage and ground floor.");
-                notificationText.replace("PGY STARTED;", "");
+                notificationText = notificationText.replace("PGY STARTED;", "");
             }
             if (notificationText.contains("PGY ENDED")) {
                 stringBuilder.append("House is disarmed. Good morning.");
-                notificationText.replace("PGY ENDED;", "");
+                notificationText = notificationText.replace("PGY ENDED;", "");
+                notificationText = notificationText.replace("DISARMED;", "");
             }
             if (notificationText.trim().length() == "yyyy-MM-dd HH:mm:ss".length()) { // || notificationTextMatcher(notificationText.trim())) {
                 //ok, nothing else to bo spoken
@@ -94,6 +95,7 @@ public class HomeAutomationNotificationService {
         }
     }
 
+    @Deprecated
     private boolean notificationTextMatcher(String notificationText) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
