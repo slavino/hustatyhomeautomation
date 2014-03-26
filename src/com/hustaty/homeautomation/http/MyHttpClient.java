@@ -33,6 +33,7 @@ import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.SingleClientConnManager;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.BufferedReader;
@@ -94,7 +95,8 @@ public class MyHttpClient extends DefaultHttpClient {
         // Register for port 443 our SSLSocketFactory with our keystore
         // to the ConnectionManager
         registry.register(new Scheme("https", newSslSocketFactory(), 443));
-        ClientConnectionManager clientConnectionManager = new SingleClientConnManager(getParams(), registry);
+        ClientConnectionManager clientConnectionManager = new ThreadSafeClientConnManager(getParams(), registry);
+//        ClientConnectionManager clientConnectionManager = new SingleClientConnManager(getParams(), registry);
         return clientConnectionManager;
     }
 
