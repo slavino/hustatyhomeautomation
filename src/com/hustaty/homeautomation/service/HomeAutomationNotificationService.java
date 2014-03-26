@@ -72,18 +72,23 @@ public class HomeAutomationNotificationService {
                 notificationText = notificationText.replace("DISARMED;", "");
             }
             if (notificationText.contains("ARMED") && !notificationText.contains("DISARMED")) {
-                stringBuilder.append("House just got armed.");
+                stringBuilder.append("Your house just got armed.");
                 notificationText = notificationText.replace("ARMED;", "");
             }
             if (notificationText.contains("PGY STARTED")) {
-                stringBuilder.append("Armed is only garage and ground floor.");
+                stringBuilder.append("Armed is only garage and ground floor. Good night.");
                 notificationText = notificationText.replace("PGY STARTED;", "");
             }
             if (notificationText.contains("PGY ENDED")) {
-                stringBuilder.append("House is disarmed. Good morning.");
+                stringBuilder.append("Your house is disarmed. Good morning.");
                 notificationText = notificationText.replace("PGY ENDED;", "");
                 notificationText = notificationText.replace("DISARMED;", "");
             }
+            if (notificationText.contains("ALARM STARTED")) {
+                stringBuilder.append("Your house reports alarm.");
+                notificationText = notificationText.replace("ALARM STARTED;", "");
+            }
+
             if (notificationText.trim().length() == "yyyy-MM-dd HH:mm:ss".length()) { // || notificationTextMatcher(notificationText.trim())) {
                 //ok, nothing else to bo spoken
             } else {
