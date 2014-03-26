@@ -10,6 +10,7 @@ public class HomeAutomationException extends Exception {
     private static final long serialVersionUID = 1L;
 
     public HomeAutomationException() {
+        super();
     }
 
     public HomeAutomationException(String message) {

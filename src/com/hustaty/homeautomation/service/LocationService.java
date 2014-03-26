@@ -17,13 +17,13 @@ public class LocationService {
 
     private static Location myLocation;
 
-	public static Location obtainCurrentLocation(final Context context) {
+    public static Location obtainCurrentLocation(final Context context) {
 
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
         LocationService.myLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-        if(LocationService.myLocation == null) {
+        if (LocationService.myLocation == null) {
             LocationService.myLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         }
 
@@ -36,18 +36,19 @@ public class LocationService {
 //        int minTime = 300000;
 //        int minDistance = 1000;
 //        if(isGPSLocationAvailable(context)) {
-            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, pendingIntent);
+        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, pendingIntent);
 //        }
 //        if(isNetworkLocationAvailable(context)) {
-            //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime, minDistance, pendingIntent);
+        //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, minTime, minDistance, pendingIntent);
 //        }
-        if((new Date()).before(new Date(myLocation.getTime() + GPS_TIMEOUT))) {
+        if (myLocation != null
+                && (new Date()).before(new Date(myLocation.getTime() + GPS_TIMEOUT))) {
             return myLocation;
         }
 
         return null;
 
-	}
+    }
 
 //    private static boolean isGPSLocationAvailable(Context context) {
 //        PackageManager pm = context.getPackageManager();

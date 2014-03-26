@@ -119,7 +119,12 @@
                 android:defaultValue="false"
                 android:editable="true"
                 />
-
+        <!--<SwitchPreference-->
+                <!--android:key="ttsNotifications"-->
+                <!--android:title="@string/ttsNotifications"-->
+                <!--android:summary="@string/ttsNotifications_summary"-->
+                <!--android:defaultValue="false"-->
+                <!--/>-->
     </PreferenceCategory>
 
     <PreferenceCategory
