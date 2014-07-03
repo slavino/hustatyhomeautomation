@@ -51,14 +51,14 @@ public class LocationService {
         }
 
 //      TEST
-        if (isNetworkLocationAvailable(context)) {
-            Log.i(LOG_TAG, "Location update too old. Requesting new update from NETWORK.");
-            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, pendingIntent);
-        }
-        if(isGPSLocationAvailable(context)) {
-            Log.i(LOG_TAG, "Location update too old. Requesting new update from GPS.");
-            locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, pendingIntent);
-        }
+//        if (isNetworkLocationAvailable(context)) {
+//            Log.i(LOG_TAG, "Location update too old. Requesting new update from NETWORK.");
+//            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, pendingIntent);
+//        }
+//        if(isGPSLocationAvailable(context)) {
+//            Log.i(LOG_TAG, "Location update too old. Requesting new update from GPS.");
+//            locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, pendingIntent);
+//        }
 //      END OF TEST
 
         return null;
