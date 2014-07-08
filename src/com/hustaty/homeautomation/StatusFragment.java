@@ -2,13 +2,13 @@ package com.hustaty.homeautomation;
 
 import java.io.IOException;
 
+import android.os.AsyncTask;
 import org.apache.http.client.ClientProtocolException;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.*;
 import android.widget.TextView;
@@ -23,105 +23,20 @@ import com.hustaty.homeautomation.util.LogUtil;
  * Date: 2/24/13
  * Time: 7:19 PM
  */
-public class StatusFragment extends Fragment {
+public class StatusFragment extends AbstractHomeAutomationFragment {
 
     private final static String LOG_TAG = StatusFragment.class.getName();
+
+    private View view;
+    ArduinoThermoServerStatus thermoServerStatus = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.status_fragment, container, false);
+        /*View */
+        view = inflater.inflate(R.layout.status_fragment, container, false);
 
-        MyHttpClient myHttpClient = new MyHttpClient(view.getContext());
-        ArduinoThermoServerStatus thermoServerStatus = null;
-
-        try {
-            thermoServerStatus = myHttpClient.getThermoServerStatus(true);
-        } catch (HomeAutomationException e) {
-            showSettings(view.getContext());
-            return null;
-        } catch (ClientProtocolException e) {
-            Log.e(LOG_TAG, e.getMessage());
-            LogUtil.appendLog(LOG_TAG + "#onCreateView():" + e.getMessage());
-        } catch (IOException e) {
-            myHttpClient.useAnotherURL();
-            try {
-                thermoServerStatus = myHttpClient.getThermoServerStatus(true);
-            } catch (HomeAutomationException e1) {
-                showSettings(view.getContext());
-                return null;
-            } catch (IOException e1) {
-                Log.e(LOG_TAG, e1.getMessage());
-                LogUtil.appendLog(LOG_TAG + "#onCreateView():" + e1.getMessage());
-            }
-        }
-
-        if (thermoServerStatus != null) {
-            TextView workroom = (TextView) view.findViewById(R.id.textView_roomtemp_workroom);
-            TextView bedroom = (TextView) view.findViewById(R.id.textView_roomtemp_bedroom);
-            TextView outside = (TextView) view.findViewById(R.id.textView_roomtemp_outside);
-            TextView upperLobby = (TextView) view.findViewById(R.id.textView_roomtemp_upperlobby);
-            TextView entranceHall = (TextView) view.findViewById(R.id.textView_roomtemp_entrancehall);
-            TextView kitchen = (TextView) view.findViewById(R.id.textView_roomtemp_kitchen);
-            workroom.setText(thermoServerStatus.getT280F5B8504000019() + "\u00b0C");
-            bedroom.setText(thermoServerStatus.getT28B79F8504000082() + "\u00b0C");
-            outside.setText(thermoServerStatus.getT28F82D850400001F() + "\u00b0C");
-            upperLobby.setText(thermoServerStatus.getT28205B850400008B() + "\u00b0C");
-            entranceHall.setText(thermoServerStatus.getT28F1E685040000DB() + "\u00b0C");
-            kitchen.setText(thermoServerStatus.getT28C9C9AA040000EA() + "\u00b0C");
-
-            TextView thermostat1Value = (TextView) view.findViewById(R.id.textView_thermostat_1_val);
-            thermostat1Value.setText("1".equals(thermoServerStatus.getThermostat1()) ? "ON" : "OFF") ;
-
-            TextView thermostat2Value = (TextView) view.findViewById(R.id.textView_thermostat_2_val);
-            thermostat2Value.setText("1".equals(thermoServerStatus.getThermostat2()) ? "ON" : "OFF") ;
-
-            TextView hotWaterSwitchValue = (TextView) view.findViewById(R.id.textView_hot_water_switch_val);
-            hotWaterSwitchValue.setText("1".equals(thermoServerStatus.getHotWaterSwitch()) ? "ON" : "OFF") ;
-
-            TextView hotWaterSupplyValue = (TextView) view.findViewById(R.id.textView_hot_water_supply_val);
-            hotWaterSupplyValue.setText("1".equals(thermoServerStatus.getHotWaterSupply()) ? "ON" : "OFF") ;
-
-            TextView heatingSupplyValue = (TextView) view.findViewById(R.id.textView_heating_supply_val);
-            heatingSupplyValue.setText("1".equals(thermoServerStatus.getHeatingState()) ? "ON" : "OFF") ;
-
-            TextView remainingTimeForLastServerCommandValue = (TextView) view.findViewById(R.id.textView_remaining_time_for_last_server_command_val);
-            remainingTimeForLastServerCommandValue.setText(formatMillis(thermoServerStatus.getRemainingTimeForLastServerCommand())) ;
-
-            TextView arduinoUptimeValue = (TextView) view.findViewById(R.id.textView_arduino_uptime_val);
-            arduinoUptimeValue.setText(formatMillis(thermoServerStatus.getUptime())) ;
-
-            TextView arduino2UptimeValue = (TextView) view.findViewById(R.id.textView_arduino2_uptime_val);
-            arduino2UptimeValue.setText(formatMillis(thermoServerStatus.getUptime2())) ;
-
-            TextView lastCommunicationFromArduinoValue = (TextView) view.findViewById(R.id.textView_last_communication_from_arduino_val);
-            lastCommunicationFromArduinoValue.setText(thermoServerStatus.getLastCommunicationFromArduino()) ;
-
-            TextView securitySystemStatus = (TextView) view.findViewById(R.id.textView_security_system_armed);
-
-            String armedState = "NONE ";
-            if("1".equals(thermoServerStatus.getSecurityArmed())) {
-                if("1".equals(thermoServerStatus.getSecurityPgY())) {
-                    armedState = "NIGHT";
-                } else if("0".equals(thermoServerStatus.getSecurityPgY())) {
-                    armedState = "FULL ";
-                }
-            }
-
-            securitySystemStatus.setText(
-                    "ARMED: " + armedState
-                    + "        ALARM: " + thermoServerStatus.getSecurityAlarm()
-                    + "\nFAULT: " + thermoServerStatus.getSecurityFault()
-                    + "        FIRE: " + thermoServerStatus.getSecurityFire()
-                    + "\nLOW BATTERY: " + thermoServerStatus.getSecurityLowBattery()
-                    + "        PANIC: " + thermoServerStatus.getSecurityPanic()
-                    + "\nPOWER: " + thermoServerStatus.getSecurityPowerSupply()
-                    + "        TAMPER: " + thermoServerStatus.getSecurityTamper()
-                    + "\nPgY: " + thermoServerStatus.getSecurityPgY()
-                    + "        ARM: " + thermoServerStatus.getSecurityArmed()
-            ) ;
-
-        }
+        new HttpCommunicationTask().execute();
 
         return view;
     }
@@ -140,6 +55,53 @@ public class StatusFragment extends Fragment {
             if(resultCode == Activity.RESULT_OK) {
 
             }
+        }
+    }
+
+    private class HttpCommunicationTask extends AsyncTask<Void, Void, ArduinoThermoServerStatus> {
+
+        @Override
+        protected void onPreExecute() {
+            showLoadingProgressDialog();
+        }
+
+        @Override
+        protected ArduinoThermoServerStatus doInBackground(Void... params) {
+
+            MyHttpClient myHttpClient = new MyHttpClient(view.getContext());
+
+            ArduinoThermoServerStatus thermoServerStatus = null;
+
+            try {
+                thermoServerStatus = myHttpClient.getThermoServerStatus(true);
+            } catch (HomeAutomationException e) {
+                showSettings(view.getContext());
+                return null;
+            } catch (ClientProtocolException e) {
+                Log.e(LOG_TAG, e.getMessage());
+                LogUtil.appendLog(LOG_TAG + "#onCreateView():" + e.getMessage());
+            } catch (IOException e) {
+                myHttpClient.useAnotherURL();
+                try {
+                    thermoServerStatus = myHttpClient.getThermoServerStatus(true);
+                } catch (HomeAutomationException e1) {
+                    showSettings(view.getContext());
+                    return null;
+                } catch (IOException e1) {
+                    Log.e(LOG_TAG, e1.getMessage());
+                    LogUtil.appendLog(LOG_TAG + "#onCreateView():" + e1.getMessage());
+                }
+            }
+
+
+            StatusFragment.this.thermoServerStatus = thermoServerStatus;
+            return thermoServerStatus;
+        }
+
+        @Override
+        protected void onPostExecute(ArduinoThermoServerStatus result) {
+            dismissProgressDialog();
+            updateUI();
         }
     }
 
@@ -175,6 +137,76 @@ public class StatusFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void updateUI() {
+        if (thermoServerStatus != null) {
+            TextView workroom = (TextView) view.findViewById(R.id.textView_roomtemp_workroom);
+            TextView bedroom = (TextView) view.findViewById(R.id.textView_roomtemp_bedroom);
+            TextView outside = (TextView) view.findViewById(R.id.textView_roomtemp_outside);
+            TextView upperLobby = (TextView) view.findViewById(R.id.textView_roomtemp_upperlobby);
+            TextView entranceHall = (TextView) view.findViewById(R.id.textView_roomtemp_entrancehall);
+            TextView kitchen = (TextView) view.findViewById(R.id.textView_roomtemp_kitchen);
+            workroom.setText(thermoServerStatus.getT280F5B8504000019() + "\u00b0C");
+            bedroom.setText(thermoServerStatus.getT28B79F8504000082() + "\u00b0C");
+            outside.setText(thermoServerStatus.getT28F82D850400001F() + "\u00b0C");
+            upperLobby.setText(thermoServerStatus.getT28205B850400008B() + "\u00b0C");
+            entranceHall.setText(thermoServerStatus.getT28F1E685040000DB() + "\u00b0C");
+            kitchen.setText(thermoServerStatus.getT28C9C9AA040000EA() + "\u00b0C");
+
+            TextView thermostat1Value = (TextView) view.findViewById(R.id.textView_thermostat_1_val);
+            thermostat1Value.setText("1".equals(thermoServerStatus.getThermostat1()) ? "ON" : "OFF");
+
+            TextView thermostat2Value = (TextView) view.findViewById(R.id.textView_thermostat_2_val);
+            thermostat2Value.setText("1".equals(thermoServerStatus.getThermostat2()) ? "ON" : "OFF");
+
+            TextView hotWaterSwitchValue = (TextView) view.findViewById(R.id.textView_hot_water_switch_val);
+            hotWaterSwitchValue.setText("1".equals(thermoServerStatus.getHotWaterSwitch()) ? "ON" : "OFF");
+
+            TextView hotWaterSupplyValue = (TextView) view.findViewById(R.id.textView_hot_water_supply_val);
+            hotWaterSupplyValue.setText("1".equals(thermoServerStatus.getHotWaterSupply()) ? "ON" : "OFF");
+
+            TextView heatingSupplyValue = (TextView) view.findViewById(R.id.textView_heating_supply_val);
+            heatingSupplyValue.setText("1".equals(thermoServerStatus.getHeatingState()) ? "ON" : "OFF");
+
+            TextView remainingTimeForLastServerCommandValue = (TextView) view.findViewById(R.id.textView_remaining_time_for_last_server_command_val);
+            remainingTimeForLastServerCommandValue.setText(formatMillis(thermoServerStatus.getRemainingTimeForLastServerCommand()));
+
+            TextView arduinoUptimeValue = (TextView) view.findViewById(R.id.textView_arduino_uptime_val);
+            arduinoUptimeValue.setText(formatMillis(thermoServerStatus.getUptime()));
+
+            TextView arduino2UptimeValue = (TextView) view.findViewById(R.id.textView_arduino2_uptime_val);
+            arduino2UptimeValue.setText(formatMillis(thermoServerStatus.getUptime2()));
+
+            TextView lastCommunicationFromArduinoValue = (TextView) view.findViewById(R.id.textView_last_communication_from_arduino_val);
+            lastCommunicationFromArduinoValue.setText(thermoServerStatus.getLastCommunicationFromArduino());
+
+            TextView securitySystemStatus = (TextView) view.findViewById(R.id.textView_security_system_armed);
+
+            String armedState = "NONE ";
+            if ("1".equals(thermoServerStatus.getSecurityArmed())) {
+                if ("1".equals(thermoServerStatus.getSecurityPgY())) {
+                    armedState = "NIGHT";
+                } else if ("0".equals(thermoServerStatus.getSecurityPgY())) {
+                    armedState = "FULL ";
+                }
+            }
+
+            securitySystemStatus.setText(
+                    "ARMED: " + armedState
+                            + "        ALARM: " + thermoServerStatus.getSecurityAlarm()
+                            + "\nFAULT: " + thermoServerStatus.getSecurityFault()
+                            + "        FIRE: " + thermoServerStatus.getSecurityFire()
+                            + "\nLOW BATTERY: " + thermoServerStatus.getSecurityLowBattery()
+                            + "        PANIC: " + thermoServerStatus.getSecurityPanic()
+                            + "\nPOWER: " + thermoServerStatus.getSecurityPowerSupply()
+                            + "        TAMPER: " + thermoServerStatus.getSecurityTamper()
+                            + "\nPgY: " + thermoServerStatus.getSecurityPgY()
+                            + "        ARM: " + thermoServerStatus.getSecurityArmed()
+            );
+
+        }
+
     }
 
 }
