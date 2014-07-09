@@ -40,7 +40,7 @@ public class TrafficNotificationService {
 //        Launch traffic information provider's application
         Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage("com.analyticadesign.eds");
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, launchIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, launchIntent, PendingIntent.FLAG_ONE_SHOT);
 
         if(!silentNotification) {
             notification.defaults |= Notification.DEFAULT_SOUND;

@@ -1,6 +1,7 @@
 package com.hustaty.homeautomation;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import android.os.AsyncTask;
 import org.apache.http.client.ClientProtocolException;
@@ -36,7 +37,19 @@ public class StatusFragment extends AbstractHomeAutomationFragment {
         /*View */
         view = inflater.inflate(R.layout.status_fragment, container, false);
 
-        new HttpCommunicationTask().execute();
+        try {
+            AsyncTask asyncTask = new HttpCommunicationTask().execute();
+            ArduinoThermoServerStatus result = (ArduinoThermoServerStatus)asyncTask.get();
+            if(result != null) {
+
+            }
+        } catch(InterruptedException e) {
+            Log.e(LOG_TAG, e.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#onCreateView(): " + e.getMessage());
+        } catch(ExecutionException e) {
+            Log.e(LOG_TAG, e.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#onCreateView(): " + e.getMessage());
+        }
 
         return view;
     }
@@ -53,7 +66,7 @@ public class StatusFragment extends AbstractHomeAutomationFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == SettingsActivity.REQUEST_CODE_FOR_SETTINGS) {
             if(resultCode == Activity.RESULT_OK) {
-
+                // TODO: ???
             }
         }
     }
@@ -73,6 +86,7 @@ public class StatusFragment extends AbstractHomeAutomationFragment {
             ArduinoThermoServerStatus thermoServerStatus = null;
 
             try {
+                showProgressDialog("Executing HTTPS request to home automation server.");
                 thermoServerStatus = myHttpClient.getThermoServerStatus(true);
             } catch (HomeAutomationException e) {
                 showSettings(view.getContext());
@@ -83,6 +97,7 @@ public class StatusFragment extends AbstractHomeAutomationFragment {
             } catch (IOException e) {
                 myHttpClient.useAnotherURL();
                 try {
+                    showProgressDialog("Executing HTTPS request to home automation server. Using another URL.");
                     thermoServerStatus = myHttpClient.getThermoServerStatus(true);
                 } catch (HomeAutomationException e1) {
                     showSettings(view.getContext());
@@ -93,7 +108,7 @@ public class StatusFragment extends AbstractHomeAutomationFragment {
                 }
             }
 
-
+            showProgressDialog("Setting result.");
             StatusFragment.this.thermoServerStatus = thermoServerStatus;
             return thermoServerStatus;
         }
@@ -102,6 +117,17 @@ public class StatusFragment extends AbstractHomeAutomationFragment {
         protected void onPostExecute(ArduinoThermoServerStatus result) {
             dismissProgressDialog();
             updateUI();
+        }
+
+        @Override
+        protected void onCancelled(ArduinoThermoServerStatus arduinoThermoServerStatus) {
+            dismissProgressDialog();
+            updateUI();
+        }
+
+        @Override
+        protected void onCancelled() {
+            dismissProgressDialog();
         }
     }
 
@@ -140,6 +166,7 @@ public class StatusFragment extends AbstractHomeAutomationFragment {
     }
 
     private void updateUI() {
+        showProgressDialog("Populating UI with received data...");
         if (thermoServerStatus != null) {
             TextView workroom = (TextView) view.findViewById(R.id.textView_roomtemp_workroom);
             TextView bedroom = (TextView) view.findViewById(R.id.textView_roomtemp_bedroom);

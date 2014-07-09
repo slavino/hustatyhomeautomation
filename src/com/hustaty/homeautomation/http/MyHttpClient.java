@@ -79,6 +79,7 @@ public class MyHttpClient extends DefaultHttpClient {
             homeLatitude = Double.parseDouble((String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_HOMEGPSLAT.getKey()));
             homeLongitude = Double.parseDouble((String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_HOMEGPSLON.getKey()));
 
+
         } catch (Exception e) {
             Log.e(LOG_TAG, "#MyHttpClient(): " + e.getMessage());
             LogUtil.appendLog(LOG_TAG + "#MyHttpClient(): " + e.getMessage());
