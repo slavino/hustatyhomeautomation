@@ -10,8 +10,12 @@ import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.hustaty.homeautomation.enums.GCMMessageContent;
+import com.hustaty.homeautomation.enums.SharedPreferencesKeys;
 import com.hustaty.homeautomation.receiver.GcmBroadcastReceiver;
 import com.hustaty.homeautomation.service.HomeAutomationNotificationService;
+import com.hustaty.homeautomation.util.ApplicationPreferences;
+import com.hustaty.homeautomation.util.LogUtil;
 
 /**
  * User: hustasl
@@ -62,13 +66,22 @@ public class GCMIntentService extends IntentService {
 //                }
 //                Log.i(LOG_TAG, "Completed work @ " + SystemClock.elapsedRealtime());
                 // Post notification of received message.
-                String message = extras.getString("message");
+                String message = extras.getString(GCMMessageContent.MESSAGE.getKey());
                 if((message == null) || (message.isEmpty())) {
                     sendNotification(extras.toString());
                 } else {
                     sendNotification(message);
                 }
+
+                //
+                String ipAddress = extras.getString(GCMMessageContent.IP_ADDRESS.getKey());
+                if(ipAddress == null || ipAddress.isEmpty()) {
+
+                } else {
+                    ApplicationPreferences.setValue(this.getApplicationContext(), GCMMessageContent.IP_ADDRESS.getKey(), ipAddress);
+                }
                 Log.i(LOG_TAG, "Received: " + extras.toString());
+                LogUtil.appendLog(LOG_TAG + "#onHandleIntent(): Received: " + extras.toString());
             }
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.

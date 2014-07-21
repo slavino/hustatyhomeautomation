@@ -10,6 +10,14 @@
                 />
 
         <EditTextPreference
+                android:key="receivedGlobalServerIP"
+                android:title="@string/receivedGlobalServerIP_title"
+                android:summary="@string/receivedGlobalServerIP_summary"
+                android:defaultValue="0.0.0.0"
+                android:editable="false"
+                />
+
+        <EditTextPreference
                 android:key="localNetworkServerIP"
                 android:title="@string/localNetworkServerIP_title"
                 android:summary="@string/localNetworkServerIP_summary"

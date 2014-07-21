@@ -37,7 +37,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         SharedPreferences.Editor editor = sp.edit();
 
         try {
-            final String macAddr, androidId;
+            String macAddr, androidId;
 
             WifiManager wifiMan = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
             WifiInfo wifiInf = wifiMan.getConnectionInfo();
@@ -45,12 +45,22 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             macAddr = wifiInf.getMacAddress();
             androidId = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 
+            if(macAddr == null) {
+                macAddr = androidId;
+            }
+
             UUID deviceUuid = new UUID(androidId.hashCode(), macAddr.hashCode());
             editor.putString("deviceID",deviceUuid.toString());
 
         } catch (Exception e) {
-            Log.e(LOG_TAG, e.getMessage());
-            LogUtil.appendLog(LOG_TAG + "#onCreate(): " + e.getMessage());
+            if(e != null) {
+                Log.e(LOG_TAG, e.getMessage());
+                LogUtil.appendLog(LOG_TAG + "#onCreate(): " + e.getMessage());
+            } else {
+                //WTF happened Google?
+                Log.e(LOG_TAG, "NULL Exception");
+                LogUtil.appendLog(LOG_TAG + "#onCreate(): NULL Exception");
+            }
         } finally {
             editor.commit();
             findPreference("deviceID").setSummary(sp.getString("deviceID", getResources().getString(R.string.deviceID)));
