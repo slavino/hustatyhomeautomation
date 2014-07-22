@@ -103,7 +103,6 @@ public class StatusFragment extends Fragment {
             try {
                 showProgressDialog("Executing HTTPS request to home automation server...");
                 thermoServerStatus = myHttpClient.getThermoServerStatus(false);
-//                showProgressDialog("Processing response...");
             } catch (HomeAutomationException e) {
                 showSettings(view.getContext());
                 return null;
@@ -113,9 +112,7 @@ public class StatusFragment extends Fragment {
             } catch (IOException e) {
                 myHttpClient.useAnotherURL();
                 try {
-//                    showProgressDialog("Executing HTTPS request to home automation server. Using another URL.");
                     thermoServerStatus = myHttpClient.getThermoServerStatus(true);
-//                    showProgressDialog("Processing response...");
                 } catch (HomeAutomationException e1) {
                     showSettings(view.getContext());
                     return null;
