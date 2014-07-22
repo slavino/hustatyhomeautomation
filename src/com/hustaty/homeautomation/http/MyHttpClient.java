@@ -549,7 +549,8 @@ public class MyHttpClient extends DefaultHttpClient {
         if (URL_TO_USE.equalsIgnoreCase(localNetworkServerIP)) {
             URL_TO_USE = globalServerIP;
         } else if(URL_TO_USE.equalsIgnoreCase(globalServerIP)
-                && !globalServerIPFromGCM.equalsIgnoreCase("0.0.0.0")) {
+                && !"0.0.0.0".equalsIgnoreCase(globalServerIPFromGCM) //not default
+                && globalServerIPFromGCM != null) { //not null
             URL_TO_USE = globalServerIPFromGCM;
         } else {
             URL_TO_USE = localNetworkServerIP;
