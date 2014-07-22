@@ -2,20 +2,19 @@ package com.hustaty.homeautomation;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.util.Patterns;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.hustaty.homeautomation.enums.GCMMessageContent;
-import com.hustaty.homeautomation.enums.SharedPreferencesKeys;
 import com.hustaty.homeautomation.receiver.GcmBroadcastReceiver;
 import com.hustaty.homeautomation.service.HomeAutomationNotificationService;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
 import com.hustaty.homeautomation.util.LogUtil;
+
+import java.util.regex.Matcher;
 
 /**
  * User: hustasl
@@ -56,16 +55,6 @@ public class GCMIntentService extends IntentService {
                 // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                 // This loop represents the service doing some work.
-//                for (int i=0; i<5; i++) {
-//                    Log.i(LOG_TAG, "Working... " + (i+1)
-//                            + "/5 @ " + SystemClock.elapsedRealtime());
-//                    try {
-//                        Thread.sleep(5000);
-//                    } catch (InterruptedException e) {
-//                    }
-//                }
-//                Log.i(LOG_TAG, "Completed work @ " + SystemClock.elapsedRealtime());
-                // Post notification of received message.
                 String message = extras.getString(GCMMessageContent.MESSAGE.getKey());
                 if((message == null) || (message.isEmpty())) {
                     sendNotification(extras.toString());
@@ -78,7 +67,15 @@ public class GCMIntentService extends IntentService {
                 if(ipAddress == null || ipAddress.isEmpty()) {
 
                 } else {
-                    ApplicationPreferences.setValue(this.getApplicationContext(), GCMMessageContent.IP_ADDRESS.getKey(), ipAddress);
+                    ipAddress = ipAddress.trim();
+                    Matcher matcher = Patterns.IP_ADDRESS.matcher(ipAddress);
+                    if(matcher.matches()) {
+                        ApplicationPreferences.setValue(this.getApplicationContext(), GCMMessageContent.IP_ADDRESS.getKey(), ipAddress);
+                        Log.i(LOG_TAG, "IP address obtained via GCM - '" + ipAddress + "'");
+                    } else {
+                        Log.i(LOG_TAG, "Incorrect IP address obtained via GCM - '" + ipAddress + "'");
+                        LogUtil.appendLog(LOG_TAG + "#onHandleIntent(): Incorrect IP address obtained via GCM - '" + ipAddress + "'");
+                    }
                 }
                 Log.i(LOG_TAG, "Received: " + extras.toString());
                 LogUtil.appendLog(LOG_TAG + "#onHandleIntent(): Received: " + extras.toString());
@@ -92,20 +89,6 @@ public class GCMIntentService extends IntentService {
     // This is just one simple example of what you might choose to do with
     // a GCM message.
     private void sendNotification(String msg) {
-        /*mNotificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), 0);
-
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.home)
-                        .setContentTitle("GCM Notification")
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(msg))
-                        .setContentText(msg);
-
-        mBuilder.setContentIntent(contentIntent);
-        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());*/
         new HomeAutomationNotificationService(this.getApplicationContext(), msg, false);
     }
 

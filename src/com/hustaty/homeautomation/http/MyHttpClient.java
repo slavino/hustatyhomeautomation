@@ -58,6 +58,7 @@ public class MyHttpClient extends DefaultHttpClient {
     private static String HOME_WIFI_SSID;
     private static String localNetworkServerIP;
     private static String globalServerIP;
+    private static String globalServerIPFromGCM;
     private static String URL_TO_USE;
     private static double homeLatitude;
     private static double homeLongitude;
@@ -76,6 +77,7 @@ public class MyHttpClient extends DefaultHttpClient {
             HOME_WIFI_SSID = (String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_WIFI_SSID.getKey());
             localNetworkServerIP = (String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_LOCALSERVERIPADDRESS.getKey());
             globalServerIP = (String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_GLOBALSERVERIPADDRESS.getKey());
+            globalServerIPFromGCM = (String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_RECEIVED_GLOBALSERVERIPADDRESS.getKey());
             homeLatitude = Double.parseDouble((String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_HOMEGPSLAT.getKey()));
             homeLongitude = Double.parseDouble((String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_HOMEGPSLON.getKey()));
 
@@ -517,6 +519,7 @@ public class MyHttpClient extends DefaultHttpClient {
 
         WifiInfo wifiInfo = getWifiInfo();
         if (HOME_WIFI_SSID != null
+                && (wifiInfo != null)
                 && (wifiInfo.getSSID() != null)
                 && HOME_WIFI_SSID.equalsIgnoreCase(wifiInfo.getSSID().replace("\"", ""))) {
             URL_TO_USE = localNetworkServerIP;
@@ -545,6 +548,8 @@ public class MyHttpClient extends DefaultHttpClient {
     public static void useAnotherURL() {
         if (URL_TO_USE.equalsIgnoreCase(localNetworkServerIP)) {
             URL_TO_USE = globalServerIP;
+        } else if(URL_TO_USE.equalsIgnoreCase(globalServerIP)) {
+            URL_TO_USE = globalServerIPFromGCM;
         } else {
             URL_TO_USE = localNetworkServerIP;
         }
