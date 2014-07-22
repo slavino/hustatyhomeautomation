@@ -43,13 +43,13 @@ public class ApplicationPreferences {
             editor.putFloat(key, (Float) value);
         } else if (value instanceof Long) {
             editor.putLong(key, (Long) value);
-        } else if (value instanceof Set<?>) {
-            try {
-                Set<String> mySet = (Set<String>) value;
-                editor.putStringSet(key, (Set<String>) value);
-            } catch (ClassCastException classCastException) {
-                LogUtil.appendLog(LOG_TAG);
-            }
+//        } else if (value instanceof Set<?>) {
+//            try {
+//                Set<String> mySet = (Set<String>) value;
+//                editor.putStringSet(key, (Set<String>) value);
+//            } catch (ClassCastException classCastException) {
+//                LogUtil.appendLog(LOG_TAG + " Error on casting " + classCastException.getMessage());
+//            }
         }
         editor.commit();
     }
