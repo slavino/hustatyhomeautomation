@@ -2,6 +2,7 @@ package com.hustaty.homeautomation;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.hustaty.homeautomation.http.MyHttpClient;
 import com.hustaty.homeautomation.model.CommonResult;
 import com.hustaty.homeautomation.model.StoredEventResult;
 import com.hustaty.homeautomation.util.LogUtil;
+import org.apache.http.protocol.HTTP;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -38,11 +40,15 @@ public class HotwaterFragment extends Fragment {
 
     private Calendar calendar;
     private SimpleDateFormat sdf;
+    private MyHttpClient myHttpClient;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.hotwater_fragment, container, false);
+        this.view = view;
+
         calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         calendar.set(Calendar.HOUR_OF_DAY, 6);
@@ -54,55 +60,57 @@ public class HotwaterFragment extends Fragment {
         final EditText hotwaterDateFrom = (EditText) view.findViewById(R.id.hotwater_date_from);
         hotwaterDateFrom.setText(sdf.format(calendar.getTime()));
 
-        MyHttpClient myHttpClient = new MyHttpClient(view.getContext());
+        myHttpClient = new MyHttpClient(view.getContext());
 
-        try {
-            List<StoredEventResult> storedEventResultList = myHttpClient.getStoredEventResults(Appliance.HOTWATER, true);
-            if(storedEventResultList.size() > 0){
-                ListView listView = (ListView)view.findViewById(R.id.listview);
+        (new HttpCommunicationTask()).execute();
 
-                String[] from = new String[]{
-                        "item_date_from",
-                        "item_date_until",
-                        "item_status"};
-                int[] to = new int[]{
-                        R.id.item_date_from,
-                        R.id.item_date_until,
-                        R.id.item_status};
-
-                // prepare the list of all records
-                List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
-
-                for(StoredEventResult storedEventResult : storedEventResultList) {
-                    HashMap<String, String> map = new HashMap<String, String>();
-                    map.put("item_date_from", storedEventResult.getValidFrom().replace(" "," - "));
-                    map.put("item_date_until", storedEventResult.getValidUntil().replace(storedEventResult.getValidFrom().split(" ")[0],"-"));
-                    map.put("item_status", storedEventResult.getValueToPass().replace("HotWater:",""));
-                    fillMaps.add(map);
-                }
-
-                // fill in the grid_item layout
-                final SimpleAdapter adapter = new SimpleAdapter(view.getContext(), fillMaps, R.layout.grid_item, from, to);
-                listView.setAdapter(adapter);
-
-                listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Log.i(LOG_TAG, "$AdapterView.OnItemLongClickListener#onItemLongClick(): i:" + i + " - l:" + l);
-                        Log.i(LOG_TAG, adapter.getItem(i).toString());
-                        //TODO: handle long click to delete the item
-                        return false;
-                    }
-                });
-
-            }
-        } catch (IOException e) {
-            Log.e(LOG_TAG, e.getMessage());
-            LogUtil.appendLog(LOG_TAG + e.getMessage());
-        } catch (HomeAutomationException e) {
-            Log.e(LOG_TAG, e.getMessage());
-            LogUtil.appendLog(LOG_TAG + e.getMessage());
-        }
+//        try {
+//            List<StoredEventResult> storedEventResultList = myHttpClient.getStoredEventResults(Appliance.HOTWATER, true);
+//            if(storedEventResultList.size() > 0){
+//                ListView listView = (ListView)view.findViewById(R.id.listview);
+//
+//                String[] from = new String[]{
+//                        "item_date_from",
+//                        "item_date_until",
+//                        "item_status"};
+//                int[] to = new int[]{
+//                        R.id.item_date_from,
+//                        R.id.item_date_until,
+//                        R.id.item_status};
+//
+//                // prepare the list of all records
+//                List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
+//
+//                for(StoredEventResult storedEventResult : storedEventResultList) {
+//                    HashMap<String, String> map = new HashMap<String, String>();
+//                    map.put("item_date_from", storedEventResult.getValidFrom().replace(" "," - "));
+//                    map.put("item_date_until", storedEventResult.getValidUntil().replace(storedEventResult.getValidFrom().split(" ")[0],"-"));
+//                    map.put("item_status", storedEventResult.getValueToPass().replace("HotWater:",""));
+//                    fillMaps.add(map);
+//                }
+//
+//                // fill in the grid_item layout
+//                final SimpleAdapter adapter = new SimpleAdapter(view.getContext(), fillMaps, R.layout.grid_item, from, to);
+//                listView.setAdapter(adapter);
+//
+//                listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//                    @Override
+//                    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                        Log.i(LOG_TAG, "$AdapterView.OnItemLongClickListener#onItemLongClick(): i:" + i + " - l:" + l);
+//                        Log.i(LOG_TAG, adapter.getItem(i).toString());
+//                        //TODO: handle long click to delete the item
+//                        return false;
+//                    }
+//                });
+//
+//            }
+//        } catch (IOException e) {
+//            Log.e(LOG_TAG, e.getMessage());
+//            LogUtil.appendLog(LOG_TAG + e.getMessage());
+//        } catch (HomeAutomationException e) {
+//            Log.e(LOG_TAG, e.getMessage());
+//            LogUtil.appendLog(LOG_TAG + e.getMessage());
+//        }
 
         final ImageButton hotWaterSave = (ImageButton) view.findViewById(R.id.hotwater_save);
 
@@ -202,4 +210,62 @@ public class HotwaterFragment extends Fragment {
         }
     }
 
+    private class HttpCommunicationTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                List<StoredEventResult> storedEventResultList = myHttpClient.getStoredEventResults(Appliance.HOTWATER, true);
+                if (storedEventResultList.size() > 0) {
+                    ListView listView = (ListView) view.findViewById(R.id.listview);
+
+                    String[] from = new String[]{
+                            "item_date_from",
+                            "item_date_until",
+                            "item_status"};
+                    int[] to = new int[]{
+                            R.id.item_date_from,
+                            R.id.item_date_until,
+                            R.id.item_status};
+
+                    // prepare the list of all records
+                    List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
+
+                    for (StoredEventResult storedEventResult : storedEventResultList) {
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        map.put("item_date_from", storedEventResult.getValidFrom().replace(" ", " - "));
+                        map.put("item_date_until", storedEventResult.getValidUntil().replace(storedEventResult.getValidFrom().split(" ")[0], "-"));
+                        map.put("item_status", storedEventResult.getValueToPass().replace("HotWater:", ""));
+                        fillMaps.add(map);
+                    }
+
+                    // fill in the grid_item layout
+                    final SimpleAdapter adapter = new SimpleAdapter(view.getContext(), fillMaps, R.layout.grid_item, from, to);
+                    listView.setAdapter(adapter);
+
+                    listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                        @Override
+                        public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            Log.i(LOG_TAG, "$AdapterView.OnItemLongClickListener#onItemLongClick(): i:" + i + " - l:" + l);
+                            Log.i(LOG_TAG, adapter.getItem(i).toString());
+                            //TODO: handle long click to delete the item
+                            return false;
+                        }
+                    });
+
+                }
+            } catch (IOException e) {
+                Log.e(LOG_TAG, e.getMessage());
+                LogUtil.appendLog(LOG_TAG + e.getMessage());
+            } catch (HomeAutomationException e) {
+                Log.e(LOG_TAG, e.getMessage());
+                LogUtil.appendLog(LOG_TAG + e.getMessage());
+            } catch (Exception e) {
+                Log.e(LOG_TAG, e.getMessage());
+                LogUtil.appendLog(LOG_TAG + e.getMessage());
+
+            }
+            return null;
+        }
+    }
 }

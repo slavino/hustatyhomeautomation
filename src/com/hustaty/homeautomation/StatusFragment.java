@@ -69,24 +69,32 @@ public class StatusFragment extends Fragment {
 
         public void showLoadingProgressDialog() {
             Log.d(LOG_TAG, "Showing progress dialog.");
-            showProgressDialog("Loading. Please wait...");
+            synchronized (this) {
+                showProgressDialog("Loading. Please wait...");
+            }
         }
 
         public void showProgressDialog(CharSequence message) {
-            if (progressDialog == null) {
-                progressDialog = new ProgressDialog(StatusFragment.this.getActivity());
-                progressDialog.setIndeterminate(true);
-            }
+            synchronized (this) {
+                if (progressDialog == null) {
+                    progressDialog = new ProgressDialog(StatusFragment.this.getActivity());
+                    progressDialog.setIndeterminate(true);
+                }
 
-            progressDialog.setMessage(message);
-            Log.d(LOG_TAG, "Showing progress dialog with message['" + message + "']");
-            progressDialog.show();
+                progressDialog.setMessage(message);
+                Log.d(LOG_TAG, "Showing progress dialog with message['" + message + "']");
+                if (!progressDialog.isShowing()) {
+                    progressDialog.show();
+                }
+            }
         }
 
         public void dismissProgressDialog() {
-            Log.d(LOG_TAG, "Dismissing progress dialog.");
-            if (progressDialog != null) {
-                progressDialog.dismiss();
+            synchronized (this) {
+                Log.d(LOG_TAG, "Dismissing progress dialog.");
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
             }
         }
 
