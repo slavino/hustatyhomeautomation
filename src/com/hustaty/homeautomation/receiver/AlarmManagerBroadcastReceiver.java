@@ -40,6 +40,8 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
     final public static String UI_INTENT_EXTRA_THERMOSTATUS_ID = "arduinoThermoServerStatus";
     final public static String UI_INTENT_EXTRA_TRAFFICINFO_ID = "trafficInformation";
 
+    final public static String INTENT_EXTRA_IP_INFO = "IP";
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -48,6 +50,13 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             LogUtil.appendLog(LOG_TAG + "#onReceive(): BOOT_COMPLETED");
             LocationService.obtainCurrentLocation(context);
             setAlarm(context);
+        } else if(LOCATION_UPDATE_INTENT.equals(intent.getAction())
+                && (intent != null)
+                && intent.hasExtra(INTENT_EXTRA_IP_INFO)) {
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString(SharedPreferencesKeys.APPLICATIONPREFERENCES_RECEIVED_GLOBALSERVERIPADDRESS.getKey(), intent.getStringExtra(INTENT_EXTRA_IP_INFO));
+            editor.commit();
         } else {
             Log.d(LOG_TAG, "#onReceive(): " + intent.getAction());
             LogUtil.appendLog(LOG_TAG + "#onReceive():" + intent.getAction());

@@ -13,9 +13,6 @@ import com.hustaty.homeautomation.R;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
 import com.hustaty.homeautomation.util.LogUtil;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 /**
  * User: hustasl
  * Date: 12/7/13
@@ -28,7 +25,7 @@ public class HomeAutomationNotificationService {
 
     public HomeAutomationNotificationService(Context context, String notificationText, boolean silentNotification) {
 
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         String notificationTitle = "Home Automation Info";
 
@@ -40,13 +37,12 @@ public class HomeAutomationNotificationService {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(notificationText))
                 .build();
 
-//        Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(notificationText));
 //        Launch traffic information provider's application
         Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage("com.hustaty.homeautomation");
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, launchIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, launchIntent, PendingIntent.FLAG_ONE_SHOT);
 
-        if(!silentNotification) {
+        if (!silentNotification) {
             notification.defaults |= Notification.DEFAULT_SOUND;
         } else {
             notification.defaults = Notification.DEFAULT_LIGHTS;
@@ -60,8 +56,7 @@ public class HomeAutomationNotificationService {
 
         notificationManager.notify(notificationText.hashCode(), notification);
 
-        //TEST with TextToSpeech
-        Boolean ttsNotifications = (Boolean)ApplicationPreferences.getPreferences(context).get("ttsNotifications");
+        Boolean ttsNotifications = (Boolean) ApplicationPreferences.getPreferences(context).get("ttsNotifications");
         if (!ttsNotifications) {
             TTSService ttsService = new TTSService(context);
 
@@ -72,7 +67,7 @@ public class HomeAutomationNotificationService {
                 notificationText = notificationText.replace("DISARMED;", "");
             }
             if (notificationText.contains("ARMED") && !notificationText.contains("DISARMED")) {
-                stringBuilder.append("Your house just got armed.");
+                stringBuilder.append("Your house just got armed. ");
                 notificationText = notificationText.replace("ARMED;", "");
             }
             if (notificationText.contains("PGY STARTED")) {
@@ -88,6 +83,10 @@ public class HomeAutomationNotificationService {
                 stringBuilder.append("Your house reports alarm.");
                 notificationText = notificationText.replace("ALARM STARTED;", "");
             }
+            if (notificationText.contains("ALARM ENDED")) {
+                stringBuilder.append("Your house reports that alarm ended.");
+                notificationText = notificationText.replace("ALARM ENDED;", "");
+            }
 
             if (notificationText.trim().length() == "yyyy-MM-dd HH:mm:ss".length()) { // || notificationTextMatcher(notificationText.trim())) {
                 //ok, nothing else to bo spoken
@@ -97,18 +96,6 @@ public class HomeAutomationNotificationService {
             }
 
             ttsService.setTextToBeSpoken(stringBuilder.toString());
-        }
-    }
-
-    @Deprecated
-    private boolean notificationTextMatcher(String notificationText) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            format.parse(notificationText);
-            return true;
-        }
-        catch(ParseException e){
-            return false;
         }
     }
 

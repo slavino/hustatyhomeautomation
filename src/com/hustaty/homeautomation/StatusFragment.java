@@ -29,7 +29,7 @@ import com.hustaty.homeautomation.util.LogUtil;
 public class StatusFragment extends Fragment {
 
     private final static String LOG_TAG = StatusFragment.class.getName();
-    private ProgressDialog progressDialog;
+    protected ProgressDialog progressDialog;
 
     private View view;
     private MyHttpClient myHttpClient;
@@ -100,6 +100,7 @@ public class StatusFragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
+            super.onPreExecute();
             showLoadingProgressDialog();
         }
 

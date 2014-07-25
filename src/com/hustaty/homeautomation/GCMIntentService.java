@@ -9,6 +9,7 @@ import android.util.Log;
 import android.util.Patterns;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.hustaty.homeautomation.enums.GCMMessageContent;
+import com.hustaty.homeautomation.receiver.AlarmManagerBroadcastReceiver;
 import com.hustaty.homeautomation.receiver.GcmBroadcastReceiver;
 import com.hustaty.homeautomation.service.HomeAutomationNotificationService;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
@@ -48,15 +49,15 @@ public class GCMIntentService extends IntentService {
              * any message types you're not interested in, or that you don't
              * recognize.
              */
-            if(GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
+            if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
                 sendNotification("Send error: " + extras.toString());
-            } else if(GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
+            } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
                 sendNotification("Deleted messages on server: " + extras.toString());
                 // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                 // This loop represents the service doing some work.
                 String message = extras.getString(GCMMessageContent.MESSAGE.getKey());
-                if((message == null) || (message.isEmpty())) {
+                if ((message == null) || (message.isEmpty())) {
                     sendNotification(extras.toString());
                 } else {
                     sendNotification(message);
@@ -64,14 +65,18 @@ public class GCMIntentService extends IntentService {
 
                 //
                 String ipAddress = extras.getString(GCMMessageContent.IP_ADDRESS.getKey());
-                if(ipAddress == null || ipAddress.isEmpty()) {
+                if (ipAddress == null || ipAddress.isEmpty()) {
 
                 } else {
                     ipAddress = ipAddress.trim();
                     Matcher matcher = Patterns.IP_ADDRESS.matcher(ipAddress);
-                    if(matcher.matches()) {
+                    if (matcher.matches()) {
                         ApplicationPreferences.setValue(this.getApplicationContext(), GCMMessageContent.IP_ADDRESS.getKey(), ipAddress);
                         Log.i(LOG_TAG, "IP address obtained via GCM - '" + ipAddress + "'");
+                        Intent ipIntent = new Intent();
+                        ipIntent.setAction(AlarmManagerBroadcastReceiver.LOCATION_UPDATE_INTENT);
+                        ipIntent.putExtra("IP", ipAddress);
+                        this.sendBroadcast(ipIntent);
                     } else {
                         Log.i(LOG_TAG, "Incorrect IP address obtained via GCM - '" + ipAddress + "'");
                         LogUtil.appendLog(LOG_TAG + "#onHandleIntent(): Incorrect IP address obtained via GCM - '" + ipAddress + "'");
