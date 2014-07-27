@@ -70,7 +70,7 @@ public class StatusFragment extends Fragment {
         public void showLoadingProgressDialog() {
             Log.d(LOG_TAG, "Showing progress dialog.");
             synchronized (this) {
-                showProgressDialog("Loading. Please wait...");
+                showProgressDialog("Executing HTTPS request to home automation server...");
             }
         }
 
@@ -110,7 +110,7 @@ public class StatusFragment extends Fragment {
             ArduinoThermoServerStatus thermoServerStatus = null;
 
             try {
-                showProgressDialog("Executing HTTPS request to home automation server...");
+//                showProgressDialog("Executing HTTPS request to home automation server...");
                 thermoServerStatus = myHttpClient.getThermoServerStatus(false);
             } catch (HomeAutomationException e) {
                 showSettings(view.getContext());
