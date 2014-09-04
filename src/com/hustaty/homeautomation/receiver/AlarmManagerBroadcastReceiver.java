@@ -50,7 +50,7 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             LogUtil.appendLog(LOG_TAG + "#onReceive(): BOOT_COMPLETED");
             LocationService.obtainCurrentLocation(context);
             setAlarm(context);
-        } else if(LOCATION_UPDATE_INTENT.equals(intent.getAction())
+        } else if (LOCATION_UPDATE_INTENT.equals(intent.getAction())
                 && (intent != null)
                 && intent.hasExtra(INTENT_EXTRA_IP_INFO)) {
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
@@ -82,7 +82,17 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             updatePreferences(context, arduinoThermoServerStatus);
             //END OF TEST
 
-            List<TrafficInformation> trafficInformationList = myHttpClient.getTrafficInformation(true);
+            List<TrafficInformation> trafficInformationList = null;
+            try {
+                trafficInformationList = myHttpClient.getTrafficInformation(true);
+            } catch (HomeAutomationException hae) {
+                trafficInformationList = new ArrayList<TrafficInformation>();
+                TrafficInformation ti = new TrafficInformation();
+                ti.setDescription("Error");
+                ti.setType("ERR: ");
+                trafficInformationList.add(ti);
+                LogUtil.appendLog(LOG_TAG + "#onReceive(): raised Exception " + hae.getMessage());
+            }
 
             Intent newIntent = new Intent(UI_LOCATION_UPDATE_INTENT);
 
@@ -102,7 +112,7 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
             StringBuilder trafficInfoText = new StringBuilder();
 
             int counter = 1;
-            if(trafficInformationList != null) {
+            if (trafficInformationList != null) {
                 for (TrafficInformation trafficInformation : trafficInformationList) {
                     trafficInfoText.append((counter++) + "/" + trafficInformationList.size() + " ");
                     trafficInfoText.append(trafficInformation.getType() + ": " + trafficInformation.getDescription() + "\n");
@@ -114,14 +124,14 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
                 Integer hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
                 boolean silentInfo =
                         (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(SharedPreferencesKeys.APPLICATIONPREFERENCES_SILENTTRAFFICNOTIFICATIONS.getKey(), false) //user selected silent
-                        ||
-                        (hourOfDay < 7)  //not before 7:00am
-                        || (
-                        myHttpClient != null
-                                && myHttpClient.getWifiInfo() != null
-                                && PreferenceManager.getDefaultSharedPreferences(context).getString(SharedPreferencesKeys.APPLICATIONPREFERENCES_WIFI_SSID.getKey(), "unknown").equals(myHttpClient.getWifiInfo().getSSID()))
+                                ||
+                                (hourOfDay < 7)  //not before 7:00am
+                                || (
+                                myHttpClient != null
+                                        && myHttpClient.getWifiInfo() != null
+                                        && PreferenceManager.getDefaultSharedPreferences(context).getString(SharedPreferencesKeys.APPLICATIONPREFERENCES_WIFI_SSID.getKey(), "unknown").equals(myHttpClient.getWifiInfo().getSSID()))
 
-                );
+                        );
                 new TrafficNotificationService(context, trafficInfoText.toString(), silentInfo);
             }
 
@@ -181,51 +191,51 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         SimpleDateFormat mysqlDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_UPDATETIME.getKey(), mysqlDateFormat.format(new Date())).commit();
 
-        if(!arduinoThermoServerStatus.getSecurityArmed().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_ARMED.getKey()))) {
+        if (!arduinoThermoServerStatus.getSecurityArmed().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_ARMED.getKey()))) {
             changeOccured = true;
             sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_ARMED.getKey(), arduinoThermoServerStatus.getSecurityArmed()).commit();
         }
 
-        if(!arduinoThermoServerStatus.getSecurityAlarm().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_ALARM.getKey()))) {
+        if (!arduinoThermoServerStatus.getSecurityAlarm().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_ALARM.getKey()))) {
             changeOccured = true;
             sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_ALARM.getKey(), arduinoThermoServerStatus.getSecurityAlarm()).commit();
         }
 
-        if(!arduinoThermoServerStatus.getSecurityFault().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_FAULT.getKey()))) {
+        if (!arduinoThermoServerStatus.getSecurityFault().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_FAULT.getKey()))) {
             changeOccured = true;
             sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_FAULT.getKey(), arduinoThermoServerStatus.getSecurityFault()).commit();
         }
 
-        if(!arduinoThermoServerStatus.getSecurityFire().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_FIRE.getKey()))) {
+        if (!arduinoThermoServerStatus.getSecurityFire().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_FIRE.getKey()))) {
             changeOccured = true;
             sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_FIRE.getKey(), arduinoThermoServerStatus.getSecurityFire()).commit();
         }
 
-        if(!arduinoThermoServerStatus.getSecurityTamper().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_TAMPERED.getKey()))) {
+        if (!arduinoThermoServerStatus.getSecurityTamper().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_TAMPERED.getKey()))) {
             changeOccured = true;
             sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_TAMPERED.getKey(), arduinoThermoServerStatus.getSecurityTamper()).commit();
         }
 
-        if(!arduinoThermoServerStatus.getSecurityPowerSupply().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_ACPOWERFAILURE.getKey()))) {
+        if (!arduinoThermoServerStatus.getSecurityPowerSupply().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_ACPOWERFAILURE.getKey()))) {
             changeOccured = true;
             sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_ACPOWERFAILURE.getKey(), arduinoThermoServerStatus.getSecurityPowerSupply()).commit();
         }
 
-        if(!arduinoThermoServerStatus.getSecurityLowBattery().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_LOWBATTERY.getKey()))) {
+        if (!arduinoThermoServerStatus.getSecurityLowBattery().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_LOWBATTERY.getKey()))) {
             changeOccured = true;
             sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_LOWBATTERY.getKey(), arduinoThermoServerStatus.getSecurityLowBattery()).commit();
         }
 
-        if(!arduinoThermoServerStatus.getSecurityPgY().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_PGY.getKey()))) {
+        if (!arduinoThermoServerStatus.getSecurityPgY().equals(currentState.get(SharedPreferencesKeys.SECURITYSYSTEM_PGY.getKey()))) {
             changeOccured = true;
             sharedPreferences.edit().putString(SharedPreferencesKeys.SECURITYSYSTEM_PGY.getKey(), arduinoThermoServerStatus.getSecurityPgY()).commit();
         }
 
-        if(arduinoThermoServerStatus.getHotWaterSupply() != null) {
+        if (arduinoThermoServerStatus.getHotWaterSupply() != null) {
             sharedPreferences.edit().putString("hotWaterSupply", arduinoThermoServerStatus.getHotWaterSupply()).commit();
         }
 
-        if(changeOccured) {
+        if (changeOccured) {
             play(context);
         }
 
@@ -237,8 +247,8 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         final SoundPool soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
         final int sound = soundPool.load(context, R.raw.nice_cut, 1);
 
-        new Thread(){
-            public void run(){
+        new Thread() {
+            public void run() {
                 try {
                     Thread.sleep(500);
                     soundPool.play(sound, 1.0f, 1.0f, 0, 0, 1.0f);

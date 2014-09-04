@@ -453,13 +453,13 @@ public class MyHttpClient extends DefaultHttpClient {
         } catch (JsonSyntaxException jsonSyntaxException) {
             LogUtil.appendLog(LOG_TAG + "#getTrafficInformation(shutdown:" + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage());
             throw new HomeAutomationException(jsonSyntaxException);
-        }
+        } finally {
+            if(shutdownAfterGettingInfo) {
+                shutdownConnectionManager();
+            }
 
-        if(shutdownAfterGettingInfo) {
-            shutdownConnectionManager();
+            return result;
         }
-
-        return result;
 
     }
 

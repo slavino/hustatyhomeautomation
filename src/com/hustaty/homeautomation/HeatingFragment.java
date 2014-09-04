@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.NumberPicker;
 
 //import javax.crypto.*;
 //import java.io.File;
@@ -38,56 +39,10 @@ public class HeatingFragment extends Fragment {
             }
         });
 
-//        SecretKey key = null;
-//        try {
-//            key = KeyGenerator.getInstance("AES").generateKey();
-//            writeToFile("secretkey.dat", key);
-//            Cipher cipher = Cipher.getInstance("AES");
-//            cipher.init(Cipher.ENCRYPT_MODE, key);
-//            javax.crypto.SealedObject sealedObject = new SealedObject("message", cipher);
-//            writeToFile("sealed.dat", sealedObject);
-//
-//
-//            String algorithmName = sealedObject.getAlgorithm();
-//            Cipher cipher2 = Cipher.getInstance(algorithmName);
-//            cipher.init(Cipher.DECRYPT_MODE, key);
-//            String text = (String) sealedObject.getObject(cipher);
-//
-//        } catch (NoSuchAlgorithmException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        } catch (NoSuchPaddingException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        } catch (IllegalBlockSizeException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        } catch (InvalidKeyException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        } catch (IOException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        } catch (Exception e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        }
+//        NumberPicker numberPicker = (NumberPicker)view.findViewById(R.id.temperature);
+//        numberPicker.setDisplayedValues(new String[]{"15","16","17","18"});
 
         return view;
     }
 
-//    private static void writeToFile(String filename, Object object) throws Exception {
-//        FileOutputStream fos = null;
-//        ObjectOutputStream oos = null;
-//
-//        try {
-//            fos = new FileOutputStream(new File(filename));
-//            oos = new ObjectOutputStream(fos);
-//            oos.writeObject(object);
-//            oos.flush();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (oos != null) {
-//                oos.close();
-//            }
-//            if (fos != null) {
-//                fos.close();
-//            }
-//        }
-//    }
 }
