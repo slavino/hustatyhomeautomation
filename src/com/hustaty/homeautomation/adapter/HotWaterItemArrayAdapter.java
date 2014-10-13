@@ -24,7 +24,7 @@ public class HotWaterItemArrayAdapter extends ArrayAdapter<StoredEventResult> {
     public HotWaterItemArrayAdapter(Context context, int resource) {
         super(context, resource);
         this.context = context;
-        this.itemList = new ArrayList<>();
+        this.itemList = new ArrayList<StoredEventResult>();
     }
 
     @Override

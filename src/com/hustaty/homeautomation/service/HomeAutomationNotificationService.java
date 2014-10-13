@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import com.hustaty.homeautomation.R;
@@ -26,6 +27,9 @@ public class HomeAutomationNotificationService {
     public HomeAutomationNotificationService(Context context, String notificationText, boolean silentNotification) {
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        final int ringerMode = audioManager.getRingerMode();
 
         String notificationTitle = "Home Automation Info";
 
@@ -56,9 +60,8 @@ public class HomeAutomationNotificationService {
 
         notificationManager.notify(notificationText.hashCode(), notification);
 
-        Boolean ttsNotifications = (Boolean) ApplicationPreferences.getPreferences(context).get("ttsNotifications");
-        if (!ttsNotifications) {
-            TTSService ttsService = new TTSService(context);
+        Boolean ttsNotificationsSilenced = (Boolean) ApplicationPreferences.getPreferences(context).get("ttsNotifications");
+        if (!ttsNotificationsSilenced) {
 
             StringBuilder stringBuilder = new StringBuilder();
 
@@ -95,7 +98,11 @@ public class HomeAutomationNotificationService {
                 stringBuilder.append(notificationText);
             }
 
-            ttsService.setTextToBeSpoken(stringBuilder.toString());
+            if(ringerMode == AudioManager.RINGER_MODE_NORMAL) {
+                TTSService ttsService = new TTSService(context);
+                ttsService.setTextToBeSpoken(stringBuilder.toString());
+            }
+
         }
     }
 
