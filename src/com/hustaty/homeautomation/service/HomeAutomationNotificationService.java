@@ -14,6 +14,9 @@ import com.hustaty.homeautomation.R;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
 import com.hustaty.homeautomation.util.LogUtil;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * User: hustasl
  * Date: 12/7/13
@@ -63,6 +66,7 @@ public class HomeAutomationNotificationService {
         Boolean ttsNotificationsSilenced = (Boolean) ApplicationPreferences.getPreferences(context).get("ttsNotifications");
         if (!ttsNotificationsSilenced) {
 
+            final int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
             StringBuilder stringBuilder = new StringBuilder();
 
             if (notificationText.contains("DISARMED") && !notificationText.contains("PGY ENDED")) {
@@ -74,11 +78,20 @@ public class HomeAutomationNotificationService {
                 notificationText = notificationText.replace("ARMED;", "");
             }
             if (notificationText.contains("PGY STARTED")) {
-                stringBuilder.append("Armed is only garage and ground floor. Good night.");
+                if(hour > 20
+                        || hour < 5) {
+                    stringBuilder.append("Armed is only garage and ground floor. Good night.");
+                } else {
+                    stringBuilder.append("Armed is only garage and ground floor. Are you sure you armed the correct zones?");
+                }
                 notificationText = notificationText.replace("PGY STARTED;", "");
             }
             if (notificationText.contains("PGY ENDED")) {
-                stringBuilder.append("Your house is disarmed. Good morning.");
+                if(hour > 4 && hour < 10) {
+                    stringBuilder.append("Your house is disarmed. Good morning.");
+                } else {
+                    stringBuilder.append("Your house is disarmed.");
+                }
                 notificationText = notificationText.replace("PGY ENDED;", "");
                 notificationText = notificationText.replace("DISARMED;", "");
             }
