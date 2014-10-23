@@ -524,7 +524,12 @@ public class MyHttpClient extends DefaultHttpClient {
                 && HOME_WIFI_SSID.equalsIgnoreCase(wifiInfo.getSSID().replace("\"", ""))) {
             URL_TO_USE = localNetworkServerIP;
         } else {
-            URL_TO_USE = globalServerIP;
+            if(!URL_TO_USE.equals(globalServerIPFromGCM)
+                    && !"0.0.0.0".equals(globalServerIPFromGCM)) {
+                URL_TO_USE = globalServerIPFromGCM;
+            } else {
+                URL_TO_USE = globalServerIP;
+            }
         }
         return distance;
     }
