@@ -8,6 +8,7 @@ import android.net.wifi.WifiManager;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import com.google.android.gms.drive.internal.at;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -63,6 +64,8 @@ public class MyHttpClient extends DefaultHttpClient {
     private static double homeLatitude;
     private static double homeLongitude;
 
+    private static final String DEFAULT_IP = "0.0.0.0";
+
     private final Context context;
 
     private String cookieInformation;
@@ -88,7 +91,7 @@ public class MyHttpClient extends DefaultHttpClient {
 
         }
 
-        URL_TO_USE = globalServerIP;
+        attemptToGuessURL(null, null);
     }
 
     @Override
@@ -112,7 +115,7 @@ public class MyHttpClient extends DefaultHttpClient {
     private boolean authenticate() throws IOException {
         Location location = LocationService.obtainCurrentLocation(context);
         String gpsData = "";
-        Double distance = attemptToGuessURL(location);
+        Double distance = attemptToGuessURL(location, getWifiInfo());
 
         if (location != null) {
             String deviceID = PreferenceManager.getDefaultSharedPreferences(context).getString(SharedPreferencesKeys.APPLICATIONPREFERENCES_DEVICEID.getKey(), "unknown");
@@ -425,7 +428,7 @@ public class MyHttpClient extends DefaultHttpClient {
         }
 
         //this is by default done in authentication but this part is allowed also for unauthenticated access
-        double distance = attemptToGuessURL(location);
+        double distance = attemptToGuessURL(location, getWifiInfo());
 
         HttpPost post = new HttpPost("https://" + URL_TO_USE + "/traffic/");
 
@@ -504,7 +507,7 @@ public class MyHttpClient extends DefaultHttpClient {
      * @param location
      * @return
      */
-    private double attemptToGuessURL(Location location) {
+    private static double attemptToGuessURL(Location location, WifiInfo wifiInfo) {
 
         double distance = 0;
 
@@ -517,15 +520,15 @@ public class MyHttpClient extends DefaultHttpClient {
             distance = house.distanceTo(location);
         }
 
-        WifiInfo wifiInfo = getWifiInfo();
         if (HOME_WIFI_SSID != null
                 && (wifiInfo != null)
                 && (wifiInfo.getSSID() != null)
                 && HOME_WIFI_SSID.equalsIgnoreCase(wifiInfo.getSSID().replace("\"", ""))) {
             URL_TO_USE = localNetworkServerIP;
         } else {
-            if(!URL_TO_USE.equals(globalServerIPFromGCM)
-                    && !"0.0.0.0".equals(globalServerIPFromGCM)) {
+            if(globalServerIPFromGCM != null
+                    //&& !globalServerIPFromGCM.equals(URL_TO_USE)
+                    && !DEFAULT_IP.equals(globalServerIPFromGCM)) {
                 URL_TO_USE = globalServerIPFromGCM;
             } else {
                 URL_TO_USE = globalServerIP;
@@ -551,15 +554,16 @@ public class MyHttpClient extends DefaultHttpClient {
      * Swap the URLs.
      */
     public static void useAnotherURL() {
-        if (URL_TO_USE.equalsIgnoreCase(localNetworkServerIP)) {
+        /*if (URL_TO_USE.equalsIgnoreCase(localNetworkServerIP)) {
             URL_TO_USE = globalServerIP;
         } else if(URL_TO_USE.equalsIgnoreCase(globalServerIP)
-                && !"0.0.0.0".equalsIgnoreCase(globalServerIPFromGCM) //not default
+                && !DEFAULT_IP.equalsIgnoreCase(globalServerIPFromGCM) //not default
                 && globalServerIPFromGCM != null) { //not null
             URL_TO_USE = globalServerIPFromGCM;
         } else {
             URL_TO_USE = localNetworkServerIP;
-        }
+        }*/
+        attemptToGuessURL(null, null);
         Log.d(LOG_TAG, "#useAnotherURL(): switching URL_TO_USE to: " + URL_TO_USE);
     }
 
