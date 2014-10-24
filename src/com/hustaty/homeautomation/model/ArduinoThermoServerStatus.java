@@ -320,4 +320,37 @@ public class ArduinoThermoServerStatus implements Serializable {
     public void setNightHour(Boolean nightHour) {
         this.nightHour = nightHour;
     }
+
+    @Override
+    public String toString() {
+        return "ArduinoThermoServerStatus{" +
+                "lastCommunicationFromArduino='" + lastCommunicationFromArduino + '\'' +
+                ", thermostat1='" + thermostat1 + '\'' +
+                ", thermostat2='" + thermostat2 + '\'' +
+                ", hotWaterSwitch='" + hotWaterSwitch + '\'' +
+                ", hotWaterSupply='" + hotWaterSupply + '\'' +
+                ", heatingState='" + heatingState + '\'' +
+                ", remainingTimeForLastServerCommand='" + remainingTimeForLastServerCommand + '\'' +
+                ", freeMemory='" + freeMemory + '\'' +
+                ", uptime='" + uptime + '\'' +
+                ", uptime2='" + uptime2 + '\'' +
+                ", reset='" + reset + '\'' +
+                ", t28F82D850400001F='" + t28F82D850400001F + '\'' +
+                ", t28B79F8504000082='" + t28B79F8504000082 + '\'' +
+                ", t28205B850400008B='" + t28205B850400008B + '\'' +
+                ", t280F5B8504000019='" + t280F5B8504000019 + '\'' +
+                ", t28F1E685040000DB='" + t28F1E685040000DB + '\'' +
+                ", t28C9C9AA040000EA='" + t28C9C9AA040000EA + '\'' +
+                ", securityArmed='" + securityArmed + '\'' +
+                ", securityAlarm='" + securityAlarm + '\'' +
+                ", securityFire='" + securityFire + '\'' +
+                ", securityTamper='" + securityTamper + '\'' +
+                ", securityPanic='" + securityPanic + '\'' +
+                ", securityFault='" + securityFault + '\'' +
+                ", securityPowerSupply='" + securityPowerSupply + '\'' +
+                ", securityLowBattery='" + securityLowBattery + '\'' +
+                ", securityPgY='" + securityPgY + '\'' +
+                ", nightHour=" + nightHour +
+                '}';
+    }
 }
