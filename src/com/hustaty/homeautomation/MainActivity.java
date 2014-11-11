@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -128,6 +129,9 @@ public class MainActivity extends FragmentActivity {
                         regid = getRegistrationId(context);
 
                         if (regid.isEmpty()) {
+                            //TODO: review this quick fix!
+                            Looper.prepare();
+
                             registerInBackground(5);
                         }
 
@@ -413,6 +417,11 @@ public class MainActivity extends FragmentActivity {
             protected void onPostExecute(Object msg) {
                 //mDisplay.append(msg + "\n");
                 LogUtil.appendLog(LOG_TAG+": "+msg);
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
             }
 
         }.execute(null, null, null);
