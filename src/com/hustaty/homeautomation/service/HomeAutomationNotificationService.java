@@ -63,6 +63,14 @@ public class HomeAutomationNotificationService {
 
         notificationManager.notify(notificationText.hashCode(), notification);
 
+        //FIXME TEST
+        try {
+            new AlarmPhotoService(context);
+        } catch (Exception e) {
+            Log.e(LOG_TAG, e.getMessage());
+        }
+        //FIXME END OF TEST
+
         Boolean ttsNotificationsSilenced = (Boolean) ApplicationPreferences.getPreferences(context).get("ttsNotifications");
         if (!ttsNotificationsSilenced) {
 
