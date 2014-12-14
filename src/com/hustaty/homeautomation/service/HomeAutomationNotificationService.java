@@ -89,6 +89,8 @@ public class HomeAutomationNotificationService {
             if (notificationText.contains("PGY ENDED")) {
                 if(hour > 4 && hour < 10) {
                     stringBuilder.append("Your house is disarmed. Good morning.");
+                } else if(hour >=10 && hour < 13) {
+                    stringBuilder.append("Your house is disarmed. Wow! You slept quite long today."); //:-) kidding
                 } else {
                     stringBuilder.append("Your house is disarmed.");
                 }
