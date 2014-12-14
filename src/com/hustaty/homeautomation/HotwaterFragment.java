@@ -187,8 +187,12 @@ public class HotwaterFragment extends Fragment {
         protected void onPostExecute(List<StoredEventResult> storedEventResultList) {
             super.onPostExecute(storedEventResultList);
             adapter.setItemList(storedEventResultList);
-            if(storedEventResultList != null) {
-                adapter.addAll(storedEventResultList);
+
+            if (storedEventResultList != null) {
+                for (StoredEventResult storedEventResult : storedEventResultList) {
+                    adapter.add(storedEventResult);
+                }
+//                adapter.addAll(storedEventResultList);
             }
             adapter.notifyDataSetChanged();
         }
