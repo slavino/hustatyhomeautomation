@@ -22,7 +22,7 @@ public class TrafficNotificationService {
     //Logging support.
     private static final String LOG_TAG = TrafficNotificationService.class.getName();
 
-    public TrafficNotificationService(Context context, String notificationText, boolean silentNotification) {
+    public TrafficNotificationService(final Context context, String notificationText, boolean silentNotification) {
 
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -39,8 +39,10 @@ public class TrafficNotificationService {
 //        Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(notificationText));
 //        Launch traffic information provider's application
         Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage("com.analyticadesign.eds");
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, launchIntent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = null;
+        if (launchIntent != null) {
+            pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, launchIntent, PendingIntent.FLAG_ONE_SHOT);
+        }
 
         if(!silentNotification) {
             notification.defaults |= Notification.DEFAULT_SOUND;

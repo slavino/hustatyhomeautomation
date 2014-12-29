@@ -33,7 +33,7 @@
 
         <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="195dp"
+                android:layout_height="260dp"
                 android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
@@ -75,6 +75,53 @@
                           android:layout_gravity="center_horizontal"/>
                 <TextView android:id="@+id/textView_roomname_upperlobby"
                           android:text="@string/roomname_upperlobby"
+                          android:layout_height="wrap_content"
+                          android:layout_width="wrap_content"
+                          android:textStyle="bold"
+                          android:textSize="@dimen/roomNameMainActivityFontSize"
+                          android:layout_gravity="center_horizontal"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                        android:layout_gravity="center_horizontal"></TextView>
+                <TextView
+                        android:layout_gravity="center_horizontal"></TextView>
+            </TableRow>
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_column="0"
+                    android:layout_gravity="center_horizontal">
+                <TextView android:id="@+id/textView_roomtemp_northchldroom"
+                          android:text="@string/unknown_temperature"
+                          style="TemperatureMainScreen"
+                          android:layout_height="wrap_content"
+                          android:layout_width="fill_parent"
+                          android:textSize="@dimen/tempMainActivityFontSize"
+                          android:layout_gravity="center_horizontal"/>
+                <TextView android:id="@+id/textView_roomtemp_southchldroom"
+                          android:text="@string/unknown_temperature"
+                          style="TemperatureMainScreen"
+                          android:layout_height="fill_parent"
+                          android:layout_width="fill_parent"
+                          android:textSize="@dimen/tempMainActivityFontSize"
+                          android:layout_gravity="center_horizontal"/>
+            </TableRow>
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_column="1">
+                <TextView android:id="@+id/textView_roomname_northchldroom"
+                          android:text="@string/roomname_northchildroom"
+                          android:layout_height="wrap_content"
+                          android:layout_width="wrap_content"
+                          android:textStyle="bold"
+                          android:textSize="@dimen/roomNameMainActivityFontSize"
+                          android:layout_gravity="center_horizontal"/>
+                <TextView android:id="@+id/textView_roomname_southchldroom"
+                          android:text="@string/roomname_southchildroom"
                           android:layout_height="wrap_content"
                           android:layout_width="wrap_content"
                           android:textStyle="bold"

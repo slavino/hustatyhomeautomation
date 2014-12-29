@@ -119,6 +119,8 @@
     <string name="ttsNotifications">Mute TTS Engine</string>
     <string name="room_night_temperature">Night temp.</string>
     <string name="room_comfort_temperature">Comfort temp.</string>
+    <string name="roomname_southchildroom">South Chldroom</string>
+    <string name="roomname_northchildroom">North Chldroom</string>
 
     <string-array name="temperaturesInside">
         <item>15</item>

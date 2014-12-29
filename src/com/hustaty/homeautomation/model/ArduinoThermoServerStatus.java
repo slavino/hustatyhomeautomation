@@ -69,6 +69,14 @@ public class ArduinoThermoServerStatus implements Serializable {
     @SerializedName("t28C9C9AA040000EA")
     private String t28C9C9AA040000EA = UNKNOWN_TEMPERATURE;
 
+    //southern childroom
+    @SerializedName("t288b4c5605000020")
+    private String t288b4c5605000020 = UNKNOWN_TEMPERATURE;
+
+    //nothern childroom
+    @SerializedName("t28e6c455050000d4")
+    private String t28e6c455050000d4 = UNKNOWN_TEMPERATURE;
+
     @SerializedName("ARM")
     private String securityArmed = DEFAULT_VALUE;
 
@@ -321,6 +329,22 @@ public class ArduinoThermoServerStatus implements Serializable {
         this.nightHour = nightHour;
     }
 
+    public String getT288b4c5605000020() {
+        return t288b4c5605000020.toString();
+    }
+
+    public void setT288b4c5605000020(String t288b4c5605000020) {
+        this.t288b4c5605000020 = t288b4c5605000020;
+    }
+
+    public String getT28e6c455050000d4() {
+        return t28e6c455050000d4.toString();
+    }
+
+    public void setT28e6c455050000d4(String t28e6c455050000d4) {
+        this.t28e6c455050000d4 = t28e6c455050000d4;
+    }
+
     @Override
     public String toString() {
         return "ArduinoThermoServerStatus{" +
@@ -341,6 +365,8 @@ public class ArduinoThermoServerStatus implements Serializable {
                 ", t280F5B8504000019='" + t280F5B8504000019 + '\'' +
                 ", t28F1E685040000DB='" + t28F1E685040000DB + '\'' +
                 ", t28C9C9AA040000EA='" + t28C9C9AA040000EA + '\'' +
+                ", t288b4c5605000020='" + t288b4c5605000020 + '\'' +
+                ", t28e6c455050000d4='" + t28e6c455050000d4 + '\'' +
                 ", securityArmed='" + securityArmed + '\'' +
                 ", securityAlarm='" + securityAlarm + '\'' +
                 ", securityFire='" + securityFire + '\'' +

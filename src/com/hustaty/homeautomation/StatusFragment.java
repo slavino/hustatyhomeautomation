@@ -195,12 +195,19 @@ public class StatusFragment extends Fragment {
             TextView upperLobby = (TextView) view.findViewById(R.id.textView_roomtemp_upperlobby);
             TextView entranceHall = (TextView) view.findViewById(R.id.textView_roomtemp_entrancehall);
             TextView kitchen = (TextView) view.findViewById(R.id.textView_roomtemp_kitchen);
+
+            TextView southchildroom = (TextView) view.findViewById(R.id.textView_roomtemp_southchldroom);
+            TextView northchildroom = (TextView) view.findViewById(R.id.textView_roomtemp_northchldroom);
+
             workroom.setText(thermoServerStatus.getT280F5B8504000019() + "\u00b0C");
             bedroom.setText(thermoServerStatus.getT28B79F8504000082() + "\u00b0C");
             outside.setText(thermoServerStatus.getT28F82D850400001F() + "\u00b0C");
             upperLobby.setText(thermoServerStatus.getT28205B850400008B() + "\u00b0C");
             entranceHall.setText(thermoServerStatus.getT28F1E685040000DB() + "\u00b0C");
             kitchen.setText(thermoServerStatus.getT28C9C9AA040000EA() + "\u00b0C");
+
+            southchildroom.setText(thermoServerStatus.getT288b4c5605000020() + "\u00b0C");
+            northchildroom.setText(thermoServerStatus.getT28e6c455050000d4() + "\u00b0C");
 
             TextView thermostat1Value = (TextView) view.findViewById(R.id.textView_thermostat_1_val);
             thermostat1Value.setText("1".equals(thermoServerStatus.getThermostat1()) ? "ON" : "OFF");
@@ -215,6 +222,14 @@ public class StatusFragment extends Fragment {
             hotWaterSupplyValue.setText("1".equals(thermoServerStatus.getHotWaterSupply()) ? "ON" : "OFF");
 
             TextView heatingSupplyValue = (TextView) view.findViewById(R.id.textView_heating_supply_val);
+//            heatingSupplyValue.setText("1".equals(thermoServerStatus.getHeatingState()) ? "ON" : "OFF");
+            if("1".equals(thermoServerStatus.getHeatingState())) {
+                heatingSupplyValue.setText("ON");
+            } else if("0".equals(thermoServerStatus.getHeatingState())) {
+                heatingSupplyValue.setText("OFF");
+            } else {
+                heatingSupplyValue.setText(thermoServerStatus.getHeatingState());
+            }
             heatingSupplyValue.setText("1".equals(thermoServerStatus.getHeatingState()) ? "ON" : "OFF");
 
             TextView remainingTimeForLastServerCommandValue = (TextView) view.findViewById(R.id.textView_remaining_time_for_last_server_command_val);
