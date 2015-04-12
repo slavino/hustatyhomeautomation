@@ -8,6 +8,7 @@ import java.util.Date;
 public class ArduinoThermoServerStatus implements Serializable {
 
     private static final String UNKNOWN_TEMPERATURE = "--.--";
+    private static final String UNKNOWN_HUMIDITY = "--.--";
     private static final String UNKNOWN_STATE = "-1";
     private static final String UNKNOWN_VALUE = "--";
     private static final String DEFAULT_VALUE = "0";
@@ -77,6 +78,10 @@ public class ArduinoThermoServerStatus implements Serializable {
     @SerializedName("t28e6c455050000d4")
     private String t28e6c455050000d4 = UNKNOWN_TEMPERATURE;
 
+    //bedroom 2
+    @SerializedName("t282a54ab0400004e")
+    private String t282a54ab0400004e = UNKNOWN_TEMPERATURE;
+
     @SerializedName("ARM")
     private String securityArmed = DEFAULT_VALUE;
 
@@ -106,6 +111,12 @@ public class ArduinoThermoServerStatus implements Serializable {
 
     @SerializedName("nightHour")
     private Boolean nightHour;
+
+    @SerializedName("kidzHum")
+    private String kidzHum = UNKNOWN_HUMIDITY;
+
+    @SerializedName("kidzTemp")
+    private String kidzTemp = UNKNOWN_TEMPERATURE;
 
 	public String getLastCommunicationFromArduino() {
 		return lastCommunicationFromArduino;
@@ -249,6 +260,15 @@ public class ArduinoThermoServerStatus implements Serializable {
         this.t28C9C9AA040000EA = t28C9C9AA040000EA;
     }
 
+    //bedroom 2
+    public String getT282a54ab0400004e() {
+        return t282a54ab0400004e;
+    }
+
+    public void setT282a54ab0400004e(String t282a54ab0400004e) {
+        this.t282a54ab0400004e = t282a54ab0400004e;
+    }
+
     public String getSecurityArmed() {
         return securityArmed;
     }
@@ -345,6 +365,22 @@ public class ArduinoThermoServerStatus implements Serializable {
         this.t28e6c455050000d4 = t28e6c455050000d4;
     }
 
+    public String getKidzHum() {
+        return kidzHum;
+    }
+
+    public void setKidzHum(String kidzHum) {
+        this.kidzHum = kidzHum;
+    }
+
+    public String getKidzTemp() {
+        return kidzTemp;
+    }
+
+    public void setKidzTemp(String kidzTemp) {
+        this.kidzTemp = kidzTemp;
+    }
+
     @Override
     public String toString() {
         return "ArduinoThermoServerStatus{" +
@@ -367,6 +403,9 @@ public class ArduinoThermoServerStatus implements Serializable {
                 ", t28C9C9AA040000EA='" + t28C9C9AA040000EA + '\'' +
                 ", t288b4c5605000020='" + t288b4c5605000020 + '\'' +
                 ", t28e6c455050000d4='" + t28e6c455050000d4 + '\'' +
+                ", t282a54ab0400004e='" + t282a54ab0400004e + '\'' +
+                ", kidzTemp='" + kidzTemp + "'" +
+                ", kidzHum='" + kidzHum + "'" +
                 ", securityArmed='" + securityArmed + '\'' +
                 ", securityAlarm='" + securityAlarm + '\'' +
                 ", securityFire='" + securityFire + '\'' +

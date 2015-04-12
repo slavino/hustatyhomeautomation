@@ -121,6 +121,12 @@
     <string name="room_comfort_temperature">Comfort temp.</string>
     <string name="roomname_southchildroom">Juž.detská</string>
     <string name="roomname_northchildroom">Sev.detská</string>
+    <string name="roomname_kidzPortable_short">Kids</string>
+    <string name="roomname_northchldroom_short">N.Childroom</string>
+    <string name="roomname_reserved">N/A</string>
+    <string name="unknown_humidity">--.-- %</string>
+    <string name="roomname_southchldroom_short">S.Childroom</string>
+    <string name="roomname_bedroom2">Bedroom</string>
 
     <string-array name="temperaturesInside">
         <item>15</item>

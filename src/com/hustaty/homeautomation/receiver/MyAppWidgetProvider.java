@@ -154,6 +154,36 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
                         } else {
                             remoteViews.setTextViewText(R.id.widget_kitchen_temperature, "--.--\u00b0C");
                         }
+
+                        if (arduinoThermoServerStatus.getT282a54ab0400004e() != null) {
+                            remoteViews.setTextViewText(R.id.widget_bedroom2_temperature, arduinoThermoServerStatus.getT282a54ab0400004e() + "\u00b0C");
+                        } else {
+                            remoteViews.setTextViewText(R.id.widget_bedroom2_temperature, "--.--\u00b0C");
+                        }
+
+                        if (arduinoThermoServerStatus.getT28e6c455050000d4() != null) {
+                            remoteViews.setTextViewText(R.id.widget_northchldroom_temperature, arduinoThermoServerStatus.getT28e6c455050000d4() + "\u00b0C");
+                        } else {
+                            remoteViews.setTextViewText(R.id.widget_northchldroom_temperature, "--.--\u00b0C");
+                        }
+
+                        if (arduinoThermoServerStatus.getT288b4c5605000020() != null) {
+                            remoteViews.setTextViewText(R.id.widget_southchldroom_temperature, arduinoThermoServerStatus.getT288b4c5605000020() + "\u00b0C");
+                        } else {
+                            remoteViews.setTextViewText(R.id.widget_southchldroom_temperature, "--.--\u00b0C");
+                        }
+
+                        if (arduinoThermoServerStatus.getKidzTemp() != null) {
+                            remoteViews.setTextViewText(R.id.widget_kidzPortable_temperature, arduinoThermoServerStatus.getKidzTemp() + "\u00b0C");
+                        } else {
+                            remoteViews.setTextViewText(R.id.widget_kidzPortable_temperature, "--.--\u00b0C");
+                        }
+
+                        if (arduinoThermoServerStatus.getKidzHum() != null) {
+                            remoteViews.setTextViewText(R.id.widget_kidzPortable_humidity, arduinoThermoServerStatus.getKidzHum() + "%");
+                        } else {
+                            remoteViews.setTextViewText(R.id.widget_kidzPortable_humidity, "--.--%");
+                        }
                     }
 
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM. HH:mm:ss");

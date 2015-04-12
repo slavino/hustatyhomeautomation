@@ -141,10 +141,146 @@
 
     </LinearLayout>
 
+    <LinearLayout
+            android:id="@+id/widget_layout_middleElement"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:orientation="horizontal"
+            android:layout_below="@id/widget_layout_topElement"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal|center_vertical"
+            android:weightSum="5">
+
+        <!--Bedroom-->
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:layout_weight="1">
+            <TextView
+                    android:id="@+id/widget_bedroom2_temperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/unknown_temperature"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/roomname_bedroom2"/>
+        </LinearLayout>
+
+        <!--upper lobby-->
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:layout_gravity="center_horizontal|center_vertical"
+                      android:gravity="center_horizontal|center_vertical"
+                      android:layout_weight="1">
+            <TextView
+                    android:id="@+id/widget_southchldroom_temperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/unknown_temperature"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/roomname_southchldroom_short"/>
+        </LinearLayout>
+
+        <!--work room-->
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:layout_gravity="center_horizontal|center_vertical"
+                      android:gravity="center_horizontal|center_vertical"
+                      android:layout_weight="1">
+            <TextView
+                    android:id="@+id/widget_northchldroom_temperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/unknown_temperature"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/roomname_northchldroom_short"/>
+        </LinearLayout>
+
+        <!--kitchen-->
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:layout_gravity="center_horizontal|center_vertical"
+                      android:gravity="center_horizontal|center_vertical"
+                      android:layout_weight="1">
+            <TextView
+                    android:id="@+id/widget_kidzPortable_temperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/unknown_temperature"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/roomname_kidzPortable_short"/>
+        </LinearLayout>
+
+        <!--entrance lobby-->
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:layout_gravity="center_horizontal|center_vertical"
+                      android:gravity="center_horizontal|center_vertical"
+                      android:layout_weight="1">
+            <TextView
+                    android:id="@+id/widget_kidzPortable_humidity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/unknown_humidity"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/roomname_kidzPortable_short"/>
+        </LinearLayout>
+
+        <!--outside-->
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:layout_gravity="center_horizontal|center_vertical"
+                      android:gravity="center_horizontal|center_vertical"
+                      android:layout_weight="1">
+            <TextView
+                    android:id="@+id/widget_reserved_temperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/unknown_temperature"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/roomname_reserved"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="36dp"
                   android:orientation="horizontal"
-                  android:layout_below="@id/widget_layout_topElement"
+                  android:layout_below="@id/widget_layout_middleElement"
                   android:layout_weight="5">
         <ImageView
                 android:id="@+id/widgetLeftIcon"

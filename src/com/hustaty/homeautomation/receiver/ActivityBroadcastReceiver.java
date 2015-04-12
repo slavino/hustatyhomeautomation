@@ -39,10 +39,10 @@ public class ActivityBroadcastReceiver extends BroadcastReceiver {
                 ArduinoThermoServerStatus thermoServerStatus = gson.fromJson(json, ArduinoThermoServerStatus.class);
 
                 //TODO implement UI update
-                TextView workroom = (TextView) activity.findViewById(R.id.textView_roomtemp_workroom);
-                if(workroom != null) {
-                    workroom.setText(thermoServerStatus.getT280F5B8504000019() + "\u00b0C");
-                }
+//                TextView workroom = (TextView) activity.findViewById(R.id.textView_roomtemp_workroom);
+//                if(workroom != null) {
+//                    workroom.setText(thermoServerStatus.getT280F5B8504000019() + "\u00b0C");
+//                }
 
             }
         }
