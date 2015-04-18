@@ -170,7 +170,7 @@
                     android:text="@string/roomname_bedroom2"/>
         </LinearLayout>
 
-        <!--upper lobby-->
+        <!--south childroom-->
         <LinearLayout android:layout_width="wrap_content"
                       android:layout_height="match_parent"
                       android:orientation="vertical"
@@ -212,7 +212,7 @@
                     android:text="@string/roomname_northchldroom_short"/>
         </LinearLayout>
 
-        <!--kitchen-->
+        <!--portable kids device-->
         <LinearLayout android:layout_width="wrap_content"
                       android:layout_height="match_parent"
                       android:orientation="vertical"
@@ -233,7 +233,7 @@
                     android:text="@string/roomname_kidzPortable_short"/>
         </LinearLayout>
 
-        <!--entrance lobby-->
+        <!--potrable kids device-->
         <LinearLayout android:layout_width="wrap_content"
                       android:layout_height="match_parent"
                       android:orientation="vertical"
@@ -254,7 +254,7 @@
                     android:text="@string/roomname_kidzPortable_short"/>
         </LinearLayout>
 
-        <!--outside-->
+        <!--reserved-->
         <LinearLayout android:layout_width="wrap_content"
                       android:layout_height="match_parent"
                       android:orientation="vertical"
@@ -278,7 +278,7 @@
     </LinearLayout>
 
     <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="36dp"
+                  android:layout_height="72dp"
                   android:orientation="horizontal"
                   android:layout_below="@id/widget_layout_middleElement"
                   android:layout_weight="5">

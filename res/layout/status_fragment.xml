@@ -33,7 +33,7 @@
 
         <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="260dp"
+                android:layout_height="325dp"
                 android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"
@@ -139,6 +139,52 @@
                     android:layout_width="match_parent"
                     android:gravity="center_horizontal"
                     android:layout_column="0">
+                <TextView android:id="@+id/textView_roomtemp_kidz"
+                          android:text="@string/unknown_temperature"
+                          style="TemperatureMainScreen"
+                          android:layout_height="wrap_content"
+                          android:layout_width="fill_parent"
+                          android:textSize="@dimen/tempMainActivityFontSize"
+                          android:layout_gravity="center_horizontal"/>
+                <TextView android:id="@+id/textView_roomhum_kidz"
+                          android:text="@string/unknown_temperature"
+                          style="TemperatureMainScreen"
+                          android:layout_height="wrap_content"
+                          android:layout_width="fill_parent"
+                          android:textSize="@dimen/tempMainActivityFontSize"
+                          android:layout_gravity="center_horizontal"/>
+            </TableRow>
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_column="1">
+                <TextView android:id="@+id/textView_roomname_kidzTemp"
+                          android:text="@string/roomname_kidzPortable_short"
+                          android:layout_height="wrap_content"
+                          android:layout_width="wrap_content"
+                          android:textStyle="bold"
+                          android:textSize="@dimen/roomNameMainActivityFontSize"
+                          android:layout_gravity="center_horizontal"/>
+                <TextView android:id="@+id/textView_roomname_kidzHum"
+                          android:text="@string/roomname_kidzPortable_short"
+                          android:layout_height="wrap_content"
+                          android:layout_width="wrap_content"
+                          android:textStyle="bold"
+                          android:textSize="@dimen/roomNameMainActivityFontSize"
+                          android:layout_gravity="center_horizontal"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                        android:layout_gravity="center_horizontal"></TextView>
+                <TextView
+                        android:layout_gravity="center_horizontal"></TextView>
+            </TableRow>
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_column="0">
                 <TextView android:id="@+id/textView_roomtemp_workroom"
                           android:text="@string/unknown_temperature"
                           style="TemperatureMainScreen"
@@ -146,7 +192,7 @@
                           android:layout_width="fill_parent"
                           android:textSize="@dimen/tempMainActivityFontSize"
                           android:layout_gravity="center_horizontal"/>
-                <TextView android:id="@+id/textView_roomtemp_outside"
+                <TextView android:id="@+id/textView_roomtemp_kitchen"
                           android:text="@string/unknown_temperature"
                           style="TemperatureMainScreen"
                           android:layout_height="wrap_content"
@@ -166,8 +212,8 @@
                           android:textStyle="bold"
                           android:textSize="@dimen/roomNameMainActivityFontSize"
                           android:layout_gravity="center_horizontal"/>
-                <TextView android:id="@+id/textView_roomname_outside"
-                          android:text="@string/roomname_outside"
+                <TextView android:id="@+id/textView_roomname_kitchen"
+                          android:text="@string/roomname_kitchen"
                           android:layout_height="wrap_content"
                           android:layout_width="wrap_content"
                           android:textStyle="bold"
@@ -192,7 +238,7 @@
                           android:layout_width="fill_parent"
                           android:textSize="@dimen/tempMainActivityFontSize"
                           android:layout_gravity="center_horizontal"/>
-                <TextView android:id="@+id/textView_roomtemp_kitchen"
+                <TextView android:id="@+id/textView_roomtemp_outside"
                           android:text="@string/unknown_temperature"
                           style="TemperatureMainScreen"
                           android:layout_height="wrap_content"
@@ -212,8 +258,8 @@
                           android:textStyle="bold"
                           android:textSize="@dimen/roomNameMainActivityFontSize"
                           android:layout_gravity="center_horizontal"/>
-                <TextView android:id="@+id/textView_roomname_kitchen"
-                          android:text="@string/roomname_kitchen"
+                <TextView android:id="@+id/textView_roomname_outside"
+                          android:text="@string/roomname_outside"
                           android:layout_height="wrap_content"
                           android:layout_width="wrap_content"
                           android:textStyle="bold"
@@ -222,6 +268,7 @@
             </TableRow>
         </TableLayout>
 
+        <!--Thermostats-->
         <TableLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/rounded_shape_2"
@@ -385,6 +432,169 @@
             </TableRow>
         </TableLayout>
 
+        <!--<TableLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:background="@drawable/rounded_shape_2"-->
+                <!--android:layout_marginTop="@dimen/tableLayoutTopMargin"-->
+                <!--android:gravity="center|center_vertical|center_horizontal"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_below="@id/statustableLayout6"-->
+                <!--android:id="@+id/statustableLayout7">-->
+            <!--<TableRow android:layout_gravity="center" android:gravity="center">-->
+                <!--<TextView-->
+                        <!--android:id="@+id/textView_remaining_time_for_last_server_command"-->
+                        <!--android:text="@string/remaining_time_for_last_server_command"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:textSize="@dimen/menu"/>-->
+            <!--</TableRow>-->
+        <!--</TableLayout>-->
+
+        <!--<TableLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="41dp"-->
+                <!--android:shrinkColumns="*"-->
+                <!--android:stretchColumns="*"-->
+                <!--android:background="@drawable/rounded_shape"-->
+                <!--android:layout_marginTop="@dimen/tableLayoutTopMargin"-->
+                <!--android:layout_below="@id/statustableLayout7"-->
+                <!--android:id="@+id/statustableLayout8">-->
+            <!--<TableRow-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:gravity="center_horizontal"-->
+                    <!--android:layout_column="1">-->
+                <!--<TextView-->
+                        <!--android:id="@+id/textView_remaining_time_for_last_server_command_val"-->
+                        <!--android:text="@string/unknown_value"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_gravity="center"/>-->
+            <!--</TableRow>-->
+        <!--</TableLayout>-->
+
+        <!--<TableLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:background="@drawable/rounded_shape_2"-->
+                <!--android:layout_marginTop="@dimen/tableLayoutTopMargin"-->
+                <!--android:gravity="center|center_vertical|center_horizontal"-->
+                <!--android:layout_height="28dp"-->
+                <!--android:layout_below="@id/statustableLayout8"-->
+                <!--android:id="@+id/statustableLayout9">-->
+            <!--<TableRow android:layout_gravity="center"-->
+                      <!--android:gravity="center">-->
+                <!--<TextView-->
+                        <!--android:id="@+id/textView_arduino_uptime"-->
+                        <!--android:text="@string/arduino_uptime"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:textSize="@dimen/menu"/>-->
+            <!--</TableRow>-->
+        <!--</TableLayout>-->
+
+        <!--<TableLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="41dp"-->
+                <!--android:shrinkColumns="*"-->
+                <!--android:stretchColumns="*"-->
+                <!--android:background="@drawable/rounded_shape"-->
+                <!--android:layout_marginTop="@dimen/tableLayoutTopMargin"-->
+                <!--android:layout_below="@id/statustableLayout9"-->
+                <!--android:id="@+id/statustableLayout10">-->
+            <!--<TableRow-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:gravity="center_horizontal"-->
+                    <!--android:layout_column="1">-->
+                <!--<TextView-->
+                        <!--android:id="@+id/textView_arduino_uptime_val"-->
+                        <!--android:text="@string/unknown_value"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_gravity="center"/>-->
+            <!--</TableRow>-->
+        <!--</TableLayout>-->
+
+        <!--<TableLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:background="@drawable/rounded_shape_2"-->
+                <!--android:layout_marginTop="@dimen/tableLayoutTopMargin"-->
+                <!--android:gravity="center|center_vertical|center_horizontal"-->
+                <!--android:layout_height="28dp"-->
+                <!--android:layout_below="@id/statustableLayout10"-->
+                <!--android:id="@+id/statustableLayout11">-->
+            <!--<TableRow android:layout_gravity="center"-->
+                      <!--android:gravity="center">-->
+                <!--<TextView-->
+                        <!--android:id="@+id/textView_arduino2_uptime"-->
+                        <!--android:text="@string/arduino2_uptime"-->
+                        <!--android:textStyle="bold" android:textSize="@dimen/menu"/>-->
+            <!--</TableRow>-->
+        <!--</TableLayout>-->
+
+        <!--<TableLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="41dp"-->
+                <!--android:shrinkColumns="*"-->
+                <!--android:stretchColumns="*"-->
+                <!--android:background="@drawable/rounded_shape"-->
+                <!--android:layout_marginTop="@dimen/tableLayoutTopMargin"-->
+                <!--android:layout_below="@id/statustableLayout11"-->
+                <!--android:id="@+id/statustableLayout12">-->
+            <!--<TableRow-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:gravity="center_horizontal"-->
+                    <!--android:layout_column="1">-->
+                <!--<TextView-->
+                        <!--android:id="@+id/textView_arduino2_uptime_val"-->
+                        <!--android:text="@string/unknown_value"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_gravity="center"/>-->
+            <!--</TableRow>-->
+        <!--</TableLayout>-->
+
+
+        <!--<TableLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:background="@drawable/rounded_shape_2"-->
+                <!--android:layout_marginTop="@dimen/tableLayoutTopMargin"-->
+                <!--android:gravity="center|center_vertical|center_horizontal"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_below="@id/statustableLayout12"-->
+                <!--android:id="@+id/statustableLayout13">-->
+            <!--<TableRow android:layout_gravity="center"-->
+                      <!--android:gravity="center">-->
+                <!--<TextView-->
+                        <!--android:id="@+id/textView_last_communication_from_arduino"-->
+                        <!--android:text="@string/last_communication_from_arduino"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:textSize="@dimen/menu"/>-->
+            <!--</TableRow>-->
+        <!--</TableLayout>-->
+
+        <!--<TableLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="41dp"-->
+                <!--android:shrinkColumns="*"-->
+                <!--android:stretchColumns="*"-->
+                <!--android:background="@drawable/rounded_shape"-->
+                <!--android:layout_marginTop="@dimen/tableLayoutTopMargin"-->
+                <!--android:layout_below="@id/statustableLayout13"-->
+                <!--android:id="@+id/statustableLayout14">-->
+            <!--<TableRow-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:gravity="center_horizontal"-->
+                    <!--android:layout_column="1">-->
+                <!--<TextView-->
+                        <!--android:id="@+id/textView_last_communication_from_arduino_val"-->
+                        <!--android:text="@string/unknown_value"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_gravity="center"/>-->
+            <!--</TableRow>-->
+        <!--</TableLayout>-->
+
         <TableLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/rounded_shape_2"
@@ -392,169 +602,6 @@
                 android:gravity="center|center_vertical|center_horizontal"
                 android:layout_height="40dp"
                 android:layout_below="@id/statustableLayout6"
-                android:id="@+id/statustableLayout7">
-            <TableRow android:layout_gravity="center" android:gravity="center">
-                <TextView
-                        android:id="@+id/textView_remaining_time_for_last_server_command"
-                        android:text="@string/remaining_time_for_last_server_command"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/menu"/>
-            </TableRow>
-        </TableLayout>
-
-        <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:shrinkColumns="*"
-                android:stretchColumns="*"
-                android:background="@drawable/rounded_shape"
-                android:layout_marginTop="@dimen/tableLayoutTopMargin"
-                android:layout_below="@id/statustableLayout7"
-                android:id="@+id/statustableLayout8">
-            <TableRow
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:gravity="center_horizontal"
-                    android:layout_column="1">
-                <TextView
-                        android:id="@+id/textView_remaining_time_for_last_server_command_val"
-                        android:text="@string/unknown_value"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="center"/>
-            </TableRow>
-        </TableLayout>
-
-        <TableLayout
-                android:layout_width="match_parent"
-                android:background="@drawable/rounded_shape_2"
-                android:layout_marginTop="@dimen/tableLayoutTopMargin"
-                android:gravity="center|center_vertical|center_horizontal"
-                android:layout_height="28dp"
-                android:layout_below="@id/statustableLayout8"
-                android:id="@+id/statustableLayout9">
-            <TableRow android:layout_gravity="center"
-                      android:gravity="center">
-                <TextView
-                        android:id="@+id/textView_arduino_uptime"
-                        android:text="@string/arduino_uptime"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/menu"/>
-            </TableRow>
-        </TableLayout>
-
-        <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:shrinkColumns="*"
-                android:stretchColumns="*"
-                android:background="@drawable/rounded_shape"
-                android:layout_marginTop="@dimen/tableLayoutTopMargin"
-                android:layout_below="@id/statustableLayout9"
-                android:id="@+id/statustableLayout10">
-            <TableRow
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:gravity="center_horizontal"
-                    android:layout_column="1">
-                <TextView
-                        android:id="@+id/textView_arduino_uptime_val"
-                        android:text="@string/unknown_value"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="center"/>
-            </TableRow>
-        </TableLayout>
-
-        <TableLayout
-                android:layout_width="match_parent"
-                android:background="@drawable/rounded_shape_2"
-                android:layout_marginTop="@dimen/tableLayoutTopMargin"
-                android:gravity="center|center_vertical|center_horizontal"
-                android:layout_height="28dp"
-                android:layout_below="@id/statustableLayout10"
-                android:id="@+id/statustableLayout11">
-            <TableRow android:layout_gravity="center"
-                      android:gravity="center">
-                <TextView
-                        android:id="@+id/textView_arduino2_uptime"
-                        android:text="@string/arduino2_uptime"
-                        android:textStyle="bold" android:textSize="@dimen/menu"/>
-            </TableRow>
-        </TableLayout>
-
-        <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:shrinkColumns="*"
-                android:stretchColumns="*"
-                android:background="@drawable/rounded_shape"
-                android:layout_marginTop="@dimen/tableLayoutTopMargin"
-                android:layout_below="@id/statustableLayout11"
-                android:id="@+id/statustableLayout12">
-            <TableRow
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:gravity="center_horizontal"
-                    android:layout_column="1">
-                <TextView
-                        android:id="@+id/textView_arduino2_uptime_val"
-                        android:text="@string/unknown_value"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="center"/>
-            </TableRow>
-        </TableLayout>
-
-
-        <TableLayout
-                android:layout_width="match_parent"
-                android:background="@drawable/rounded_shape_2"
-                android:layout_marginTop="@dimen/tableLayoutTopMargin"
-                android:gravity="center|center_vertical|center_horizontal"
-                android:layout_height="40dp"
-                android:layout_below="@id/statustableLayout12"
-                android:id="@+id/statustableLayout13">
-            <TableRow android:layout_gravity="center"
-                      android:gravity="center">
-                <TextView
-                        android:id="@+id/textView_last_communication_from_arduino"
-                        android:text="@string/last_communication_from_arduino"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/menu"/>
-            </TableRow>
-        </TableLayout>
-
-        <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:shrinkColumns="*"
-                android:stretchColumns="*"
-                android:background="@drawable/rounded_shape"
-                android:layout_marginTop="@dimen/tableLayoutTopMargin"
-                android:layout_below="@id/statustableLayout13"
-                android:id="@+id/statustableLayout14">
-            <TableRow
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:gravity="center_horizontal"
-                    android:layout_column="1">
-                <TextView
-                        android:id="@+id/textView_last_communication_from_arduino_val"
-                        android:text="@string/unknown_value"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="center"/>
-            </TableRow>
-        </TableLayout>
-
-        <TableLayout
-                android:layout_width="match_parent"
-                android:background="@drawable/rounded_shape_2"
-                android:layout_marginTop="@dimen/tableLayoutTopMargin"
-                android:gravity="center|center_vertical|center_horizontal"
-                android:layout_height="40dp"
-                android:layout_below="@id/statustableLayout14"
                 android:id="@+id/statustableLayout15">
             <TableRow android:layout_gravity="center"
                       android:gravity="center">
