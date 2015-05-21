@@ -89,11 +89,15 @@ public class StatusFragment extends Fragment {
             }
         }
 
-        public void dismissProgressDialog() {
+        public synchronized void dismissProgressDialog() {
             synchronized (this) {
                 Log.d(LOG_TAG, "Dismissing progress dialog.");
                 if (progressDialog != null) {
-                    progressDialog.dismiss();
+                    try {
+                        progressDialog.dismiss();
+                    } catch (IllegalArgumentException iae) {
+                        LogUtil.appendLog(LOG_TAG + "Error: " + iae.getMessage());
+                    }
                 }
             }
         }
@@ -191,6 +195,7 @@ public class StatusFragment extends Fragment {
         if (thermoServerStatus != null) {
             TextView workroom = (TextView) view.findViewById(R.id.textView_roomtemp_workroom);
             TextView bedroom = (TextView) view.findViewById(R.id.textView_roomtemp_bedroom);
+            TextView bedroom2 = (TextView) view.findViewById(R.id.textView_roomtemp_bedroom2);
             TextView outside = (TextView) view.findViewById(R.id.textView_roomtemp_outside);
             TextView upperLobby = (TextView) view.findViewById(R.id.textView_roomtemp_upperlobby);
             TextView entranceHall = (TextView) view.findViewById(R.id.textView_roomtemp_entrancehall);
@@ -204,6 +209,7 @@ public class StatusFragment extends Fragment {
 
             workroom.setText(thermoServerStatus.getT280F5B8504000019() + "\u00b0C");
             bedroom.setText(thermoServerStatus.getT28B79F8504000082() + "\u00b0C");
+            bedroom2.setText(thermoServerStatus.getT282a54ab0400004e() + "\u00b0C");
             outside.setText(thermoServerStatus.getT28F82D850400001F() + "\u00b0C");
             upperLobby.setText(thermoServerStatus.getT28205B850400008B() + "\u00b0C");
             entranceHall.setText(thermoServerStatus.getT28F1E685040000DB() + "\u00b0C");
