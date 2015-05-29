@@ -275,15 +275,15 @@ public class StatusFragment extends Fragment {
             securitySystemStatus.setTypeface(Typeface.MONOSPACE);
             securitySystemStatus.setText(
                     "ARMED: " + armedState
-                            + "        ALARM: " + thermoServerStatus.getSecurityAlarm()
+                            + "\t\t ALARM: " + thermoServerStatus.getSecurityAlarm()
                             + "\nFAULT: " + thermoServerStatus.getSecurityFault()
-                            + "        FIRE: " + thermoServerStatus.getSecurityFire()
+                            + "\t\t    FIRE: " + thermoServerStatus.getSecurityFire()
                             + "\nLOW BATTERY: " + thermoServerStatus.getSecurityLowBattery()
-                            + "        PANIC: " + thermoServerStatus.getSecurityPanic()
+                            + "\t\tPANIC: " + thermoServerStatus.getSecurityPanic()
                             + "\nPOWER: " + thermoServerStatus.getSecurityPowerSupply()
-                            + "        TAMPER: " + thermoServerStatus.getSecurityTamper()
+                            + "\t\t     TAMPER: " + thermoServerStatus.getSecurityTamper()
                             + "\nPgY: " + thermoServerStatus.getSecurityPgY()
-                            + "        ARM: " + thermoServerStatus.getSecurityArmed()
+                            + "\t\t  ARM: " + thermoServerStatus.getSecurityArmed()
             );
 
             final ImageButton sshImgButton = (ImageButton)view.findViewById(R.id.sshImageButton);
@@ -291,8 +291,18 @@ public class StatusFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     String sshIp = ApplicationPreferences.getPreferences().get(SharedPreferencesKeys.APPLICATIONPREFERENCES_RECEIVED_GLOBALSERVERIPADDRESS.getKey()).toString();
-                    Intent sshIntent = new Intent(Intent.ACTION_VIEW,  Uri.parse("ssh://root@"+sshIp));
+                    Intent sshIntent = new Intent(Intent.ACTION_VIEW,  Uri.parse("ssh://root@" + sshIp));
                     startActivity(sshIntent);
+                }
+            });
+
+            final ImageButton webImgButton = (ImageButton)view.findViewById(R.id.webImageButton);
+            webImgButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String webIp = ApplicationPreferences.getPreferences().get(SharedPreferencesKeys.APPLICATIONPREFERENCES_RECEIVED_GLOBALSERVERIPADDRESS.getKey()).toString();
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW,  Uri.parse("https://" + webIp));
+                    startActivity(webIntent);
                 }
             });
 

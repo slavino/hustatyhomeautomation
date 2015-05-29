@@ -701,7 +701,7 @@
                         android:src="@drawable/ssh"/>
                 <ImageButton
                         android:id="@+id/webImageButton"
-                        android:src="@drawable/ssh"/>
+                        android:src="@drawable/web"/>
             </TableRow>
         </TableLayout>
 

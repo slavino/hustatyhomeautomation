@@ -64,8 +64,11 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             }
         } finally {
             editor.commit();
-            findPreference("deviceID").setSummary(sp.getString("deviceID", getResources().getString(R.string.deviceID)));
-            findPreference("SECUPDATETIME").setSummary(sp.getString("SECUPDATETIME", getResources().getString(R.string.unknown_value)));
+            final String deviceID = SharedPreferencesKeys.APPLICATIONPREFERENCES_DEVICEID.getKey();
+            final String securityUpdateTime = SharedPreferencesKeys.SECURITYSYSTEM_UPDATETIME.getKey();
+
+            findPreference(deviceID).setSummary(sp.getString(deviceID, getResources().getString(R.string.deviceID)));
+            findPreference(securityUpdateTime).setSummary(sp.getString(securityUpdateTime, getResources().getString(R.string.unknown_value)));
         }
         setResult(Activity.RESULT_CANCELED);
     }
