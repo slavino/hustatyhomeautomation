@@ -682,6 +682,29 @@
             </TableRow>
         </TableLayout>
 
+        <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="91dp"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:background="@drawable/rounded_shape"
+                android:layout_marginTop="@dimen/tableLayoutTopMargin"
+                android:layout_below="@id/statustableLayout16"
+                android:id="@+id/statustableLayout17">
+            <TableRow
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_column="1">
+                <ImageButton
+                        android:id="@+id/sshImageButton"
+                        android:src="@drawable/ssh"/>
+                <ImageButton
+                        android:id="@+id/webImageButton"
+                        android:src="@drawable/ssh"/>
+            </TableRow>
+        </TableLayout>
+
     </RelativeLayout>
 
 </ScrollView>

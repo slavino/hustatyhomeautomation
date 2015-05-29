@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import com.hustaty.homeautomation.enums.SharedPreferencesKeys;
 import com.hustaty.homeautomation.util.LogUtil;
 
 import java.util.UUID;
@@ -50,7 +51,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             }
 
             UUID deviceUuid = new UUID(androidId.hashCode(), macAddr.hashCode());
-            editor.putString("deviceID",deviceUuid.toString());
+            editor.putString(SharedPreferencesKeys.APPLICATIONPREFERENCES_DEVICEID.getKey(), deviceUuid.toString());
 
         } catch (Exception e) {
             if(e != null) {

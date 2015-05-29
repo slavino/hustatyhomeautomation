@@ -4,8 +4,13 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import android.app.ProgressDialog;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
+import android.widget.ImageButton;
+import com.hustaty.homeautomation.enums.SharedPreferencesKeys;
+import com.hustaty.homeautomation.util.ApplicationPreferences;
 import org.apache.http.client.ClientProtocolException;
 
 import android.app.Activity;
@@ -267,6 +272,7 @@ public class StatusFragment extends Fragment {
                 }
             }
 
+            securitySystemStatus.setTypeface(Typeface.MONOSPACE);
             securitySystemStatus.setText(
                     "ARMED: " + armedState
                             + "        ALARM: " + thermoServerStatus.getSecurityAlarm()
@@ -279,6 +285,16 @@ public class StatusFragment extends Fragment {
                             + "\nPgY: " + thermoServerStatus.getSecurityPgY()
                             + "        ARM: " + thermoServerStatus.getSecurityArmed()
             );
+
+            final ImageButton sshImgButton = (ImageButton)view.findViewById(R.id.sshImageButton);
+            sshImgButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String sshIp = ApplicationPreferences.getPreferences().get(SharedPreferencesKeys.APPLICATIONPREFERENCES_RECEIVED_GLOBALSERVERIPADDRESS.getKey()).toString();
+                    Intent sshIntent = new Intent(Intent.ACTION_VIEW,  Uri.parse("ssh://root@"+sshIp));
+                    startActivity(sshIntent);
+                }
+            });
 
         }
 
