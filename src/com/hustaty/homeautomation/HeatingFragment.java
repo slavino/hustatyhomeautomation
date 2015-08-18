@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import com.hustaty.homeautomation.util.CommonUtil;
 import com.hustaty.homeautomation.util.LogUtil;
 
 import java.io.InputStream;
@@ -40,11 +41,12 @@ public class HeatingFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.heating_fragment, container, false);
 
-        new DownloadImageTask((ImageView) view.findViewById(R.id.workingRoomGraph))
-                .execute("https://api.xively.com/v2/feeds/84966/datastreams/t280F5B8504000019.png?w=800&h=300&b=true&g=true&t=Pracovna&start=2015-08-17T00:00:00+01:00&end=2015-08-17T23:59:59+01:00&timezone=Berlin");
+        new DownloadImageTask((ImageView) view.findViewById(R.id.heatingStateGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "heatingState", "Heating","ff0000"));
+        new DownloadImageTask((ImageView) view.findViewById(R.id.southChldrmGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "t288b4c5605000020", "South_childroom"));
+        new DownloadImageTask((ImageView) view.findViewById(R.id.workRoomGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "t280F5B8504000019", "Workroom"));
 
         //HACK for devices without MENU button
-        Button settingsButton = (Button)view.findViewById(R.id.settingsLaunch);
+        Button settingsButton = (Button) view.findViewById(R.id.settingsLaunch);
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,10 +63,10 @@ public class HeatingFragment extends Fragment {
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
+        ImageView imageView;
 
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
+        public DownloadImageTask(ImageView imageView) {
+            this.imageView = imageView;
         }
 
         protected Bitmap doInBackground(String... urls) {
@@ -81,7 +83,7 @@ public class HeatingFragment extends Fragment {
         }
 
         protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
+            imageView.setImageBitmap(result);
         }
     }
 }
