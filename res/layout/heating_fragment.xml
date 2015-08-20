@@ -5,6 +5,7 @@
             android:background="@color/white">
 
     <RelativeLayout
+            android:id="@+id/relativeLayoutHeatingFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#ffffff">
@@ -62,27 +63,57 @@
         <!--android:text="21.0"/>-->
 
         <ImageView
+                android:id="@+id/heatingStateGraph"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/heatingStateGraph"/>
+                android:layout_height="wrap_content"/>
 
         <ImageView
+                android:id="@+id/southChldrmGraph"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/southChldrmGraph"
                 android:layout_below="@id/heatingStateGraph"/>
 
         <ImageView
+                android:id="@+id/northChldrmGraph"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/workRoomGraph"
                 android:layout_below="@id/southChldrmGraph"/>
+
+        <ImageView
+                android:id="@+id/bedroomGraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/northChldrmGraph"/>
+
+        <ImageView
+                android:id="@+id/bedroomCeilingGraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bedroomGraph"/>
+
+        <ImageView
+                android:id="@+id/kitchenGraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bedroomCeilingGraph"/>
+
+        <ImageView
+                android:id="@+id/workRoomGraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/kitchenGraph"/>
+
+        <ImageView
+                android:id="@+id/outsideGraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/workRoomGraph"/>
 
         <Button
                 android:id="@+id/settingsLaunch"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_below="@id/workRoomGraph"
+                android:layout_below="@id/outsideGraph"
                 android:textSize="20sp"
                 android:textColor="#333333"/>
 

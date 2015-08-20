@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.RelativeLayout;
 import com.hustaty.homeautomation.util.CommonUtil;
 import com.hustaty.homeautomation.util.LogUtil;
 
@@ -43,7 +44,12 @@ public class HeatingFragment extends Fragment {
 
         new DownloadImageTask((ImageView) view.findViewById(R.id.heatingStateGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "heatingState", "Heating","ff0000"));
         new DownloadImageTask((ImageView) view.findViewById(R.id.southChldrmGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "t288b4c5605000020", "South_childroom"));
+        new DownloadImageTask((ImageView) view.findViewById(R.id.northChldrmGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "t28e6c455050000d4", "North_childroom"));
+        new DownloadImageTask((ImageView) view.findViewById(R.id.bedroomGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "t282a54ab0400004e", "Bedroom"));
+        new DownloadImageTask((ImageView) view.findViewById(R.id.bedroomCeilingGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "t28B79F8504000082", "Bedroom_Ceiling"));
+        new DownloadImageTask((ImageView) view.findViewById(R.id.kitchenGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "t28C9C9AA040000EA", "Kitchen"));
         new DownloadImageTask((ImageView) view.findViewById(R.id.workRoomGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "t280F5B8504000019", "Workroom"));
+        new DownloadImageTask((ImageView) view.findViewById(R.id.outsideGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "t28F82D850400001F", "Outside","00ff00"));
 
         //HACK for devices without MENU button
         Button settingsButton = (Button) view.findViewById(R.id.settingsLaunch);
