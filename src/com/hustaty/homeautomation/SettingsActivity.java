@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -53,6 +55,9 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             UUID deviceUuid = new UUID(androidId.hashCode(), macAddr.hashCode());
             editor.putString(SharedPreferencesKeys.APPLICATIONPREFERENCES_DEVICEID.getKey(), deviceUuid.toString());
 
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            editor.putString(SharedPreferencesKeys.APPLICATIONPREFERENCES_VERSIONINFO.getKey(), packageInfo.versionName);
+
         } catch (Exception e) {
             if(e != null) {
                 Log.e(LOG_TAG, e.getMessage());
@@ -66,9 +71,11 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             editor.commit();
             final String deviceID = SharedPreferencesKeys.APPLICATIONPREFERENCES_DEVICEID.getKey();
             final String securityUpdateTime = SharedPreferencesKeys.SECURITYSYSTEM_UPDATETIME.getKey();
+            final String versionInfo = SharedPreferencesKeys.APPLICATIONPREFERENCES_VERSIONINFO.getKey();
 
             findPreference(deviceID).setSummary(sp.getString(deviceID, getResources().getString(R.string.deviceID)));
             findPreference(securityUpdateTime).setSummary(sp.getString(securityUpdateTime, getResources().getString(R.string.unknown_value)));
+            findPreference(versionInfo).setSummary(sp.getString(versionInfo, getResources().getString(R.string.unknown_value)));
         }
         setResult(Activity.RESULT_CANCELED);
     }

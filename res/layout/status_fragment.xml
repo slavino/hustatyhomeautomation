@@ -33,7 +33,7 @@
 
         <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="390dp"
+                android:layout_height="400dp"
                 android:layout_marginTop="@dimen/tableLayoutTopMargin"
                 android:shrinkColumns="*"
                 android:stretchColumns="*"

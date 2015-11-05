@@ -128,6 +128,10 @@
     <string name="roomname_southchldroom_short">S.Childroom</string>
     <string name="roomname_bedroom2">Bedroom</string>
 
+    <string name="ConnectionFailure">Connection failure</string>
+    <string name="NoPeersFound">No Peers Found</string>
+    <string name="application_info">Application information</string>
+
     <string-array name="temperaturesInside">
         <item>15</item>
         <item>16</item>

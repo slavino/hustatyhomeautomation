@@ -158,5 +158,12 @@
                 android:selectable="false"
                 android:persistent="true"
                 android:shouldDisableView="false"/>
+        <Preference
+                android:key="version_info"
+                android:title="@string/application_info"
+                android:enabled="false"
+                android:selectable="false"
+                android:persistent="true"
+                android:shouldDisableView="false"/>
     </PreferenceCategory>
 </PreferenceScreen>
