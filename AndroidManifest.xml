@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hustaty.homeautomation"
-    android:versionCode="23"
-    android:versionName="1.0.23" >
+    android:versionCode="24"
+    android:versionName="1.0.24" >
 
     <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="17" />
     
@@ -127,7 +127,7 @@
         <meta-data
                 android:name="GearAppType"
                 android:value="wgt" />
-        <meta-data android:name="com.google.android.gms.version" android:value="8115000" />
+        <meta-data android:name="com.google.android.gms.version" android:value="8298000" />
 
     </application>
 
