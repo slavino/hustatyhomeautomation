@@ -151,6 +151,8 @@ public class MyHttpClient extends DefaultHttpClient {
             this.createClientConnectionManager();
         }
 
+        Log.d(LOG_TAG, "using URL: " + URL_TO_USE);
+
         HttpPost post = new HttpPost("https://" + URL_TO_USE + "/index.php");
         post.addHeader("Host", URL_TO_USE);
         post.addHeader("User-Agent", "Hustaty Home Automation Android Client");
@@ -505,9 +507,9 @@ public class MyHttpClient extends DefaultHttpClient {
      * @param location
      * @return
      */
-    private static double attemptToGuessURL(Location location, WifiInfo wifiInfo) {
+    private static Double attemptToGuessURL(Location location, WifiInfo wifiInfo) {
 
-        double distance = 0;
+        Double distance = null;
 
         if(location != null) {
             Location house = new Location(LocationManager.NETWORK_PROVIDER);
@@ -515,7 +517,7 @@ public class MyHttpClient extends DefaultHttpClient {
             house.setLongitude(homeLongitude);
 
             //your current distance from home
-            distance = house.distanceTo(location);
+            distance = new Double(house.distanceTo(location));
         }
 
         if (HOME_WIFI_SSID != null

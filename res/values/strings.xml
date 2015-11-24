@@ -131,6 +131,8 @@
     <string name="ConnectionFailure">Connection failure</string>
     <string name="NoPeersFound">No Peers Found</string>
     <string name="application_info">Application information</string>
+    <string name="roomname_diningroom">Jedalen</string>
+    <string name="roomname_diningroomFloor">Jedalen podlaha</string>
 
     <string-array name="temperaturesInside">
         <item>15</item>
