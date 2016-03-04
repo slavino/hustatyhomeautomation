@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -55,7 +56,13 @@ public class HomeAutomationNotificationService {
             notification.defaults = Notification.DEFAULT_LIGHTS;
         }
 
+        notification.flags |= Notification.FLAG_SHOW_LIGHTS;
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        notification.ledARGB = Color.GRAY;
+        notification.ledOnMS = 1000;
+        notification.ledOffMS = 300;
+
         notification.setLatestEventInfo(context, notificationTitle, notificationText, pendingIntent);
 
         Log.d(LOG_TAG, "#HomeAutomationNotificationService(): " + notificationText);
