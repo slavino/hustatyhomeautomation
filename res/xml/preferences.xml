@@ -112,6 +112,15 @@
 
     <PreferenceCategory
             android:title="@string/device_notifications">
+
+        <CheckBoxPreference
+                android:key="allowTrafficNotifications"
+                android:title="@string/allowTrafficNotifications"
+                android:summary="@string/allowTrafficNotifications_summary"
+                android:defaultValue="false"
+                android:editable="true"
+                />
+
         <CheckBoxPreference
                 android:key="silentTrafficNotifications"
                 android:title="@string/silentTrafficNotifications"

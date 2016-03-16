@@ -84,7 +84,9 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
             List<TrafficInformation> trafficInformationList = null;
             try {
-                trafficInformationList = myHttpClient.getTrafficInformation(true);
+                if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean(SharedPreferencesKeys.APPLICATIONPREFERENCES_ALLOW_TRAFFICNOTIFICATIONS.getKey(), false)) {
+                    trafficInformationList = myHttpClient.getTrafficInformation(true);
+                }
             } catch (HomeAutomationException hae) {
                 trafficInformationList = new ArrayList<TrafficInformation>();
                 TrafficInformation ti = new TrafficInformation();

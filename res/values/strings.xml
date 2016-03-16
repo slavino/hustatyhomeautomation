@@ -133,6 +133,8 @@
     <string name="application_info">Application information</string>
     <string name="roomname_diningroom">Jedalen</string>
     <string name="roomname_diningroomFloor">Jedalen podlaha</string>
+    <string name="allowTrafficNotifications_summary">Traffic notifications based on local provider allowance/disallowance.</string>
+    <string name="allowTrafficNotifications">Allow receiving traffic notifications</string>
 
     <string-array name="temperaturesInside">
         <item>15</item>
