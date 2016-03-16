@@ -21,6 +21,27 @@ public class LocationService {
 
     private static Location myLocation;
 
+    /**
+     * Utility method to adjust log entries of Location.
+     *
+     * @param location
+     * @return user friendly format
+     */
+    private static String locationLogEntry(Location location) {
+        StringBuilder sb = new StringBuilder("Location[");
+        sb.append("Lat: " + location.getLatitude() + ",");
+        sb.append("Lon: " + location.getLongitude() + ",");
+        sb.append("Accuracy: " + location.getAccuracy() + ",");
+        sb.append("Provider: " + location.getProvider());
+        sb.append("]");
+        return sb.toString();
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
     public static Location obtainCurrentLocation(final Context context) {
 
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -31,8 +52,8 @@ public class LocationService {
             LocationService.myLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         }
 
-        Log.d(LOG_TAG, "#obtainCurrentLocation(): " + myLocation);
-        LogUtil.appendLog(LOG_TAG + "#obtainCurrentLocation(): " + myLocation);
+        Log.d(LOG_TAG, "#obtainCurrentLocation(): " + locationLogEntry(myLocation));
+        LogUtil.appendLog(LOG_TAG + "#obtainCurrentLocation(): " + locationLogEntry(myLocation));
 
         Intent intent = new Intent(AlarmManagerBroadcastReceiver.LOCATION_UPDATE_INTENT);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
