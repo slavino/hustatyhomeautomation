@@ -346,11 +346,14 @@ public class MyHttpClient extends DefaultHttpClient {
 
         Gson gson = new Gson();
         CommonResult result = null;
+        String responseText = "";
         try {
-            result = gson.fromJson(httpResponseText(response), CommonResult.class);
+            responseText = httpResponseText(response);
+            result = gson.fromJson(responseText, CommonResult.class);
+            Log.i(LOG_TAG, "#addGCMDeviceEntry('" + deviceID + "','" + gcmId + "'," + shutdownAfterGettingInfo + "): " + result);
             LogUtil.appendLog(LOG_TAG + "#addGCMDeviceEntry('" + deviceID + "','" + gcmId + "'," + shutdownAfterGettingInfo + "): " + result);
         } catch (JsonSyntaxException jsonSyntaxException) {
-            LogUtil.appendLog(LOG_TAG + "#addGCMDeviceEntry(" + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#addGCMDeviceEntry(" + shutdownAfterGettingInfo + "): " + jsonSyntaxException.getMessage() + " RCVD:" + responseText);
             throw new HomeAutomationException(jsonSyntaxException);
         }
 
