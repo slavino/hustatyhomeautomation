@@ -40,6 +40,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.security.KeyStore;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -505,6 +507,30 @@ public class MyHttpClient extends DefaultHttpClient {
     }
 
     /**
+     * Method to ping the desired host.
+     * @param stringInetAddress
+     * @return network reachability of provided server
+     */
+    private static Boolean pingInetAddress(String stringInetAddress) {
+        InetAddress inetAddress = null;
+        try {
+            inetAddress = InetAddress.getByName(stringInetAddress);
+            if (inetAddress.isReachable(5000)) {
+                return Boolean.TRUE;
+            } else {
+                return Boolean.FALSE;
+            }
+        } catch (UnknownHostException unknownHostException) {
+            LogUtil.appendLog(LOG_TAG + "#pingInetAddress('" + stringInetAddress + "'): " + unknownHostException.getMessage());
+        } catch (IOException ioException) {
+            LogUtil.appendLog(LOG_TAG + "#pingInetAddress('" + stringInetAddress + "'): " + ioException.getMessage());
+        } finally {
+            return Boolean.FALSE;
+        }
+
+    }
+
+    /**
      * Util function for guessing URL.
      *
      * @param location
@@ -531,7 +557,8 @@ public class MyHttpClient extends DefaultHttpClient {
         } else {
             if(globalServerIPFromGCM != null
                     && !globalServerIPFromGCM.equals(URL_TO_USE)
-                    && !DEFAULT_IP.equals(globalServerIPFromGCM)) {
+                    && !DEFAULT_IP.equals(globalServerIPFromGCM)
+                    && pingInetAddress(globalServerIPFromGCM)) {
                 URL_TO_USE = globalServerIPFromGCM;
             } else {
                 URL_TO_USE = globalServerIP;
