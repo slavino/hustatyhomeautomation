@@ -201,6 +201,7 @@ public class SamsungGearSService extends SAAgent{
             @Override
             public void run() {
 //                ConsumerActivity.updateTextView(str);
+                Log.i(TAG, "Update text view by: " + str);
             }
         });
     }
@@ -211,6 +212,7 @@ public class SamsungGearSService extends SAAgent{
             @Override
             public void run() {
 //                ConsumerActivity.addMessage(strToUI);
+                Log.i(TAG, "#addMessage(): " + strToUI);
             }
         });
     }
