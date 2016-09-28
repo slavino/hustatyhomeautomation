@@ -18,7 +18,7 @@ import java.io.IOException;
 /**
  * Created by slavomirhustaty on 28/10/15.
  */
-public class SamsungGearSService extends SAAgent{
+public class SamsungGearSService extends SAAgent {
 
     private static final String TAG = "HHAAccessory";
     private static final int HELLOACCESSORY_CHANNEL_ID = 104;
@@ -38,11 +38,13 @@ public class SamsungGearSService extends SAAgent{
         try {
             mAccessory.initialize(this);
         } catch (SsdkUnsupportedException e) {
+            Log.e(TAG, e.getMessage());
             // try to handle SsdkUnsupportedException
             if (processUnsupportedException(e) == true) {
                 return;
             }
         } catch (Exception e1) {
+            Log.e(TAG, e1.getMessage());
             e1.printStackTrace();
             /*
              * Your application can not use Samsung Accessory SDK. Your application should work smoothly
@@ -150,18 +152,19 @@ public class SamsungGearSService extends SAAgent{
         findPeerAgents();
     }
 
-    public boolean sendData(final String data) {
-        boolean retvalue = false;
+    public void sendData(final String data) {
         if (mConnectionHandler != null) {
-            try {
-                mConnectionHandler.send(HELLOACCESSORY_CHANNEL_ID, data.getBytes());
-                retvalue = true;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            addMessage("Sent: ", data);
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        mConnectionHandler.send(HELLOACCESSORY_CHANNEL_ID, data.getBytes());
+                        addMessage("Sent: ", data);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         }
-        return retvalue;
     }
 
     public boolean closeConnection() {

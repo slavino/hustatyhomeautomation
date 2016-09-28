@@ -72,7 +72,9 @@ public class HomeAutomationNotificationService {
 
         //FIXME TEST
         try {
-            new AlarmPhotoService(context);
+            SamsungGearSService samsungGearSService = new SamsungGearSService();
+            samsungGearSService.sendData(notificationText);
+            //new AlarmPhotoService(context);
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage());
         }

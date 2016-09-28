@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hustaty.homeautomation"
-    android:versionCode="26"
-    android:versionName="1.0.26">
+    android:versionCode="28"
+    android:versionName="1.0.28">
 
     <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="17" />
     
@@ -109,16 +109,19 @@
             </intent-filter>
         </receiver>
         <service android:name="com.hustaty.homeautomation.GCMIntentService"/>
+        <service android:name="com.hustaty.homeautomation.service.SamsungGearSService"/>
 
-        <!--TEST Samsung Gear S-->
+        <!--TEST Samsung Gear S / S2 -->
         <receiver android:name="com.samsung.android.sdk.accessory.RegisterUponInstallReceiver" >
             <intent-filter>
                 <action android:name="com.samsung.accessory.action.REGISTER_AGENT" />
+                <action android:name="android.accessory.device.action.REGISTER_AFTER_INSTALL" />
             </intent-filter>
         </receiver>
         <receiver android:name="com.samsung.android.sdk.accessory.ServiceConnectionIndicationBroadcastReceiver" >
             <intent-filter>
                 <action android:name="com.samsung.accessory.action.SERVICE_CONNECTION_REQUESTED" />
+                <action android:name="android.accessory.service.action.ACCESSORY_SERVICE_CONNECTION_IND" />
             </intent-filter>
         </receiver>
 
@@ -128,6 +131,11 @@
         <meta-data
                 android:name="GearAppType"
                 android:value="wgt" />
+        <meta-data android:name="master_app_name" android:value="Hustaty Home Automation" />
+        <meta-data android:name="master_app_packagename" android:value="com.hustaty.homeautomation" />
+        <!--<meta-data android:name="master_app_samsungapps_deeplink" android:value="Samsungapps deeplink URL" />-->
+        <meta-data android:name="master_app_playstore_deeplink" android:value="https://play.google.com/store/apps/details?id=com.hustaty.homeautomation"/>
+
         <meta-data android:name="com.google.android.gms.version" android:value="8298000" />
 
     </application>
