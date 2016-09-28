@@ -20,7 +20,7 @@ import java.io.IOException;
  */
 public class SamsungGearSService extends SAAgent {
 
-    private static final String TAG = "HHAAccessory";
+    private static final String TAG = "SamsungGearSService";
     private static final int HELLOACCESSORY_CHANNEL_ID = 104;
     private static final Class<ServiceConnection> SASOCKET_CLASS = ServiceConnection.class;
     private final IBinder mBinder = new LocalBinder();
