@@ -12,6 +12,7 @@ import com.hustaty.homeautomation.enums.GCMMessageContent;
 import com.hustaty.homeautomation.receiver.AlarmManagerBroadcastReceiver;
 import com.hustaty.homeautomation.receiver.GcmBroadcastReceiver;
 import com.hustaty.homeautomation.service.HomeAutomationNotificationService;
+import com.hustaty.homeautomation.service.SamsungRichNotificationService;
 import com.hustaty.homeautomation.util.ApplicationPreferences;
 import com.hustaty.homeautomation.util.LogUtil;
 
@@ -95,6 +96,7 @@ public class GCMIntentService extends IntentService {
     // a GCM message.
     private void sendNotification(String msg) {
         new HomeAutomationNotificationService(this.getApplicationContext(), msg, false);
+        new SamsungRichNotificationService(this.getApplicationContext(), null, msg);
     }
 
 }

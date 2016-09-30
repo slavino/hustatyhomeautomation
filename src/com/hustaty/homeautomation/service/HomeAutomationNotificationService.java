@@ -78,6 +78,7 @@ public class HomeAutomationNotificationService {
             //new AlarmPhotoService(context);
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#HomeAutomationNotificationService(): " + e.getMessage());
         }
         //FIXME END OF TEST
 

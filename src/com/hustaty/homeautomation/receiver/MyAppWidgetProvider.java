@@ -18,6 +18,8 @@ import com.hustaty.homeautomation.MainActivity;
 import com.hustaty.homeautomation.R;
 import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
 import com.hustaty.homeautomation.model.TrafficInformation;
+import com.hustaty.homeautomation.service.SamsungRichNotificationService;
+import com.hustaty.homeautomation.util.LogUtil;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -33,6 +35,8 @@ import java.util.List;
 public class MyAppWidgetProvider extends AppWidgetProvider {
 
     private static final String LOG_TAG = MyAppWidgetProvider.class.getName();
+
+    public static final String SRN_TEXTID = "WIDGET UPDATE";
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         final int widgetCount = appWidgetIds.length;
@@ -68,8 +72,10 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
                 ArduinoThermoServerStatus arduinoThermoServerStatus = null;
                 try {
                     arduinoThermoServerStatus = gson.fromJson(thermoServerStatusString, ArduinoThermoServerStatus.class);
+                    SamsungRichNotificationService samsungRichNotificationService = new SamsungRichNotificationService(context, arduinoThermoServerStatus, SRN_TEXTID);
                 } catch (JsonSyntaxException e) {
                     Log.e(LOG_TAG, "#onReceive(): " + e.getMessage());
+                    LogUtil.appendLog(LOG_TAG + "#onReceive(): " + e.getMessage());
                 }
 
                 List<TrafficInformation> trafficInformationList = null;
