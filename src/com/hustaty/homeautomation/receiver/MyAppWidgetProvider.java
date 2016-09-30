@@ -72,7 +72,8 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
                 ArduinoThermoServerStatus arduinoThermoServerStatus = null;
                 try {
                     arduinoThermoServerStatus = gson.fromJson(thermoServerStatusString, ArduinoThermoServerStatus.class);
-                    SamsungRichNotificationService samsungRichNotificationService = new SamsungRichNotificationService(context, arduinoThermoServerStatus, SRN_TEXTID);
+                    //disabled as happens too often
+                    //SamsungRichNotificationService samsungRichNotificationService = new SamsungRichNotificationService(context, arduinoThermoServerStatus, SRN_TEXTID);
                 } catch (JsonSyntaxException e) {
                     Log.e(LOG_TAG, "#onReceive(): " + e.getMessage());
                     LogUtil.appendLog(LOG_TAG + "#onReceive(): " + e.getMessage());

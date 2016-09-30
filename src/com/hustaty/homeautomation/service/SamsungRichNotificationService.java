@@ -43,7 +43,6 @@ public class SamsungRichNotificationService {
         }
         mRichNotificationManager = new SrnRichNotificationManager(ctx);
         mRichNotificationManager.start();
-        // mRichNotificationManager.registerRichNotificationListener(ctx.getApplicationContext());
         UUID uuid = mRichNotificationManager.notify(createRichNoti(arduinoThermoServerStatus, notificationText));
         mRichNotificationManager.stop();
     }
@@ -77,11 +76,11 @@ public class SamsungRichNotificationService {
 
         smallHeaderTemplate.setSubHeader("<b>HHA Information</b>");
         if(arduinoThermoServerStatus != null) {
-            smallHeaderTemplate.setBody(arduinoThermoServerStatus.toString());
+            smallHeaderTemplate.setBody(arduinoThermoServerStatus.toHTMLString());
         } else {
             smallHeaderTemplate.setBody("Empty");
         }
-        smallHeaderTemplate.setBackgroundColor(Color.rgb(0, 0, 255));
+        smallHeaderTemplate.setBackgroundColor(Color.rgb(0, 0, 0));
 
         return smallHeaderTemplate;
     }
@@ -91,10 +90,10 @@ public class SamsungRichNotificationService {
 
         smallSecTemplate.setTitle("<b>HHA Information</b>");
 
-        smallSecTemplate.setBackgroundColor(Color.rgb(0, 0, 255));
+        smallSecTemplate.setBackgroundColor(Color.rgb(0, 0, 0));
         smallSecTemplate.setSubHeader("<b>Release Date</b>");
 
-        smallSecTemplate.setBody("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lectus ex, aliquam nec malesuada a, scelerisque a nibh. Aliquam augue nisl, fermentum in est eget, iaculis viverra sem. Nulla commodo, mi quis cursus accumsan, mauris tellus lacinia lorem, vel bibendum nibh dui sed diam. Aenean sit amet facilisis orci. Nullam eu nunc gravida, bibendum dolor mollis, vulputate enim. Duis placerat scelerisque tortor non convallis. In hac habitasse platea dictumst. In sed feugiat elit. Nunc a ex tellus. Cras dignissim ullamcorper malesuada. Ut vel iaculis libero. Maecenas accumsan quis velit non bibendum.");
+        smallSecTemplate.setBody("FOR LATER USE");
 
 //        Bitmap qrCodeBitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.home);
 //        SrnImageAsset qrCodeBig = new SrnImageAsset(mContext, "qr_code_big", qrCodeBitmap);

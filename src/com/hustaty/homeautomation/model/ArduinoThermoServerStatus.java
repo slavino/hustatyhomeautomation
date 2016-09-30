@@ -381,6 +381,26 @@ public class ArduinoThermoServerStatus implements Serializable {
         this.kidzTemp = kidzTemp;
     }
 
+    public String toHTMLString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("HotWater: " + hotWaterSupply + "<br/>")
+                .append("Heating: " + heatingState + "<br/>")
+                .append("Armed: " + securityArmed + "<br/>")
+                .append("Alarm: " + securityAlarm + "<br/>")
+                .append("Power supply loss: " + securityPowerSupply + "<br/>")
+                .append("Low Battery: " + securityLowBattery + "<br/>")
+                .append("Night Arm: " + securityPgY + "<br/>")
+                .append("Temp Outside: " + t28F82D850400001F + "&deg;C<br/>")
+                .append("Temp Bedroom: " + t28B79F8504000082 + "&deg;C<br/>")
+                .append("Temp Bedroom WiFi: " + t282a54ab0400004e + "&deg;C<br/>")
+                .append("Temp Upper Lobby: " + t28205B850400008B + "&deg;C<br/>")
+                .append("Temp Work Room: " + t280F5B8504000019 + "&deg;C<br/>")
+                .append("Temp Entrance Lobby: " + t28F1E685040000DB + "&deg;C<br/>")
+                .append("North childroom: " + t28e6c455050000d4 + "&deg;C<br/>")
+                .append("South childroom: " + t288b4c5605000020 + "&deg;C<br/>");
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         return "ArduinoThermoServerStatus{" +
