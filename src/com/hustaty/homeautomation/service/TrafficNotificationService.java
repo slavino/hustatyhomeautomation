@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import com.hustaty.homeautomation.R;
+import com.hustaty.homeautomation.model.TrafficInformation;
 import com.hustaty.homeautomation.util.LogUtil;
 
 /**
@@ -57,6 +58,6 @@ public class TrafficNotificationService {
         LogUtil.appendLog(LOG_TAG + "#TrafficNotificationService():" + notificationText);
 
         notificationManager.notify(notificationText.hashCode(), notification);
-
+        new SamsungRichNotificationService(context, null, notificationText, R.drawable.police_notification);
     }
 }

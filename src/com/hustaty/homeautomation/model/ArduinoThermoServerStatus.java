@@ -2,10 +2,9 @@ package com.hustaty.homeautomation.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class ArduinoThermoServerStatus implements Serializable {
+public class ArduinoThermoServerStatus implements IModel {
 
     private static final String UNKNOWN_TEMPERATURE = "--.--";
     private static final String UNKNOWN_HUMIDITY = "--.--";
@@ -381,23 +380,24 @@ public class ArduinoThermoServerStatus implements Serializable {
         this.kidzTemp = kidzTemp;
     }
 
-    public String toHTMLString() {
+    @Override
+    public String toHTMLFormattedString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("HotWater: " + hotWaterSupply + "<br/>")
-                .append("Heating: " + heatingState + "<br/>")
-                .append("Armed: " + securityArmed + "<br/>")
-                .append("Alarm: " + securityAlarm + "<br/>")
-                .append("Power supply loss: " + securityPowerSupply + "<br/>")
-                .append("Low Battery: " + securityLowBattery + "<br/>")
-                .append("Night Arm: " + securityPgY + "<br/>")
-                .append("Temp Outside: " + t28F82D850400001F + "&deg;C<br/>")
-                .append("Temp Bedroom: " + t28B79F8504000082 + "&deg;C<br/>")
-                .append("Temp Bedroom WiFi: " + t282a54ab0400004e + "&deg;C<br/>")
-                .append("Temp Upper Lobby: " + t28205B850400008B + "&deg;C<br/>")
-                .append("Temp Work Room: " + t280F5B8504000019 + "&deg;C<br/>")
-                .append("Temp Entrance Lobby: " + t28F1E685040000DB + "&deg;C<br/>")
-                .append("North childroom: " + t28e6c455050000d4 + "&deg;C<br/>")
-                .append("South childroom: " + t288b4c5605000020 + "&deg;C<br/>");
+        sb.append("<b>HotWater:</b> " + hotWaterSupply + "<br/>")
+                .append("<b>Heating:</b> " + heatingState + "<br/>")
+                .append("<b>Armed:</b> " + securityArmed + "<br/>")
+                .append("<b>Alarm:</b> " + securityAlarm + "<br/>")
+                .append("<b>Power supply loss:</b> " + securityPowerSupply + "<br/>")
+                .append("<b>Low Battery:</b> " + securityLowBattery + "<br/>")
+                .append("<b>Night Arm:</b> " + securityPgY + "<br/>")
+                .append("<b>Outside:</b> " + t28F82D850400001F + "&deg;C<br/>")
+                .append("<b>Bedroom:</b> " + t28B79F8504000082 + "&deg;C<br/>")
+                .append("<b>Bedroom WiFi:</b> " + t282a54ab0400004e + "&deg;C<br/>")
+                .append("<b>Upper Lobby:</b> " + t28205B850400008B + "&deg;C<br/>")
+                .append("<b>Work Room:</b> " + t280F5B8504000019 + "&deg;C<br/>")
+                .append("<b>Entrance Lobby:</b> " + t28F1E685040000DB + "&deg;C<br/>")
+                .append("<b>North childroom:</b> " + t28e6c455050000d4 + "&deg;C<br/>")
+                .append("<b>South childroom:</b> " + t288b4c5605000020 + "&deg;C<br/>");
         return sb.toString();
     }
 

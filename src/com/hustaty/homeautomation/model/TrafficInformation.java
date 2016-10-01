@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Date: 3/1/13
  * Time: 10:18 PM
  */
-public class TrafficInformation {
+public class TrafficInformation implements IModel {
 
     @SerializedName("type")
     private String type;
@@ -51,5 +51,26 @@ public class TrafficInformation {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("TrafficInformation{");
+        sb.append("type='").append(type).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append(", latitude=").append(latitude);
+        sb.append(", longitude=").append(longitude);
+        sb.append('}');
+        return sb.toString();
+    }
+
+    @Override
+    public String toHTMLFormattedString() {
+        final StringBuffer sb = new StringBuffer();
+        sb.append("<b>Type:</b>").append(type);
+        sb.append("<br/><b>Description:</b>").append(description);
+        sb.append("<br/><b>Latitude:</b>").append(latitude);
+        sb.append("<br/><b>Longitude:</b>").append(longitude);
+        return sb.toString();
     }
 }

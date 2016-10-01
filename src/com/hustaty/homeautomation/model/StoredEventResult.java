@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Date: 2/28/13
  * Time: 9:07 PM
  */
-public class StoredEventResult {
+public class StoredEventResult implements IModel {
 
     @SerializedName("valueToPass")
     private String valueToPass;
@@ -40,5 +40,24 @@ public class StoredEventResult {
 
     public void setValidUntil(String validUntil) {
         this.validUntil = validUntil;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("StoredEventResult{");
+        sb.append("valueToPass='").append(valueToPass).append('\'');
+        sb.append(", validFrom='").append(validFrom).append('\'');
+        sb.append(", validUntil='").append(validUntil).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
+
+    @Override
+    public String toHTMLFormattedString() {
+        final StringBuffer sb = new StringBuffer();
+        sb.append("<b>ValueToPass:</b>").append(valueToPass);
+        sb.append("<br/><b>ValidFrom:<b>").append(validFrom);
+        sb.append("<br/><b>ValidUntil:</b>").append(validUntil);
+        return sb.toString();
     }
 }

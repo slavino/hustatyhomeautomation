@@ -7,7 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.Log;
 import com.hustaty.homeautomation.R;
-import com.hustaty.homeautomation.model.ArduinoThermoServerStatus;
+import com.hustaty.homeautomation.model.IModel;
 import com.hustaty.homeautomation.util.LogUtil;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.richnotification.*;
@@ -30,7 +30,11 @@ public class SamsungRichNotificationService {
     private final Context mContext;
     private SrnRichNotificationManager mRichNotificationManager;
 
-    public SamsungRichNotificationService(Context ctx, ArduinoThermoServerStatus arduinoThermoServerStatus, String notificationText) {
+    public SamsungRichNotificationService(Context ctx, IModel iModel, String notificationText) {
+        this(ctx, iModel, notificationText, R.drawable.home);
+    }
+
+    public SamsungRichNotificationService(Context ctx, IModel iModel, String notificationText, final int imgIcon) {
         mContext = ctx;
         Srn srn = new Srn();
         try {
@@ -43,19 +47,20 @@ public class SamsungRichNotificationService {
         }
         mRichNotificationManager = new SrnRichNotificationManager(ctx);
         mRichNotificationManager.start();
-        UUID uuid = mRichNotificationManager.notify(createRichNoti(arduinoThermoServerStatus, notificationText));
+        UUID uuid = mRichNotificationManager.notify(createRichNoti(iModel, notificationText, imgIcon));
         mRichNotificationManager.stop();
     }
 
-    public SrnRichNotification createRichNoti(ArduinoThermoServerStatus arduinoThermoServerStatus, String notificationText) {
+    public SrnRichNotification createRichNoti(IModel iModel, String notificationText, final int imgIcon) {
         SrnRichNotification noti = new SrnRichNotification(mContext);
-        noti.setReadout("Received Push notification",
-                notificationText);
-        noti.setPrimaryTemplate(getSmallHeaderTemplate(arduinoThermoServerStatus));
-
-        noti.setSecondaryTemplate(getSmallSecondaryTemplate(arduinoThermoServerStatus));
 
         noti.setTitle("Hustaty Home Automation");
+
+        noti.setReadout("Received Push notification", notificationText);
+        noti.setPrimaryTemplate(getSmallHeaderTemplate(iModel, notificationText));
+
+        noti.setSecondaryTemplate(getSmallSecondaryTemplate(iModel, notificationText));
+
         try {
             noti.addActionsWithPermissionCheck(getActions());
         } catch(Exception e) {
@@ -64,36 +69,40 @@ public class SamsungRichNotificationService {
         }
         noti.setAlertType(SrnRichNotification.AlertType.VIBRATION);
 
-        Bitmap appIconBitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.home);
+        Bitmap appIconBitmap = BitmapFactory.decodeResource(mContext.getResources(), imgIcon);
         SrnImageAsset appIcon = new SrnImageAsset(mContext, "app_icon", appIconBitmap);
         noti.setIcon(appIcon);
 
         return noti;
     }
 
-    public SrnPrimaryTemplate getSmallHeaderTemplate(ArduinoThermoServerStatus arduinoThermoServerStatus) {
+    public SrnPrimaryTemplate getSmallHeaderTemplate(IModel iModel, String notificationText) {
         SrnStandardTemplate smallHeaderTemplate = new SrnStandardTemplate(SrnStandardTemplate.HeaderSizeType.SMALL);
 
-        smallHeaderTemplate.setSubHeader("<b>HHA Information</b>");
-        if(arduinoThermoServerStatus != null) {
-            smallHeaderTemplate.setBody(arduinoThermoServerStatus.toHTMLString());
+        smallHeaderTemplate.setSubHeader(notificationText);
+        if(iModel != null) {
+            smallHeaderTemplate.setBody(iModel.toHTMLFormattedString());
         } else {
-            smallHeaderTemplate.setBody("Empty");
+            smallHeaderTemplate.setBody(notificationText);
         }
         smallHeaderTemplate.setBackgroundColor(Color.rgb(0, 0, 0));
 
         return smallHeaderTemplate;
     }
 
-    public SrnSecondaryTemplate getSmallSecondaryTemplate(ArduinoThermoServerStatus arduinoThermoServerStatus) {
+    public SrnSecondaryTemplate getSmallSecondaryTemplate(IModel iModel, String notificationText) {
         SrnStandardSecondaryTemplate smallSecTemplate = new SrnStandardSecondaryTemplate();
 
         smallSecTemplate.setTitle("<b>HHA Information</b>");
 
         smallSecTemplate.setBackgroundColor(Color.rgb(0, 0, 0));
-        smallSecTemplate.setSubHeader("<b>Release Date</b>");
+        smallSecTemplate.setSubHeader("<b>Received info</b>");
 
-        smallSecTemplate.setBody("FOR LATER USE");
+        if(iModel != null) {
+            smallSecTemplate.setBody(iModel.toHTMLFormattedString());
+        } else {
+            smallSecTemplate.setBody(notificationText);
+        }
 
 //        Bitmap qrCodeBitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.home);
 //        SrnImageAsset qrCodeBig = new SrnImageAsset(mContext, "qr_code_big", qrCodeBitmap);
