@@ -66,6 +66,7 @@ public class GCMIntentService extends IntentService {
 
                 //
                 String ipAddress = extras.getString(GCMMessageContent.IP_ADDRESS.getKey());
+                String publicSSLport = extras.getString(GCMMessageContent.PUBLIC_SSL_PORT.getKey());
                 if (ipAddress == null || ipAddress.isEmpty()) {
 
                 } else {
@@ -73,6 +74,10 @@ public class GCMIntentService extends IntentService {
                     Matcher matcher = Patterns.IP_ADDRESS.matcher(ipAddress);
                     if (matcher.matches()) {
                         ApplicationPreferences.setValue(this.getApplicationContext(), GCMMessageContent.IP_ADDRESS.getKey(), ipAddress);
+                        if(!"".equals(publicSSLport)
+                                && publicSSLport != null) {
+                            ApplicationPreferences.setValue(this.getApplicationContext(), GCMMessageContent.PUBLIC_SSL_PORT.getKey(), publicSSLport);
+                        }
                         Log.i(LOG_TAG, "IP address obtained via GCM - '" + ipAddress + "'");
                         Intent ipIntent = new Intent();
                         ipIntent.setAction(AlarmManagerBroadcastReceiver.LOCATION_UPDATE_INTENT);

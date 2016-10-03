@@ -19,6 +19,9 @@
     <string name="receivedGlobalServerIP_title">The IP address received by GCM service.</string>
     <string name="receivedGlobalServerIP_summary">Automaticaly received IP from GCM along with message.</string>
 
+    <string name="publicSSLport_title">The publicly exposed SSL port received by GCM service.</string>
+    <string name="publicSSLport_summary">Automaticaly received SSL port from GCM along with message.</string>
+
     <string name="localNetworkServerIP_title">Home Automation Local Server IP</string>
     <string name="localNetworkServerIP_summary">Local IP address in home WiFi network</string>
 

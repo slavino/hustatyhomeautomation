@@ -18,6 +18,14 @@
                 />
 
         <EditTextPreference
+                android:key="publicSSLport"
+                android:title="@string/publicSSLport_title"
+                android:summary="@string/publicSSLport_summary"
+                android:defaultValue="443"
+                android:editable="false"
+                />
+
+        <EditTextPreference
                 android:key="localNetworkServerIP"
                 android:title="@string/localNetworkServerIP_title"
                 android:summary="@string/localNetworkServerIP_summary"

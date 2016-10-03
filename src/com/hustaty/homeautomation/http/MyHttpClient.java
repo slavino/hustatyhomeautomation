@@ -60,6 +60,7 @@ public class MyHttpClient extends DefaultHttpClient {
     private static String localNetworkServerIP;
     private static String globalServerIP;
     private static String globalServerIPFromGCM;
+    private static String publicSSLport;
     private static String URL_TO_USE;
     private static double homeLatitude;
     private static double homeLongitude;
@@ -81,6 +82,7 @@ public class MyHttpClient extends DefaultHttpClient {
             localNetworkServerIP = (String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_LOCALSERVERIPADDRESS.getKey());
             globalServerIP = (String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_GLOBALSERVERIPADDRESS.getKey());
             globalServerIPFromGCM = (String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_RECEIVED_GLOBALSERVERIPADDRESS.getKey());
+            publicSSLport = (String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_RECEIVED_PUBLIC_SSL_PORT.getKey());
             homeLatitude = Double.parseDouble((String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_HOMEGPSLAT.getKey()));
             homeLongitude = Double.parseDouble((String) preferences.get(SharedPreferencesKeys.APPLICATIONPREFERENCES_HOMEGPSLON.getKey()));
 
@@ -559,7 +561,7 @@ public class MyHttpClient extends DefaultHttpClient {
                     && !globalServerIPFromGCM.equals(URL_TO_USE)
                     && !DEFAULT_IP.equals(globalServerIPFromGCM)
                     && pingInetAddress(globalServerIPFromGCM)) {
-                URL_TO_USE = globalServerIPFromGCM;
+                URL_TO_USE = globalServerIPFromGCM + (publicSSLport == null || publicSSLport.isEmpty() ? "" : ":"+publicSSLport);
             } else {
                 URL_TO_USE = globalServerIP;
             }

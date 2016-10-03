@@ -6,7 +6,8 @@ package com.hustaty.homeautomation.enums;
 public enum GCMMessageContent {
 
     IP_ADDRESS("IP"),
-    MESSAGE("message");
+    MESSAGE("message"),
+    PUBLIC_SSL_PORT("publicSSLport");
 
     private String key;
 
