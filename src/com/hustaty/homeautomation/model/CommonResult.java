@@ -30,6 +30,6 @@ public class CommonResult implements IModel {
 
     @Override
     public String toHTMLFormattedString() {
-        return result;
+        return "<B>"+result+"</B>";
     }
 }

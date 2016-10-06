@@ -2,15 +2,20 @@ package com.hustaty.homeautomation.service;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.util.Log;
+import com.hustaty.homeautomation.MainActivity;
 import com.hustaty.homeautomation.R;
 import com.hustaty.homeautomation.model.IModel;
+import com.hustaty.homeautomation.receiver.HotWaterWidgetProvider;
 import com.hustaty.homeautomation.util.LogUtil;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.richnotification.*;
+import com.samsung.android.sdk.richnotification.actions.SrnHostAction;
 import com.samsung.android.sdk.richnotification.templates.SrnPrimaryTemplate;
 import com.samsung.android.sdk.richnotification.templates.SrnSecondaryTemplate;
 import com.samsung.android.sdk.richnotification.templates.SrnStandardSecondaryTemplate;
@@ -19,6 +24,9 @@ import com.samsung.android.sdk.richnotification.templates.SrnStandardTemplate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static com.hustaty.homeautomation.receiver.HotWaterWidgetProvider.HOTWATER_STATE;
+import static com.hustaty.homeautomation.receiver.HotWaterWidgetProvider.HOTWATER_STATE_OFF;
 
 /**
  * Created by slavomirhustaty on 29/09/2016.
@@ -123,19 +131,19 @@ public class SamsungRichNotificationService {
     public List<SrnAction> getActions() {
         ArrayList<SrnAction> myActions = new ArrayList<SrnAction>();
 
-//        SrnHostAction primaryAction = new SrnHostAction("Listen On Phone");
-//        Bitmap listenBitmap = BitmapFactory.decodeResource(mContext.getResources(),
-//                R.drawable.listen);
-//        SrnImageAsset listenIcon = new SrnImageAsset(mContext, "web_icon", listenBitmap);
-//
-//        String url = "http://musicmp3.ru/artist_taylor-swift__album_red.html#.U-Cj3WPzkjY";
-//        Intent resultIntent = new Intent(mContext, MyCallbackActivity.class);
-//        resultIntent.setData(Uri.parse(url));
-//
-//        primaryAction.setIcon(listenIcon);
-//        primaryAction.setToast("Music will be played on Phone!");
-//        primaryAction.setCallbackIntent(SrnAction.CallbackIntent.getActivityCallback(resultIntent));
-//        myActions.add(primaryAction);
+        SrnHostAction primaryAction = new SrnHostAction("Switch hot water over.");
+        Bitmap hotWaterONBitmap = BitmapFactory.decodeResource(mContext.getResources(),
+                R.drawable.shower_widget_on_state);
+        SrnImageAsset switchWaterONIcon = new SrnImageAsset(mContext, "web_icon", hotWaterONBitmap);
+
+
+        Intent resultIntent = new Intent(HotWaterWidgetProvider.HOTWATER_WIDGET_CLICK);
+        resultIntent.putExtra(HOTWATER_STATE, HOTWATER_STATE_OFF);
+
+        primaryAction.setIcon(switchWaterONIcon);
+        primaryAction.setToast("Hot Water will be switched over.");
+        primaryAction.setCallbackIntent(SrnAction.CallbackIntent.getActivityCallback(resultIntent));
+        myActions.add(primaryAction);
 
 //        SrnHostAction action2 = new SrnHostAction("Watch On Phone");
 //        String yturl = "http://www.youtube.com/watch?v=Smu1jse33bQ";

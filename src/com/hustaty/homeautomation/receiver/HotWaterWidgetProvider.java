@@ -18,6 +18,7 @@ import com.hustaty.homeautomation.enums.SharedPreferencesKeys;
 import com.hustaty.homeautomation.exception.HomeAutomationException;
 import com.hustaty.homeautomation.http.MyHttpClient;
 import com.hustaty.homeautomation.model.CommonResult;
+import com.hustaty.homeautomation.service.SamsungRichNotificationService;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -35,6 +36,8 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
     public static final String HOTWATER_STATE_OFF = "0";
     public static final String HOTWATER_STATE_ON = "1";
     public static final String HOTWATER_STATE_UNKNOWN = "UNKNOWN";
+
+    public static final String SRN_TEXTID = "HotWater WIDGET UPDATE";
 
     public static final String RESULT_OK = "OK";
 
@@ -80,6 +83,7 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
                         Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): adding stored event for switching on hotwater SUCCEEDED");
                         updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_on_state);
                         sharedPreferences.edit().putString(SharedPreferencesKeys.HEATINGSYSTEM_HOTWATERSUPPLY.getKey(), HOTWATER_STATE_ON).commit();
+                        SamsungRichNotificationService samsungRichNotificationService = new SamsungRichNotificationService(context, commonResult, SRN_TEXTID);
                     } else {
                         //something went wrong and API returned other than OK
                         Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): adding stored event for switching on hotwater FAILED" + commonResult.getResult());
@@ -103,6 +107,7 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
                         Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): removing stored event for hotwater SUCCEEDED");
                         updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_off_state);
                         sharedPreferences.edit().putString(SharedPreferencesKeys.HEATINGSYSTEM_HOTWATERSUPPLY.getKey(), HOTWATER_STATE_OFF).commit();
+                        SamsungRichNotificationService samsungRichNotificationService = new SamsungRichNotificationService(context, commonResult, SRN_TEXTID);
                     } else {
                         //something went wrong and API returned other than OK
                         Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): removing stored event for hotwater FAILED " + commonResult.getResult());
