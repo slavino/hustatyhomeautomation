@@ -30,7 +30,7 @@
 
     <application name="HHAAccessoryConsumer" >
         <serviceProfile
-                id="/system/hustaty"
+                id="/com/hustaty"
                 name="homeautomation"
                 role="consumer"
                 serviceImpl="com.hustaty.homeautomation.service.SamsungGearSService"
@@ -39,8 +39,8 @@
                 serviceTimeout="10">
             <supportedTransports>
                 <transport type="TRANSPORT_BT" />
-                <transport type="TRANSPORT_WIFI" />
-                <transport type="TRANSPORT_BLE" />
+                <!--<transport type="TRANSPORT_WIFI" />-->
+                <!--<transport type="TRANSPORT_BLE" />-->
             </supportedTransports>
             <serviceChannel
                     id="104"

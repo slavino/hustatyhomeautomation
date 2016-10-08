@@ -142,7 +142,7 @@ public class SamsungRichNotificationService {
 
         primaryAction.setIcon(switchWaterONIcon);
         primaryAction.setToast("Hot Water will be switched over.");
-        primaryAction.setCallbackIntent(SrnAction.CallbackIntent.getActivityCallback(resultIntent));
+        primaryAction.setCallbackIntent(SrnAction.CallbackIntent.getBroadcastCallback(resultIntent));
         myActions.add(primaryAction);
 
 //        SrnHostAction action2 = new SrnHostAction("Watch On Phone");
