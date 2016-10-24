@@ -92,6 +92,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="com.hustaty.homeautomation.UI_LOCATION_UPDATE_INTENT" />
                 <action android:name="com.hustaty.homeautomation.HOTWATER_WIDGET_CLICK" />
+                <action android:name="com.hustaty.homeautomation.HOTWATER_SAMSUNGGEAR_CLICK" />
                 <action android:name="com.hustaty.homeautomation.HOTWATER_STATE" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"

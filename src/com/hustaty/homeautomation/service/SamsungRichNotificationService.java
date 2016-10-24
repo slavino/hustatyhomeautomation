@@ -27,6 +27,7 @@ import java.util.UUID;
 
 import static com.hustaty.homeautomation.receiver.HotWaterWidgetProvider.HOTWATER_STATE;
 import static com.hustaty.homeautomation.receiver.HotWaterWidgetProvider.HOTWATER_STATE_OFF;
+import static com.hustaty.homeautomation.receiver.HotWaterWidgetProvider.HOTWATER_STATE_ON;
 
 /**
  * Created by slavomirhustaty on 29/09/2016.
@@ -131,19 +132,33 @@ public class SamsungRichNotificationService {
     public List<SrnAction> getActions() {
         ArrayList<SrnAction> myActions = new ArrayList<SrnAction>();
 
-        SrnHostAction primaryAction = new SrnHostAction("Switch hot water over.");
+        SrnHostAction hotWaterONaction = new SrnHostAction("Switch hot water ON.");
         Bitmap hotWaterONBitmap = BitmapFactory.decodeResource(mContext.getResources(),
                 R.drawable.shower_widget_on_state);
         SrnImageAsset switchWaterONIcon = new SrnImageAsset(mContext, "web_icon", hotWaterONBitmap);
 
 
-        Intent resultIntent = new Intent(HotWaterWidgetProvider.HOTWATER_WIDGET_CLICK);
-        resultIntent.putExtra(HOTWATER_STATE, HOTWATER_STATE_OFF);
+        Intent resultIntent = new Intent(HotWaterWidgetProvider.HOTWATER_SAMSUNGGEAR_CLICK);
+        resultIntent.putExtra(HOTWATER_STATE, HOTWATER_STATE_ON);
 
-        primaryAction.setIcon(switchWaterONIcon);
-        primaryAction.setToast("Hot Water will be switched over.");
-        primaryAction.setCallbackIntent(SrnAction.CallbackIntent.getBroadcastCallback(resultIntent));
-        myActions.add(primaryAction);
+        hotWaterONaction.setIcon(switchWaterONIcon);
+        hotWaterONaction.setToast("Hot Water will be switched ON.");
+        hotWaterONaction.setCallbackIntent(SrnAction.CallbackIntent.getBroadcastCallback(resultIntent));
+        myActions.add(hotWaterONaction);
+
+        SrnHostAction hotWaterOFFaction = new SrnHostAction("Switch hot water OFF.");
+        Bitmap hotWaterOFFBitmap = BitmapFactory.decodeResource(mContext.getResources(),
+                R.drawable.shower_widget_off_state);
+        SrnImageAsset switchWaterOFFIcon = new SrnImageAsset(mContext, "web_icon", hotWaterOFFBitmap);
+
+
+        Intent resultOFFIntent = new Intent(HotWaterWidgetProvider.HOTWATER_SAMSUNGGEAR_CLICK);
+        resultOFFIntent.putExtra(HOTWATER_STATE, HOTWATER_STATE_OFF);
+
+        hotWaterOFFaction.setIcon(switchWaterOFFIcon);
+        hotWaterOFFaction.setToast("Hot Water will be switched OFF.");
+        hotWaterOFFaction.setCallbackIntent(SrnAction.CallbackIntent.getBroadcastCallback(resultIntent));
+        myActions.add(hotWaterOFFaction);
 
 //        SrnHostAction action2 = new SrnHostAction("Watch On Phone");
 //        String yturl = "http://www.youtube.com/watch?v=Smu1jse33bQ";

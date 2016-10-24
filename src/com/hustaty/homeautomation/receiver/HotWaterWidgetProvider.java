@@ -31,6 +31,7 @@ import java.util.Map;
 public class HotWaterWidgetProvider extends AppWidgetProvider {
 
     public static final String HOTWATER_WIDGET_CLICK = "com.hustaty.homeautomation.HOTWATER_WIDGET_CLICK";
+    public static final String HOTWATER_SAMSUNGGEAR_CLICK = "com.hustaty.homeautomation.HOTWATER_SAMSUNGGEAR_CLICK";
     public static final String HOTWATER_STATE = "com.hustaty.homeautomation.HOTWATER_STATE";
 
     public static final String HOTWATER_STATE_OFF = "0";
@@ -56,6 +57,42 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
 
         RemoteViews updateView = new RemoteViews(context.getPackageName(), R.layout.waterwidget);
         ComponentName thisWidget = new ComponentName(context, HotWaterWidgetProvider.class);
+
+        if(HotWaterWidgetProvider.HOTWATER_SAMSUNGGEAR_CLICK.equals(intent.getAction())) {
+            MyHttpClient myHttpClient = new MyHttpClient(context);
+            try {
+                CommonResult commonResult;
+                String requestedState = intent.getExtras().getString(HOTWATER_STATE);
+                if(HOTWATER_STATE_OFF.equals(requestedState)) {
+                    commonResult = myHttpClient.removeStoredEvent(Appliance.HOTWATER, true);
+                } else if(HOTWATER_STATE_ON.equals(requestedState)) {
+                    Calendar cal = Calendar.getInstance();
+                    cal.add(Calendar.HOUR, 1);
+                    commonResult = myHttpClient.addStoredEvent(Appliance.HOTWATER, Command.HOTWATER_ON, new Date(), cal.getTime(), true);
+                } else {
+                    commonResult = null;
+                }
+                if(commonResult != null
+                        && commonResult.getResult() != null
+                        && (commonResult.getResult().startsWith(RESULT_OK)
+                        || RESULT_OK.equals(commonResult.getResult()))) {
+                    //everything is OK
+                    Log.d(LOG_TAG, "#onReceive(HOTWATER_SAMSUNGGEAR_CLICK): adding/removing stored event for hotwater SUCCEEDED");
+                    updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, (requestedState.equals(HOTWATER_STATE_OFF) ? R.drawable.shower_widget_off_state : R.drawable.shower_widget_on_state));
+                    sharedPreferences.edit().putString(SharedPreferencesKeys.HEATINGSYSTEM_HOTWATERSUPPLY.getKey(), requestedState).commit();
+                    //SamsungRichNotificationService samsungRichNotificationService = new SamsungRichNotificationService(context, commonResult, SRN_TEXTID);
+                } else {
+                    //something went wrong and API returned other than OK
+                    Log.d(LOG_TAG, "#onReceive(HOTWATER_SAMSUNGGEAR_CLICK): adding/removing stored event for hotwater FAILED " + commonResult.getResult());
+                    updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_unknown_state);
+                }
+                Toast.makeText(context, commonResult.getResult(), Toast.LENGTH_LONG).show();
+            } catch (IOException e) {
+                Log.e(LOG_TAG, e.getMessage());
+            } catch (HomeAutomationException e) {
+                Log.e(LOG_TAG, e.getMessage());
+            }
+        }
 
         if (HotWaterWidgetProvider.HOTWATER_WIDGET_CLICK.equals(intent.getAction())) {
             //toggle widget according to current state
@@ -83,7 +120,7 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
                         Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): adding stored event for switching on hotwater SUCCEEDED");
                         updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_on_state);
                         sharedPreferences.edit().putString(SharedPreferencesKeys.HEATINGSYSTEM_HOTWATERSUPPLY.getKey(), HOTWATER_STATE_ON).commit();
-                        SamsungRichNotificationService samsungRichNotificationService = new SamsungRichNotificationService(context, commonResult, SRN_TEXTID);
+                        //SamsungRichNotificationService samsungRichNotificationService = new SamsungRichNotificationService(context, commonResult, SRN_TEXTID);
                     } else {
                         //something went wrong and API returned other than OK
                         Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): adding stored event for switching on hotwater FAILED" + commonResult.getResult());
@@ -107,7 +144,7 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
                         Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): removing stored event for hotwater SUCCEEDED");
                         updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_off_state);
                         sharedPreferences.edit().putString(SharedPreferencesKeys.HEATINGSYSTEM_HOTWATERSUPPLY.getKey(), HOTWATER_STATE_OFF).commit();
-                        SamsungRichNotificationService samsungRichNotificationService = new SamsungRichNotificationService(context, commonResult, SRN_TEXTID);
+                        //SamsungRichNotificationService samsungRichNotificationService = new SamsungRichNotificationService(context, commonResult, SRN_TEXTID);
                     } else {
                         //something went wrong and API returned other than OK
                         Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): removing stored event for hotwater FAILED " + commonResult.getResult());
