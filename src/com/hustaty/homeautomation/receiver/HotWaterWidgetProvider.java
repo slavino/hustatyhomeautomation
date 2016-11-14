@@ -120,7 +120,7 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
                         Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): adding stored event for switching on hotwater SUCCEEDED");
                         updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_on_state);
                         sharedPreferences.edit().putString(SharedPreferencesKeys.HEATINGSYSTEM_HOTWATERSUPPLY.getKey(), HOTWATER_STATE_ON).commit();
-                        //SamsungRichNotificationService samsungRichNotificationService = new SamsungRichNotificationService(context, commonResult, SRN_TEXTID);
+                        SamsungRichNotificationService samsungRichNotificationService = new SamsungRichNotificationService(context, commonResult, SRN_TEXTID);
                     } else {
                         //something went wrong and API returned other than OK
                         Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): adding stored event for switching on hotwater FAILED" + commonResult.getResult());
@@ -144,7 +144,7 @@ public class HotWaterWidgetProvider extends AppWidgetProvider {
                         Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): removing stored event for hotwater SUCCEEDED");
                         updateView.setImageViewResource(R.id.hotwater_widget_imagebutton, R.drawable.shower_widget_off_state);
                         sharedPreferences.edit().putString(SharedPreferencesKeys.HEATINGSYSTEM_HOTWATERSUPPLY.getKey(), HOTWATER_STATE_OFF).commit();
-                        //SamsungRichNotificationService samsungRichNotificationService = new SamsungRichNotificationService(context, commonResult, SRN_TEXTID);
+                        SamsungRichNotificationService samsungRichNotificationService = new SamsungRichNotificationService(context, commonResult, SRN_TEXTID);
                     } else {
                         //something went wrong and API returned other than OK
                         Log.d(LOG_TAG, "#onReceive(HOTWATER_WIDGET_CLICK): removing stored event for hotwater FAILED " + commonResult.getResult());
