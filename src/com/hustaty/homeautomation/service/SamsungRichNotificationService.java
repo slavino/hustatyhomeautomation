@@ -54,10 +54,16 @@ public class SamsungRichNotificationService {
             Log.e(LOG_TAG, e.getMessage());
             LogUtil.appendLog(LOG_TAG + "#SamsungRichNotificationService(): " + e.getMessage());
         }
-        mRichNotificationManager = new SrnRichNotificationManager(ctx);
-        mRichNotificationManager.start();
-        UUID uuid = mRichNotificationManager.notify(createRichNoti(iModel, notificationText, imgIcon));
-        mRichNotificationManager.stop();
+        try {
+            mRichNotificationManager = new SrnRichNotificationManager(ctx);
+            mRichNotificationManager.start();
+            UUID uuid = mRichNotificationManager.notify(createRichNoti(iModel, notificationText, imgIcon));
+            mRichNotificationManager.stop();
+        } catch (Exception e) {
+            // Error handling
+            Log.e(LOG_TAG, e.getMessage());
+            LogUtil.appendLog(LOG_TAG + "#SamsungRichNotificationService(): " + e.getMessage());
+        }
     }
 
     public SrnRichNotification createRichNoti(IModel iModel, String notificationText, final int imgIcon) {

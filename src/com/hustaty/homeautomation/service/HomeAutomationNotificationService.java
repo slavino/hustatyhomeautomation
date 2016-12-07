@@ -75,13 +75,15 @@ public class HomeAutomationNotificationService {
             SamsungGearSService samsungGearSService = new SamsungGearSService();
             samsungGearSService.onCreate();
             samsungGearSService.sendData(notificationText);
-            //new AlarmPhotoService(context);
         } catch (Exception e) {
-            if(e == null) { //this really happend on Android 2.3.3-2.3.7 Desire S Saga
-                e = new Exception("#HomeAutomationNotificationService(): SamsungGearSService caused issue.");
+            if(e != null) { //this really happend on Android 2.3.3-2.3.7 Desire S Saga
+                Log.e(LOG_TAG, e.getMessage());
+                LogUtil.appendLog(LOG_TAG + "#HomeAutomationNotificationService(): " + e.getMessage());
+            } else {
+                String s = new String("#HomeAutomationNotificationService(): SamsungGearSService caused issue.");
+                Log.e(LOG_TAG, s);
+                LogUtil.appendLog(LOG_TAG + s);
             }
-            Log.e(LOG_TAG, e.getMessage());
-            LogUtil.appendLog(LOG_TAG + "#HomeAutomationNotificationService(): " + e.getMessage());
         }
         //FIXME END OF TEST
 
