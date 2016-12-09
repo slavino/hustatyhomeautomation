@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
 import android.util.Log;
-import com.hustaty.homeautomation.MainActivity;
 import com.hustaty.homeautomation.R;
 import com.hustaty.homeautomation.model.IModel;
 import com.hustaty.homeautomation.receiver.HotWaterWidgetProvider;
@@ -25,9 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.hustaty.homeautomation.receiver.HotWaterWidgetProvider.HOTWATER_STATE;
-import static com.hustaty.homeautomation.receiver.HotWaterWidgetProvider.HOTWATER_STATE_OFF;
-import static com.hustaty.homeautomation.receiver.HotWaterWidgetProvider.HOTWATER_STATE_ON;
+import static com.hustaty.homeautomation.receiver.HotWaterWidgetProvider.*;
 
 /**
  * Created by slavomirhustaty on 29/09/2016.
@@ -138,10 +134,10 @@ public class SamsungRichNotificationService {
     public List<SrnAction> getActions() {
         ArrayList<SrnAction> myActions = new ArrayList<SrnAction>();
 
-        SrnHostAction hotWaterONaction = new SrnHostAction("Switch hot water ON.");
+        SrnHostAction hotWaterONaction = new SrnHostAction("Switch ON hot water.");
         Bitmap hotWaterONBitmap = BitmapFactory.decodeResource(mContext.getResources(),
-                R.drawable.shower_widget_on_state);
-        SrnImageAsset switchWaterONIcon = new SrnImageAsset(mContext, "web_icon", hotWaterONBitmap);
+                R.drawable.shower_widget_on_state_30px);
+        SrnImageAsset switchWaterONIcon = new SrnImageAsset(mContext, "shower_widget_on_state", hotWaterONBitmap);
 
 
         Intent resultIntent = new Intent(HotWaterWidgetProvider.HOTWATER_SAMSUNGGEAR_CLICK);
@@ -152,10 +148,10 @@ public class SamsungRichNotificationService {
         hotWaterONaction.setCallbackIntent(SrnAction.CallbackIntent.getBroadcastCallback(resultIntent));
         myActions.add(hotWaterONaction);
 
-        SrnHostAction hotWaterOFFaction = new SrnHostAction("Switch hot water OFF.");
+        SrnHostAction hotWaterOFFaction = new SrnHostAction("Switch OFF hot water.");
         Bitmap hotWaterOFFBitmap = BitmapFactory.decodeResource(mContext.getResources(),
-                R.drawable.shower_widget_off_state);
-        SrnImageAsset switchWaterOFFIcon = new SrnImageAsset(mContext, "web_icon", hotWaterOFFBitmap);
+                R.drawable.shower_widget_off_state_30px);
+        SrnImageAsset switchWaterOFFIcon = new SrnImageAsset(mContext, "shower_widget_off_state", hotWaterOFFBitmap);
 
 
         Intent resultOFFIntent = new Intent(HotWaterWidgetProvider.HOTWATER_SAMSUNGGEAR_CLICK);
