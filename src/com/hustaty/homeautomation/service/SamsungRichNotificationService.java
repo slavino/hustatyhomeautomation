@@ -40,7 +40,13 @@ public class SamsungRichNotificationService {
     }
 
     public SamsungRichNotificationService(Context ctx, IModel iModel, String notificationText, final int imgIcon) {
+
         mContext = ctx;
+
+        if (android.os.Build.VERSION.SDK_INT < 11) {
+            return;
+        }
+
         Srn srn = new Srn();
         try {
             // Initialize an instance of Srn.
