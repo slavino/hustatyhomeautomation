@@ -76,7 +76,7 @@ public class HomeAutomationNotificationService {
             samsungGearSService.onCreate();
             samsungGearSService.sendData(notificationText);
         } catch (Exception e) {
-            if(e != null) { //this really happend on Android 2.3.3-2.3.7 Desire S Saga
+            if(e != null && e.getMessage() != null) { //this really happend on Android 2.3.3-2.3.7 Desire S Saga
                 Log.e(LOG_TAG, e.getMessage());
                 LogUtil.appendLog(LOG_TAG + "#HomeAutomationNotificationService(): " + e.getMessage());
             } else {
