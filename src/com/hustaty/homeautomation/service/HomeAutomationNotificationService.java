@@ -16,7 +16,6 @@ import com.hustaty.homeautomation.util.ApplicationPreferences;
 import com.hustaty.homeautomation.util.LogUtil;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * User: hustasl
