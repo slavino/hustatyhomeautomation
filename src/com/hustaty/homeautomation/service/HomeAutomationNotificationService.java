@@ -17,6 +17,8 @@ import com.hustaty.homeautomation.util.LogUtil;
 
 import java.util.Calendar;
 
+import static com.hustaty.homeautomation.enums.SharedPreferencesKeys.APPLICATIONPREFERENCES_SILENTTRAFFICNOTIFICATIONS;
+
 /**
  * User: hustasl
  * Date: 12/7/13
@@ -86,7 +88,7 @@ public class HomeAutomationNotificationService {
         }
         //FIXME END OF TEST
 
-        Boolean ttsNotificationsSilenced = (Boolean) ApplicationPreferences.getPreferences(context).get("ttsNotifications");
+        Boolean ttsNotificationsSilenced = (Boolean) ApplicationPreferences.getPreferences(context).get(APPLICATIONPREFERENCES_SILENTTRAFFICNOTIFICATIONS);
         if (!ttsNotificationsSilenced) {
 
             final int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
