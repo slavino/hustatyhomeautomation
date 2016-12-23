@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class ArduinoThermoServerStatus implements IModel {
 
-    private static final String UNKNOWN_TEMPERATURE = "--.--";
+    public static final String UNKNOWN_TEMPERATURE = "--.--";
     private static final String UNKNOWN_HUMIDITY = "--.--";
     private static final String UNKNOWN_STATE = "-1";
     private static final String UNKNOWN_VALUE = "--";

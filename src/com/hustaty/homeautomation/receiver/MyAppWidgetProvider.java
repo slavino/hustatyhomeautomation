@@ -166,18 +166,21 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
                             remoteViews.setTextViewText(R.id.widget_bedroom2_temperature, arduinoThermoServerStatus.getT282a54ab0400004e() + "\u00b0C");
                         } else {
                             remoteViews.setTextViewText(R.id.widget_bedroom2_temperature, "--.--\u00b0C");
+                            new SamsungRichNotificationService(context, null, "Bedroom WiFi module needs reboot.");
                         }
 
                         if (arduinoThermoServerStatus.getT28e6c455050000d4() != null) {
                             remoteViews.setTextViewText(R.id.widget_northchldroom_temperature, arduinoThermoServerStatus.getT28e6c455050000d4() + "\u00b0C");
                         } else {
                             remoteViews.setTextViewText(R.id.widget_northchldroom_temperature, "--.--\u00b0C");
+                            new SamsungRichNotificationService(context, null, "North childroom WiFi module needs reboot.");
                         }
 
                         if (arduinoThermoServerStatus.getT288b4c5605000020() != null) {
                             remoteViews.setTextViewText(R.id.widget_southchldroom_temperature, arduinoThermoServerStatus.getT288b4c5605000020() + "\u00b0C");
                         } else {
                             remoteViews.setTextViewText(R.id.widget_southchldroom_temperature, "--.--\u00b0C");
+                            new SamsungRichNotificationService(context, null, "South childroom WiFi module needs reboot.");
                         }
 
                         if (arduinoThermoServerStatus.getKidzTemp() != null) {
