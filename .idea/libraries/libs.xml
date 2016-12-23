@@ -3,11 +3,11 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/libs/sdk-v1.0.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/org.apache.http.legacy.jar!/" />
-      <root url="jar://$PROJECT_DIR$/libs/accessory-v2.4.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/android-support-v4.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/richnotification-v.1.1.3.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/gson-2.6.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/libs/google-play-services.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/accessory-v2.5.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
