@@ -88,7 +88,7 @@ public class HomeAutomationNotificationService {
         }
         //FIXME END OF TEST
 
-        Boolean ttsNotificationsSilenced = (Boolean) ApplicationPreferences.getPreferences(context).get(APPLICATIONPREFERENCES_TTS_NOTIFICATIONS);
+        Boolean ttsNotificationsSilenced = (Boolean) ApplicationPreferences.getPreferences(context).get(APPLICATIONPREFERENCES_TTS_NOTIFICATIONS.getKey());
         if (!ttsNotificationsSilenced) {
 
             final int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
