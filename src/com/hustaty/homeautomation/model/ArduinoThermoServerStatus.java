@@ -81,6 +81,10 @@ public class ArduinoThermoServerStatus implements IModel {
     @SerializedName("t282a54ab0400004e")
     private String t282a54ab0400004e = UNKNOWN_TEMPERATURE;
 
+    //dining Room air temperature
+    @SerializedName("diningRoom")
+    private String diningRoom = UNKNOWN_TEMPERATURE;
+
     @SerializedName("ARM")
     private String securityArmed = DEFAULT_VALUE;
 
@@ -268,6 +272,19 @@ public class ArduinoThermoServerStatus implements IModel {
         this.t282a54ab0400004e = t282a54ab0400004e;
     }
 
+    /**
+     * Gets diningRoom.
+     *
+     * @return value of diningRoom
+     */
+    public String getDiningRoom() {
+        return diningRoom;
+    }
+
+    public void setDiningRoom(String diningRoom) {
+        this.diningRoom = diningRoom;
+    }
+
     public String getSecurityArmed() {
         return securityArmed;
     }
@@ -397,7 +414,8 @@ public class ArduinoThermoServerStatus implements IModel {
                 .append("<b>Work Room:</b> " + t280F5B8504000019 + "&deg;C<br/>")
                 .append("<b>Entrance Lobby:</b> " + t28F1E685040000DB + "&deg;C<br/>")
                 .append("<b>North childroom:</b> " + t28e6c455050000d4 + "&deg;C<br/>")
-                .append("<b>South childroom:</b> " + t288b4c5605000020 + "&deg;C<br/>");
+                .append("<b>South childroom:</b> " + t288b4c5605000020 + "&deg;C<br/>")
+                .append("<b>Diningroom:</b> " + diningRoom + "&deg;C<br/>");
         return sb.toString();
     }
 
@@ -426,6 +444,7 @@ public class ArduinoThermoServerStatus implements IModel {
                 ", t282a54ab0400004e='" + t282a54ab0400004e + '\'' +
                 ", kidzTemp='" + kidzTemp + "'" +
                 ", kidzHum='" + kidzHum + "'" +
+                ", diningRoom='" + diningRoom + "'" +
                 ", securityArmed='" + securityArmed + '\'' +
                 ", securityAlarm='" + securityAlarm + '\'' +
                 ", securityFire='" + securityFire + '\'' +
