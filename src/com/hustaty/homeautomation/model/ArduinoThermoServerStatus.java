@@ -82,8 +82,8 @@ public class ArduinoThermoServerStatus implements IModel {
     private String t282a54ab0400004e = UNKNOWN_TEMPERATURE;
 
     //dining Room air temperature
-    @SerializedName("diningRoom")
-    private String diningRoom = UNKNOWN_TEMPERATURE;
+    @SerializedName("t289F84B80400004C")
+    private String t289F84B80400004C = UNKNOWN_TEMPERATURE;
 
     @SerializedName("ARM")
     private String securityArmed = DEFAULT_VALUE;
@@ -277,12 +277,12 @@ public class ArduinoThermoServerStatus implements IModel {
      *
      * @return value of diningRoom
      */
-    public String getDiningRoom() {
-        return diningRoom;
+    public String getT289F84B80400004C() {
+        return t289F84B80400004C;
     }
 
-    public void setDiningRoom(String diningRoom) {
-        this.diningRoom = diningRoom;
+    public void setT289F84B80400004C(String t289F84B80400004C) {
+        this.t289F84B80400004C = t289F84B80400004C;
     }
 
     public String getSecurityArmed() {
@@ -415,7 +415,7 @@ public class ArduinoThermoServerStatus implements IModel {
                 .append("<b>Entrance Lobby:</b> " + t28F1E685040000DB + "&deg;C<br/>")
                 .append("<b>North childroom:</b> " + t28e6c455050000d4 + "&deg;C<br/>")
                 .append("<b>South childroom:</b> " + t288b4c5605000020 + "&deg;C<br/>")
-                .append("<b>Diningroom:</b> " + diningRoom + "&deg;C<br/>");
+                .append("<b>Diningroom:</b> " + t289F84B80400004C + "&deg;C<br/>");
         return sb.toString();
     }
 
@@ -444,7 +444,7 @@ public class ArduinoThermoServerStatus implements IModel {
                 ", t282a54ab0400004e='" + t282a54ab0400004e + '\'' +
                 ", kidzTemp='" + kidzTemp + "'" +
                 ", kidzHum='" + kidzHum + "'" +
-                ", diningRoom='" + diningRoom + "'" +
+                ", t289F84B80400004C='" + t289F84B80400004C + "'" +
                 ", securityArmed='" + securityArmed + '\'' +
                 ", securityAlarm='" + securityAlarm + '\'' +
                 ", securityFire='" + securityFire + '\'' +

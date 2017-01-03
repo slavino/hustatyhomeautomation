@@ -228,7 +228,7 @@ public class StatusFragment extends Fragment {
             kidzPortableHumidity.setText(thermoServerStatus.getKidzHum() + "%");
             kidzPortableTemperature.setText(thermoServerStatus.getKidzTemp() + "\u00b0C");
 
-            diningroom.setText(thermoServerStatus.getDiningRoom() + "\u00b0C");
+            diningroom.setText(thermoServerStatus.getT289F84B80400004C() + "\u00b0C");//t289F84B80400004C
 
             TextView thermostat1Value = (TextView) view.findViewById(R.id.textView_thermostat_1_val);
             thermostat1Value.setText("1".equals(thermoServerStatus.getThermostat1()) ? "ON" : "OFF");
