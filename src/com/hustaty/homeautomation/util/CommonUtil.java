@@ -96,7 +96,7 @@ public class CommonUtil {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("https://api.xively.com/v2/feeds/" + feedId + "/datastreams/");
         stringBuilder.append(dataStreamName);
-        stringBuilder.append(".png?w=800&h=300&b=true&g=true&t=");
+        stringBuilder.append(".png?w=1200&h=450&b=true&g=true&t=");
         stringBuilder.append(chartName);
         if(color != null) {
             stringBuilder.append("&c=" + color);

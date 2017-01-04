@@ -12,20 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.NumberPicker;
-import android.widget.RelativeLayout;
 import com.hustaty.homeautomation.util.CommonUtil;
 import com.hustaty.homeautomation.util.LogUtil;
 
 import java.io.InputStream;
-
-//import javax.crypto.*;
-//import java.io.File;
-//import java.io.FileOutputStream;
-//import java.io.IOException;
-//import java.io.ObjectOutputStream;
-//import java.security.InvalidKeyException;
-//import java.security.NoSuchAlgorithmException;
 
 /**
  * User: llisivko
@@ -49,6 +39,7 @@ public class HeatingFragment extends Fragment {
         new DownloadImageTask((ImageView) view.findViewById(R.id.bedroomCeilingGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "t28B79F8504000082", "Bedroom_Ceiling"));
         new DownloadImageTask((ImageView) view.findViewById(R.id.kitchenGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "t28C9C9AA040000EA", "Kitchen"));
         new DownloadImageTask((ImageView) view.findViewById(R.id.workRoomGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "t280F5B8504000019", "Workroom"));
+        new DownloadImageTask((ImageView) view.findViewById(R.id.diningroomGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "t289F84B80400004C", "Diningroom"));
         new DownloadImageTask((ImageView) view.findViewById(R.id.outsideGraph)).execute(CommonUtil.getXivelyDatastreamURL("84966", "t28F82D850400001F", "Outside","00ff00"));
 
         //HACK for devices without MENU button
@@ -61,9 +52,6 @@ public class HeatingFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-//        NumberPicker numberPicker = (NumberPicker)view.findViewById(R.id.temperature);
-//        numberPicker.setDisplayedValues(new String[]{"15","16","17","18"});
 
         return view;
     }

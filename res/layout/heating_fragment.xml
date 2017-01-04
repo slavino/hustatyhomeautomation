@@ -104,10 +104,16 @@
                 android:layout_below="@id/kitchenGraph"/>
 
         <ImageView
-                android:id="@+id/outsideGraph"
+                android:id="@+id/diningroomGraph"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/workRoomGraph"/>
+
+        <ImageView
+                android:id="@+id/outsideGraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/diningroomGraph"/>
 
         <Button
                 android:id="@+id/settingsLaunch"
