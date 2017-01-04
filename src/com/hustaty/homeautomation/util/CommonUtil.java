@@ -96,7 +96,7 @@ public class CommonUtil {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("https://api.xively.com/v2/feeds/" + feedId + "/datastreams/");
         stringBuilder.append(dataStreamName);
-        stringBuilder.append(".png?w=1200&h=450&b=true&g=true&t=");
+        stringBuilder.append(".png?w=888&h=333&b=true&g=true&t="); //max res is 300.000 px so 888*333px to keep proportions
         stringBuilder.append(chartName);
         if(color != null) {
             stringBuilder.append("&c=" + color);
