@@ -3,6 +3,7 @@ package com.hustaty.homeautomation;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -73,6 +74,18 @@ public class HeatingFragment extends Fragment {
                 Log.e(LOG_TAG, e.getMessage());
                 LogUtil.appendLog(LOG_TAG + " #doInBackground(): " + e.getMessage());
             }
+
+            //on downloaded image click show the graph in browser
+            imageView.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(urldisplay));
+                    startActivity(intent);
+                }
+            });
+
             return resultBitmap;
         }
 
