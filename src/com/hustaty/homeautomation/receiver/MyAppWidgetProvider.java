@@ -194,6 +194,12 @@ public class MyAppWidgetProvider extends AppWidgetProvider {
                         } else {
                             remoteViews.setTextViewText(R.id.widget_kidzPortable_humidity, "--.--%");
                         }
+
+                        if (arduinoThermoServerStatus.getT289F84B80400004C() != null) {
+                            remoteViews.setTextViewText(R.id.widget_diningRoom_temperature, arduinoThermoServerStatus.getT289F84B80400004C() + "\u00b0C");
+                        } else {
+                            remoteViews.setTextViewText(R.id.widget_diningRoom_temperature, "--.--%");
+                        }
                     }
 
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM. HH:mm:ss");
