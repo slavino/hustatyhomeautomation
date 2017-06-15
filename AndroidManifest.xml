@@ -40,13 +40,16 @@
     <permission android:name="com.hustaty.homeautomation.permission.C2D_MESSAGE" android:protectionLevel="signature" />
     <uses-permission android:name="com.hustaty.homeautomation.permission.C2D_MESSAGE" />
 
+    <!--Mirror Link-->
+    <uses-permission android:name="com.mirrorlink.android.service.ACCESS_PERMISSION" />
+
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/home"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
+
         <activity
             android:name="com.hustaty.homeautomation.MainActivity"
             android:label="@string/app_name" >
@@ -55,7 +58,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="com.hustaty.homeautomation.UI_LOCATION_UPDATE_INTENT" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="com.mirrorlink.android.app.LAUNCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="com.mirrorlink.android.app.TERMINATE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
+
         <activity
                 android:name="com.hustaty.homeautomation.SettingsActivity"
                 android:label="@string/app_name" >
